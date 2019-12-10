@@ -1,11 +1,12 @@
-import React, {Component} from 'react'
-import {Text, StyleSheet, View, Image} from 'react-native'
-import Carousel from 'react-native-snap-carousel';
-//import styles from './AppStyle'
+import React, { useRef } from 'react'
+import {Text, StyleSheet, View, Image, Dimensions, Platform} from 'react-native'
+import Carousel,  { ParallaxImage }  from 'react-native-snap-carousel';
+import { getCurrentFrame } from 'expo/build/AR';
 
-export default class CitiesCarousel extends Component{
-    constructor(props){
-        super(props);
+const { width: screenWidth } = Dimensions.get('window')
+
+const CitiesCarousel = (props) => {
+    console.log(screenWidth)
         this.state = {
             carouselItems: [
             {
@@ -24,33 +25,63 @@ export default class CitiesCarousel extends Component{
                 illustration: require('../Assets/city_img/budapest.jpg')
             }
         ]}
-    }
 
-    _renderItem = ({item, index}) => {
+    const carouselRef = useRef(null)
+
+    _renderItem = ({item, index}, parallaxProps) => {
         return (
+            <View style={styles.item}>
+                <ParallaxImage
+                    source={{ uri: item.thumbnail }}
+                    containerStyle={styles.imageContainer}
+                    style={styles.image}
+                    parallaxFactor={0.4}
+                    {...parallaxProps}
+                />
                 <Image style={styles.carousel} source={item.illustration}/>
+            </View>
         );
     }
 
-    render () {
-        return (
+    return (
+        <View style={styles.container}>
             <Carousel
-              data={this.state.carouselItems}
-              renderItem={this._renderItem}
-              sliderWidth={350}
-              itemWidth={350}
-              autoplay={true}
-              layout={'tinder'}
+                ref={carouselRef}
+                sliderWidth={screenWidth}
+                sliderHeight={screenWidth}
+                itemWidth={screenWidth - 60}
+                data={this.state.carouselItems}
+                renderItem={this._renderItem}
+                hasParallaxImages={true}
+                autoplay={true}
             />
-        );
-    }
+        </View>
+    );
 }
 
+export default CitiesCarousel;
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 2,
+        height:'40%',
+    },
     carousel: {
         borderRadius: 10,
-        height: '80%',
-        width: '100%'
-    }
+        width: '100%',
+        height: '85%'
+    },
+    item: {
+      width: screenWidth - 60,
+      height: '100%',
+    },
+    imageContainer: {
+      marginBottom: Platform.select({ ios: 0, android: 1 }), // Prevent a random Android rendering issue
+      backgroundColor: 'white',
+      borderRadius: 8,
+    },
+    image: {
+      ...StyleSheet.absoluteFillObject,
+      resizeMode: 'cover',
+    },
 })
