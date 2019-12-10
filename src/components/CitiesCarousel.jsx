@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Text, StyleSheet, View, Image} from 'react-native'
 import Carousel from 'react-native-snap-carousel';
-import styles from './AppStyle'
+//import styles from './AppStyle'
 
 export default class CitiesCarousel extends Component{
     constructor(props){
@@ -28,10 +28,7 @@ export default class CitiesCarousel extends Component{
 
     _renderItem = ({item, index}) => {
         return (
-            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                <Text>{ item.title }</Text>
-                <Image style={styles.Carousel} source={item.illustration}></Image>
-            </View>
+                <Image style={styles.carousel} source={item.illustration}/>
         );
     }
 
@@ -40,10 +37,20 @@ export default class CitiesCarousel extends Component{
             <Carousel
               data={this.state.carouselItems}
               renderItem={this._renderItem}
-              sliderWidth={250}
-              itemWidth={250}
+              sliderWidth={350}
+              itemWidth={350}
               autoplay={true}
+              layout={'tinder'}
             />
         );
     }
 }
+
+
+const styles = StyleSheet.create({
+    carousel: {
+        borderRadius: 10,
+        height: '80%',
+        width: '100%'
+    }
+})

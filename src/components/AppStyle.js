@@ -110,7 +110,7 @@ export const styles = StyleSheet.create({
         color: '#db2f00'
     },
     a: {
-        textDecoration: none
+        fontSize: 30
     },
 
     /* CAROUSEL */
@@ -231,7 +231,7 @@ export const styles = StyleSheet.create({
         width: ' "40vh" !important'
     },
     dameroBack: {
-        backgroundImage: 'linear-gradient(to top, #eeeeee 0%, #e2ebf0 70%)';
+        backgroundImage: 'linear-gradient(to top, #eeeeee 0%, #e2ebf0 70%)',
         justifyContent: center,
         paddingTop: '1%',
         paddingBottom: '1%',
