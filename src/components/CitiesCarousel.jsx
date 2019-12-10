@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Text, StyleSheet, View, Image} from 'react-native'
 import Carousel from 'react-native-snap-carousel';
+import styles from './AppStyle'
 
 export default class CitiesCarousel extends Component{
     constructor(props){
@@ -8,20 +9,19 @@ export default class CitiesCarousel extends Component{
         this.state = {
             carouselItems: [
             {
-                title:"Item 1",
                 illustration: require('../Assets/city_img/amsterdam.jpg')
             },
             {
-                title:"Item 2"
+                illustration: require('../Assets/city_img/paris.jpg')
             },
             {
-                title:"Item 3"
+                illustration: require('../Assets/city_img/barcelona.jpg')
             },
             {
-                title:"Item 4"
+                illustration: require('../Assets/city_img/berlin.jpg')
             },
             {
-                title:"Item 5"
+                illustration: require('../Assets/city_img/budapest.jpg')
             }
         ]}
     }
@@ -30,7 +30,7 @@ export default class CitiesCarousel extends Component{
         return (
             <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                 <Text>{ item.title }</Text>
-                <Image style={{height:150, width: 150}} source={item.illustration}></Image>
+                <Image style={styles.Carousel} source={item.illustration}></Image>
             </View>
         );
     }
