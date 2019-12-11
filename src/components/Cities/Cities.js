@@ -31,7 +31,7 @@ class Cities extends Component {
   }
 
   render() {
-    var listaDeCiudades = ['Madrid', 'Barcelona', 'Bucharest', 'Mordor', 'Paris', 'Lyon', 'New_York', 'Berlin'];
+    var listaDeCiudades = Object.keys(myImages.cities);
     var letra = this.state.input;
     var ciudades = '';
     console.log(letra.length)
