@@ -1,0 +1,5 @@
+npm i react-navigation
+npm i react-navigation-stack
+npm install --save react-native-textinput-with-icons
+npm install react-native-elements
+npm install --save react-native-snap-carousel
