@@ -16,7 +16,7 @@ const navigator = createStackNavigator({
   Register: Register,
 },
 {
-  initialRouteName: 'Home',
+  initialRouteName: 'Register',
   defaultNavigationOptions:{
     headerStyle:{
       backgroundColor:'#D82F00'
