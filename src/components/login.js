@@ -1,7 +1,7 @@
 import React from "react";
 import { useState} from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { TextInput } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
+import TextInput from 'react-native-textinput-with-icons';
 import {TouchableOpacity} from 'react-native';
 
 export default function Login(props) {
@@ -18,23 +18,33 @@ export default function Login(props) {
   };
   return (
     <View style={styles.logForm}>
+        <View style={styles.register}>
+        <Text style={{ fontSize: 35 }}>LOGIN FORM</Text>    
+        </View>
       <TextInput
         style={styles.inputBox}
+        leftIcon="person"
+        leftIconType="oct"
         onChangeText={text => setUser(text)}
         value={user}
-        placeholder={"  Write your username  "}
+        label={"Username"}
       />
 
       <TextInput
         style={styles.inputBox}
+        leftIcon="key"
+        leftIconType="oct"
         onChangeText={text => setPassword(text)}
         value={password}
-        placeholder={"  Write your password  "}
+        label={"Password"}
 
       />
-     <TouchableOpacity style={styles.submitButton} onPress={() => handlePress(user, password)}>
-     <Text style={{textAlign:"center", fontSize:18, color:"white", backgroundColor: 'rgba(0,0,0,0)'}}>Submit</Text>
-</TouchableOpacity>
+<View style={styles.button}>
+        <Button
+          title='Login'
+          onPress={() => handlePress(user, password)}
+        />
+        </View>
       </View>
   );
 }
@@ -43,7 +53,7 @@ const styles = StyleSheet.create({
   logForm: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#e2ebf0",
+    //backgroundColor: "#e2ebf0",
     width: "80%",
     height: "80%",
     minWidth: 200,
@@ -61,10 +71,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom:10
   },
-  submitButton: {
-    borderRadius: 10,
-    width: '40%',
-    backgroundColor: 'blue'
-  }
+  button:{
+    paddingTop: 40,
+    width: '40%'
+  },
   
 });

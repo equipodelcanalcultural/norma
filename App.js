@@ -11,8 +11,8 @@ import Register from './src/components/Register'
 const drawer = createDrawerNavigator({
   Home: {screen: HomeScreen},
   Cities: {screen: Cities},
+  Register: {screen: Register},
   Login: {screen: Login},
-  Register: {screen: Register}
 });
 
 const navigator = createStackNavigator({

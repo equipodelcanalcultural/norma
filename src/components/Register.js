@@ -1,106 +1,85 @@
 import React from 'react'
-import {
-  View,
-  Button,
-  StyleSheet,
-  Text
-} from 'react-native';
+import { useState } from "react";
+import { View, Button, StyleSheet, Text } from 'react-native';
+import TextInput from 'react-native-textinput-with-icons';
+import { CheckBox } from 'react-native-elements'
 
-import { Icon } from 'react-native-elements'
-import TextInput from 'react-native-textinput-with-icons'
-
-export default class Register extends React.Component {
+export default function Register(props) {
   state = {
     username: '', password: '', email: '', isCreated: '', error: ''
   }
+
+  const [username, setUser] = useState();
+  const [password, setPassword] = useState();
+  const [email, setEmail] = useState();
+  const [check, setCheck] = useState(false);
+
+
+
   onChangeText = (key, val) => {
     this.setState({ [key]: val })
   }
-  signUp = async () => {
-    const { username, password, email } = this.state
-    if (isCreated === true) {
-      this.setState({ isCreated: true })
-    } else if (created === false) {
-      this.setState({ error: true })
-    }
+
+  const signUp = (username, password, email) => {
+    let body = {
+      username: username,
+      password: password,
+      email, email
+    };
+    return body;
   }
 
-  cleanForm = () => {
-    this.setState({
-      username: "",
-      email: "",
-      password: ""
-    })
-  }
 
-  handleChange = async (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-    if (this.state.username.length === 1 ||
-      this.state.password.length === 1 ||
-      this.state.email.length === 1) { this.setState({ error: false }) }
-  }
-
-  handleSubmit = async (event) => {
-    // event.preventDefault();
-    // event.stopPropagation();
-    //   await this.props.userPostFetch(this.state)
-    //   const { created } = this.props;
-
-  }
-
-  render() {
-    let { name } = this.state
-    return (
-      <View style={styles.container}>
-        <Text style={{ fontSize: 35 }}>REGISTER PAPÁ O MAMÁ</Text>
-       
-        <TextInput
+  return (
+    <View style={styles.container}>
+      <View style={styles.register}>
+        <Text style={{ fontSize: 35}}>REGISTRATION FORM</Text>
+      </View>
+      <TextInput
         label="Name"
         leftIcon="person"
         leftIconType="oct"
         rippleColor="blue"
-        value={name}
-        refrance={(refrance) => {
-            this.input = refrance;
-        }}
-        onChangeText={name => this.setState({ name })}
+        value={username}
+        onChangeText={username => setUser(username)}
       />
-        <TextInput
-          style={styles.input}
-          label="Password"
-          secureTextEntry={true}
-          leftIcon="key"
-          leftIconType="oct"
-          autoCapitalize="none"
-          placeholderTextColor='white'
-          onChangeText={val => this.onChangeText('password', val)}
-          onChange={this.handleChange}
-        />
-        <TextInput
-          style={styles.input}
-          label="Email"
-          autoCapitalize="none"
-          leftIcon="mention"
-          leftIconType="oct"
-          placeholderTextColor='white'
-          onChangeText={val => this.onChangeText('email', val)}
-          onChange={this.handleChange}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder='Phone Number'
-          autoCapitalize="none"
-          placeholderTextColor='white'
-          onChangeText={val => this.onChangeText('phone_number', val)}
-          onChange={this.handleChange}
-        />
+      <TextInput
+        style={styles.input}
+        label="Email"
+        value={email}
+        autoCapitalize="none"
+        leftIcon="mention"
+        leftIconType="oct"
+        placeholderTextColor='white'
+        onChangeText={email => setEmail(email)}
+      //  onChange={handleChange}
+      />
+      <TextInput
+        style={styles.input}
+        label="Password"
+        value={password}
+        secureTextEntry={true}
+        leftIcon="key"
+        leftIconType="oct"
+        autoCapitalize="none"
+        placeholderTextColor='white'
+        onChangeText={password => setPassword(password)}
+      // onChange={handleChange}
+      />
+          <CheckBox title='Accept terms and conditions' 
+          checkedIcon='check-square-o'
+          uncheckedIcon='square-o'
+          checked={check}
+          onPress={() => setCheck(!check)}
+          />
+      <View style={styles.button}>
         <Button
           title='Sign Up'
-          onPress={this.signUp}
+          onPress={() => signUp(username, password, email)}
         />
       </View>
-    )
-  }
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -119,5 +98,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
-}
+  },
+  button: {
+    paddingTop: 40,
+    width: '30%'
+  },
 })
