@@ -5,11 +5,13 @@ import {createStackNavigator} from 'react-navigation-stack'
 import HomeScreen from './src/screens/HomeScreen'
 import ComponentScreen from './src/screens/ComponentScreen'
 import Cities from './src/screens/Cities'
+import Login from './src/components/login'
 
 const navigator = createStackNavigator({
   Home: HomeScreen,
   Component: ComponentScreen,
-  Cities: Cities
+  Cities: Cities,
+  Login: Login
 },
 {
   initialRouteName: 'Home',
