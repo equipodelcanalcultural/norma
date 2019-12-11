@@ -1,20 +1,25 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import {createAppContainer} from 'react-navigation'
+import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
 import {createStackNavigator} from 'react-navigation-stack'
 import HomeScreen from './src/screens/HomeScreen'
 import Cities from './src/screens/Cities'
 import Login from './src/components/login'
 import Register from './src/components/Register'
 
+const drawer = createDrawerNavigator({
+  Home: {screen: HomeScreen},
+  Cities: {screen: Cities},
+  Login: {screen: Login},
+  Register: {screen: Register}
+});
+
 const navigator = createStackNavigator({
-  Home: HomeScreen,
-  Cities: Cities,
-  Login: Login,
-  Register: Register,
+  Drawer: drawer,
 },
 {
-  initialRouteName: 'Home',
+  initialRouteName: 'Drawer',
   defaultNavigationOptions:{
     headerStyle:{
       backgroundColor:'#D82F00'
