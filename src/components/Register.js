@@ -1,8 +1,9 @@
 import React from 'react'
 import { useState } from "react";
-import { View, Button, StyleSheet, ImageBackground} from 'react-native';
+import { View, Button, StyleSheet,  ImageBackground} from 'react-native';
 import TextInput from 'react-native-textinput-with-icons';
-import { CheckBox } from 'react-native-elements'
+import { CheckBox } from 'react-native-elements';
+import { getData } from '../../requests';
 
 
 export default function Register(props) {
@@ -13,20 +14,23 @@ export default function Register(props) {
   const [email, setEmail] = useState();
   const [check, setCheck] = useState(false);
 
-
-
-  onChangeText = (key, val) => {
-    this.setState({ [key]: val })
-  }
-
   const signUp = (username, password, email) => {
-    let body = {
+    let bodyData = {
       username: username,
       password: password,
       email, email
     };
-    return body;
-  }
+    getData("https://mytinerary-marta-norma.herokuapp.com/api/users/register",
+    {
+      method: "POST",
+      body: JSON.stringify(bodyData),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    },
+    data => console.log("SUCCESS", data)
+    )
+  };
 
 
   return (
