@@ -8,6 +8,7 @@ import Cities from './src/screens/Cities'
 import Login from './src/components/login'
 import Register from './src/components/Register'
 
+
 const navigator = createStackNavigator({
   Home: HomeScreen,
   Component: ComponentScreen,
@@ -16,7 +17,7 @@ const navigator = createStackNavigator({
   Register: Register,
 },
 {
-  initialRouteName: 'Register',
+  initialRouteName: 'Login',
   defaultNavigationOptions:{
     headerStyle:{
       backgroundColor:'#D82F00'

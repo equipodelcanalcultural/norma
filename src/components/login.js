@@ -1,26 +1,34 @@
 import React from "react";
 import { useState} from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
 import TextInput from 'react-native-textinput-with-icons';
-import {TouchableOpacity} from 'react-native';
+import {getData} from '../../requests';
 
 export default function Login(props) {
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
 
   const handlePress = (user, pass) => {
-    let body = {
+    let bodyData = {
       username: user,
-      password: pass
+      password: pass,
+      email: user
     };
-    console.log(body);
-    return body;
+    console.log("request login");
+    getData("https://mytinerary-marta-norma.herokuapp.com/api/users/login",
+    {
+      method: "POST",
+      body: JSON.stringify(bodyData),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    },
+    data => console.log("SUCCESS", data)
+    )
   };
   return (
+    <ImageBackground source={require('../Assets/login.png')} style={styles.backgroundImage}>
     <View style={styles.logForm}>
-        <View style={styles.register}>
-        <Text style={{ fontSize: 35 }}>LOGIN FORM</Text>    
-        </View>
       <TextInput
         style={styles.inputBox}
         leftIcon="person"
@@ -46,6 +54,7 @@ export default function Login(props) {
         />
         </View>
       </View>
+      </ImageBackground>
   );
 }
 
@@ -78,6 +87,8 @@ const styles = StyleSheet.create({
   register: {
     paddingBottom: '10%',
     fontFamily: 'Roboto'
+  },
+  backgroundImage: {
+    flex: 1, 
   }
-  
 });

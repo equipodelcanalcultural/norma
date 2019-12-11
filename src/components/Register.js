@@ -1,13 +1,12 @@
 import React from 'react'
 import { useState } from "react";
-import { View, Button, StyleSheet, Text } from 'react-native';
+import { View, Button, StyleSheet, ImageBackground} from 'react-native';
 import TextInput from 'react-native-textinput-with-icons';
 import { CheckBox } from 'react-native-elements'
 
+
 export default function Register(props) {
-  state = {
-    username: '', password: '', email: '', isCreated: '', error: ''
-  }
+
 
   const [username, setUser] = useState();
   const [password, setPassword] = useState();
@@ -31,10 +30,9 @@ export default function Register(props) {
 
 
   return (
-    <View style={styles.container}>
-      <View style={styles.register}>
-        <Text style={{ fontSize: 35 }}>REGISTRATION FORM</Text>
-      </View>
+
+      <ImageBackground source={require('../Assets/navidad1.png')} style={styles.backgroundImage}>
+      <View style={styles.container}>
       <TextInput
         label="Name"
         leftIcon="person"
@@ -79,6 +77,7 @@ export default function Register(props) {
         />
       </View>
     </View>
+    </ImageBackground>
   )
 }
 
@@ -97,14 +96,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: '25%'
   },
   button: {
-    paddingTop: 40,
-    width: '30%'
+    width: '30%',
+    paddingTop: '10%'
   },
   register: {
     paddingBottom: '10%',
-    fontFamily: 'Roboto'
+  },
+  backgroundImage: {
+    flex: 1,
+    
   }
 })
