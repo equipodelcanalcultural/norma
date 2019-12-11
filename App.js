@@ -25,6 +25,7 @@ const navigator = createStackNavigator({
       headerTitleStyle:{
         fontWeight:'bold'
       },
+      headerLeft: null,
       headerBackground: (
         <View style={{flexDirection:'row', alignItems:'flex-end',flex:1}}>
           <Image source={require('./src/Assets/userb.png')} style={{width: 50, height: 50, paddingBottom:10}}/>
