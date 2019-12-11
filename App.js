@@ -9,7 +9,10 @@ import Login from './src/components/login'
 import Register from './src/components/Register'
 
 const drawer = createDrawerNavigator({
-  Home: {screen: HomeScreen},
+  Home: {
+    name: 'Home',
+    screen: HomeScreen
+  },
   Cities: {screen: Cities},
   Register: {screen: Register},
   Login: {screen: Login},
@@ -27,13 +30,7 @@ const navigator = createStackNavigator({
       headerTintColor:'#fff',
       headerTitleStyle:{
         fontWeight:'bold'
-      },
-      headerLeft: null,
-      headerBackground: (
-        <View style={{flexDirection:'row', alignItems:'flex-end',flex:1}}>
-          <Image source={require('./src/Assets/userb.png')} style={{width: 50, height: 50, paddingBottom:10}}/>
-        </View>
-      ),
+      }, 
   }
 });
 
