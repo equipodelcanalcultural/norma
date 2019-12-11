@@ -3,14 +3,12 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import {createAppContainer} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
 import HomeScreen from './src/screens/HomeScreen'
-import ComponentScreen from './src/screens/ComponentScreen'
 import Cities from './src/screens/Cities'
 import Login from './src/components/login'
 import Register from './src/components/Register'
 
 const navigator = createStackNavigator({
   Home: HomeScreen,
-  Component: ComponentScreen,
   Cities: Cities,
   Login: Login,
   Register: Register,

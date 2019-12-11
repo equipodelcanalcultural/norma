@@ -1,12 +1,11 @@
 import React, { useRef } from 'react'
-import {Text, StyleSheet, View, Image, Dimensions, Platform} from 'react-native'
+import {Text, StyleSheet, View, Image, Dimensions, Platform, TouchableOpacity} from 'react-native'
 import Carousel,  { ParallaxImage }  from 'react-native-snap-carousel';
 import { getCurrentFrame } from 'expo/build/AR';
 
 const { width: screenWidth } = Dimensions.get('window')
 
 const CitiesCarousel = (props) => {
-    console.log(screenWidth)
         this.state = {
             carouselItems: [
             {
@@ -97,6 +96,8 @@ const CitiesCarousel = (props) => {
 
     const carouselRef = useRef(null)
 
+    const goTo = (props) => props.navigation.navigate('Cities')
+
     _renderItem = ({item, index}, parallaxProps) => {
         return (
             <View style={styles.item}>
@@ -109,7 +110,9 @@ const CitiesCarousel = (props) => {
                 <View style={styles.citiesContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                 </View>
+            <TouchableOpacity onPress={goTo}>
                 <Image style={styles.carousel} source={item.illustration}/>
+            </TouchableOpacity>
             </View>
         );
     }
@@ -140,7 +143,7 @@ const styles = StyleSheet.create({
     carousel: {
         borderRadius: 10,
         width: '100%',
-        height: '85%'
+        height: '95%'
     },
     item: {
       width: screenWidth - 60,
@@ -159,14 +162,18 @@ const styles = StyleSheet.create({
         position: 'absolute',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '90%',
+        top: 0,
+        left: 0, 
+        right: 0,
+        bottom: 0,
         zIndex: 1,
-        width: '100%',
+        height: '90%',
     },
     title:{
         fontSize: 50,
-        position: 'relative',
-        justifyContent: 'center',
-        color: 'white'
+        alignSelf: 'stretch',
+        textAlign:'center',
+        backgroundColor: 'white',
+        opacity: 0.8,
     }
 })

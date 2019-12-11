@@ -14,7 +14,7 @@ const HomeScreen = (props) => {
                 <Text style={styles.text}>Find your perfect trip, designed by insiders who know and love their cities</Text>
             </View>
             <Browser navigation={navigation}/>            
-            <CitiesCarousel/>
+            <CitiesCarousel navigation={navigation}/>
         </View>
  )
 };
