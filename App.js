@@ -22,11 +22,7 @@ const navigator = createStackNavigator({
   Drawer: drawer,
 },
 {
-<<<<<<< HEAD
   initialRouteName: 'Drawer',
-=======
-  initialRouteName: 'Register',
->>>>>>> e3bd27a95135f7766f88f294f1cbb00e6c8c8ae4
   defaultNavigationOptions:{
     headerStyle:{
       backgroundColor:'#D82F00'
