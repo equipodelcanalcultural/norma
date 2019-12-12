@@ -98,18 +98,20 @@ const CitiesCarousel = (props) => {
     const carouselRef = useRef(null)
 
     const data = Object.keys(myImages.cities);
-    let ciudades;
     const goTo = (props) => props.navigation.navigate('Cities')
-
-
+    let ciudades;
     if (data != undefined) {
         ciudades = data;
         ciudades = ciudades.map(item => (
-          <Image style={{height: 300, width: 300, borderRadius: 10}} source={myImages.cities[item]} />
+            console.log("carousel",item),
+            <Image width={200} height={200} ciudad={item} key={item.index}/>
         ));
-    }
+    } 
 
-    _renderItem = ({item, index}, parallaxProps) => {        
+    
+
+    _renderItem = ({item, index}, parallaxProps) => {    
+        
         return (
             <View style={styles.item}>
                 <ParallaxImage
@@ -137,7 +139,7 @@ const CitiesCarousel = (props) => {
                 sliderWidth={screenWidth}
                 sliderHeight={screenWidth}
                 itemWidth={screenWidth - 60}
-                data={ciudades}
+                data={data}
                 renderItem={this._renderItem}
                 hasParallaxImages={true}
             />
@@ -155,8 +157,8 @@ const styles = StyleSheet.create({
     },
     carousel: {
         borderRadius: 10,
-        width: '100%',
-        height: '95%'
+        width: 100,
+        height: 100
     },
     item: {
       width: screenWidth - 60,
