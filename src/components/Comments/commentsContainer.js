@@ -90,7 +90,10 @@ const CommentsContainer = props => {
   if (posts != null) {
     commentList = (
       <CommentList
-        {...props}
+        posts={posts}
+        title={title}
+        logged={logged}
+        user={user}
         updateComment={updateComment}
         deleteComment={deleteComment}
       />

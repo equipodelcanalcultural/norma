@@ -18,6 +18,10 @@ const CommentItem = props => {
     currentUser
   } = props;
 
+  const updateAndReset= (input,targetId) =>{
+    updateComment(input,targetId);
+    setElement(regularItem)
+  }
   /*Variables para render condicional de botones Edit y Delete.
     Si el usuario está loggeado y el comment pertenece a currentUser,
     aparecen los dos botones*/
@@ -58,7 +62,7 @@ const CommentItem = props => {
       <CommentInput
         title={title}
         placeholder={text}
-        callback={updateComment}
+        callback={updateAndReset}
         id={id}
       ></CommentInput>
       <Button

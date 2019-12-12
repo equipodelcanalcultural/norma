@@ -5,8 +5,8 @@ import CommentItem from './commentItem';
 const CommentList = (props) => {
     const {
         posts,
-        commentUpdate,
-        commentDelete,
+        updateComment,
+        deleteComment,
         title,
         logged,
         user
@@ -24,8 +24,8 @@ const CommentList = (props) => {
                 username={comment.username}
                 text={comment.text}
                 id={comment.id}
-                commentUpdate = {commentUpdate}
-                commentDelete = {commentDelete}
+                updateComment = {updateComment}
+                deleteComment = {deleteComment}
                 logged ={logged}
                 currentUser= {user}
               />
