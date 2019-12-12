@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     arrow:{
         height: '50%',
         width: '60%',
-        resizeMode: 'stretch'
+        resizeMode: 'contain'
     },
 })
 

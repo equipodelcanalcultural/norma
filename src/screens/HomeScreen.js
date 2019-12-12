@@ -1,21 +1,23 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image } from 'react-native'
+import { Text, StyleSheet, View, Image, ImageBackground } from 'react-native'
 import CitiesCarousel from '../components/CitiesCarousel'
 import Browser from '../components/Browser'
 
 const HomeScreen = (props) => {
     const { navigation } = props
     return (
-        <View style={styles.home}>
-            <View style={styles.imageContainer}>
-                <Image style={styles.itineraryImage} source={require('../Assets/MYtinerarylogoSSJ3.png')}></Image>
+        <ImageBackground source={require('../Assets/homeBackground.png')} style={styles.homeBackground}>
+            <View style={styles.home}>
+                <View style={styles.imageContainer}>
+                    <Image style={styles.itineraryImage} source={require('../Assets/MYtinerarylogoSSJ3.png')}></Image>
+                </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>Find your perfect trip!{"\n"}Designed by insiders who know and love their cities.</Text>
+                </View>
+                <CitiesCarousel navigation={navigation} />
+                <Browser navigation={navigation} />
             </View>
-            <View style={styles.textContainer}>
-                <Text style={styles.text}>Find your perfect trip!{"\n"}Designed by insiders who know and love their cities.</Text>
-            </View> 
-            <CitiesCarousel navigation={navigation} />
-            <Browser navigation={navigation} />
-        </View>
+        </ImageBackground>
     )
 };
 
@@ -38,7 +40,8 @@ const styles = StyleSheet.create({
     itineraryImage: {
         height: '100%',
         width: '85%',
-        flex: 1
+        flex: 1,
+        resizeMode: 'contain'
     },
     textContainer: {
         height: '10%',
@@ -50,6 +53,10 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         textAlign: 'center'
+    },
+    homeBackground: {
+        flex: 1,
+        resizeMode: 'stretch',
     }
 })
 
