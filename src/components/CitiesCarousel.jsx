@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 2,
         height:'40%',
+        marginTop: 40
     },
     carousel: {
         borderRadius: 10,

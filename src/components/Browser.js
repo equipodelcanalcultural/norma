@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 const Browser = (props) => {
     return(
         <TouchableOpacity style={styles.arrowContainer} onPress={() => props.navigation.navigate('Cities')}>
-            <Image style={styles.arrow} source={require('../Assets/circled-right-2.png')}></Image> 
+            <Image style={styles.arrow} source={require('../Assets/allCities2.png')}></Image> 
         </TouchableOpacity>
     )
 };
@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     arrow:{
-        maxHeight: 100,
-        width: '40%',
+        height: '50%',
+        width: '60%',
         resizeMode: 'contain'
     },
 })
