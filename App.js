@@ -25,12 +25,8 @@ const navigator = createStackNavigator({
   Home: HomeScreen
 },
 {
-<<<<<<< HEAD
   initialRouteName: 'Drawer',
   
-=======
-  initialRouteName: 'Home',
->>>>>>> 2e7e8d81e72f4599b373200a542bdb9dd652c477
   defaultNavigationOptions:{
     headerStyle:{
       backgroundColor:'#D82F00'
