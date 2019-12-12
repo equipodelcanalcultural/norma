@@ -15,15 +15,16 @@ const Itinerary =()=>{
         {name:'prender fuego', city:'Buenos Aires',user:'Juan',likes:'23',rank:'4',comment:'1'},
         {name:'chapoteando las patas', city:'Lujan',user:'el Lije',likes:'65',rank:'23',comment:'9'}]]=useState();
 
-       
+    const[featuredCity=[{name:'CityName',cityArticle:'lorem ipsum la re puta madre etc etc la historia de la city'}]]=useState();   
 
 
     return(
         <View>
             <View style={styles.featCityContainer}>
+             <Text style={styles.featCityTitle} >{featuredCity.name}</Text>
             <Image source={Pic} style={styles.featCityPic}/>
             <Text style={styles.featCityArticle}>
-
+            {featuredCity.cityArticle}
             </Text>
             </View>
         
@@ -57,6 +58,10 @@ const Itinerary =()=>{
 };
 
 const styles = StyleSheet.create({ 
+    
+    featCityTitle:{
+    textAlign:'center',
+    },
     featCityContainer:{
         flexDirection:'row',
     }
