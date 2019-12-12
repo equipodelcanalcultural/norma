@@ -43,11 +43,6 @@ class Cities extends Component {
 
     return <View style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: 30 }}>
       <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{
-          fontWeight: 'bold',
-          fontSize: 20,
-          color: '#719bac',
-        }} >Destination: </Text>
         <CityInput callbackFromParent={this.callBack} />
       </View>
       <CitiesDisplay data={ciudades} />
