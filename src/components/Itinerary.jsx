@@ -50,7 +50,7 @@ const Itinerary =()=>{
         
             {itineraries.map( it=>
             <View>
-              
+                 <TouchableOpacity style={{flex:1}} onPress={()=>{showHandler()}}>
                 <View style={styles.itContainer}>
         
                         <View style={styles.itDescript}>
@@ -64,10 +64,10 @@ const Itinerary =()=>{
                             <Text>Rank {it.rank}</Text>
                             <Text>Comments {it.comment}</Text>
                          </View>      
-                    </View>
-                    <TouchableOpacity onPress={()=>{showHandler()}}>
-                 {   show==true ?  <Activity {...itineraries}/> :<><Text style={styles.act}>Activities</Text></>}
-                </TouchableOpacity>
+                    </View> 
+                    </TouchableOpacity>   
+                 {   show==true ?  <Activity {...itineraries}/> :<>{/* <Text style={styles.act}>Activities</Text> */}</>}
+              
                 </View>     
         )}
         </View>
