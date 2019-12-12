@@ -39,15 +39,7 @@ export default function Login(props) {
         label={"Username"}
       />
 
-      <TextInput
-        style={styles.inputBox}
-        leftIcon="key"
-        leftIconType="oct"
-        onChangeText={text => setPassword(text)}
-        value={password}
-        label={"Password"}
-
-      />
+     c
 <View style={styles.button}>
         <Button
           title='Login'

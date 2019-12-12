@@ -26,7 +26,7 @@ class CitiesDisplay extends Component {
     }
 
     return <View>
-        <ScrollView style={{ display: 'flex', width: 300, backgroundColor: '#719bac', borderRadius: 25, overflow: 'hidden', padding: 15, margin: 10 }}>{ciudades}</ScrollView>
+        <ScrollView style={{ display: 'flex', width: 300,/*  backgroundColor: '#719bac', */ borderRadius: 5, overflow: 'hidden', padding: 15, margin: 10 }}>{ciudades}</ScrollView>
       </View>;
   }
 }
