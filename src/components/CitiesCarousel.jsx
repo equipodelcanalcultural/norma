@@ -104,7 +104,7 @@ const CitiesCarousel = (props) => {
         ciudades = data;
         ciudades = ciudades.map(item => (
             console.log("carousel",item),
-            <Image width={200} height={200} ciudad={item} key={item.index}/>
+            <Image width={200} height={200} source={myImages.cities[item]}/>
         ));
     } 
 
@@ -124,7 +124,7 @@ const CitiesCarousel = (props) => {
                     <Text style={styles.title}>{item}</Text>
                 </View>
             <View>
-                <TouchableOpacity onPress={goTo}>
+                <TouchableOpacity onPress={() => props.navigation.navigate('Cities')}>
                     {ciudades}
                 </TouchableOpacity>
             </View>
