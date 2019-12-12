@@ -42,7 +42,6 @@ class ImageButton extends Component {
             imageStyle={{ borderRadius: 25 }}
               /* onClick={() => accion()} */>
             <Text style={{
-              fontFamily: 'sans-serif',
               fontWeight: 'bold',
               fontSize: 30,
               color: '#ffff',

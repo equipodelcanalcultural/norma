@@ -18,7 +18,7 @@ export default class CityInput extends Component {
     placeholder={"Find your next city"} 
     autoFocus={true}
     selectionColor={'blue'} 
-    style={{ fontFamily: 'sans-serif', 
+    style={{
     fontWeight: '300', 
     fontSize: 20, 
     borderWidth: 1,

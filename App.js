@@ -22,10 +22,10 @@ const drawer = createDrawerNavigator({
 
 const navigator = createStackNavigator({
   Drawer: drawer,
-  Home: HomeScreen
+  Cities: Cities
 },
 {
-  initialRouteName: 'Drawer',
+  initialRouteName: 'Cities',
   
   defaultNavigationOptions:{
     headerStyle:{
