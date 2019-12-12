@@ -12,14 +12,16 @@ const Browser = (props) => {
 const styles = StyleSheet.create({
     arrowContainer:{
         flex: 1, 
-        maxHeight: '20%', 
+        maxHeight: '27%', 
         width: '100%', 
+        paddingBottom:"7%",
         alignItems:'center', 
         justifyContent: 'center',
     },
     arrow:{
         height: '50%',
         width: '60%',
+        
         resizeMode: 'contain'
     },
 })
