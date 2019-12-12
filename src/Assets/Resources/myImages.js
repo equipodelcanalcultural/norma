@@ -7,6 +7,7 @@ var myImages = {
   turismo2: require("./images/turismoimg11.jpg"),
   turismo3: require("./images/turismoimg12.jpg"),
   cities: {
+    Amsterdam: require("./images/cities/amsterdam.jpg"),
     Barcelona: require("./images/cities/barcelona.jpg"),
     Madrid: require("./images/cities/madrid.jpg"),
     Mordor: require("./images/cities/mordor.jpg"),

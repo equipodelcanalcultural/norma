@@ -9,115 +9,77 @@ const CitiesCarousel = (props) => {
         this.state = {
             carouselItems: [
             {
-                illustration: require('../Assets/city_img/amsterdam.jpg'),
                 title: 'Amsterdam'
             },
             {
-                illustration: require('../Assets/city_img/barcelona.jpg'),
                 title: 'Barcelona'
             },
             {
-                illustration: require('../Assets/city_img/belgrade.jpg'),
                 title: 'Belgrade'
             },
             {
-                illustration: require('../Assets/city_img/berlin.jpg'),
                 title: 'Berlin'
             },
             {
-                illustration: require('../Assets/city_img/copenhagen.jpg'),
                 title: 'Copenhagen'
             },
             {
-                illustration: require('../Assets/city_img/hamburg.jpg'),
                 title: 'Hamburg'
             },
             {
-                illustration: require('../Assets/city_img/helsinki.jpg'),
                 title: 'Helsinki'
             },
             {
-                illustration: require('../Assets/city_img/london.jpg'),
                 title: 'London'
             },
             {
-                illustration: require('../Assets/city_img/madrid.jpg'),
                 title: 'Madrid'
             },
             {
-                illustration: require('../Assets/city_img/milan.jpg'),
                 title: 'Milan'
             },
             {
-                illustration: require('../Assets/city_img/munich.jpg'),
                 title: 'Munich'
             },
             {
-                illustration: require('../Assets/city_img/napoli.jpg'),
                 title: 'Napoli'
             },
             {
-                illustration: require('../Assets/city_img/new_york.jpg'),
-                title: 'New York'
+                title: 'New_York'
             },
             {
-                illustration: require('../Assets/city_img/oslo.jpg'),
                 title: 'Oslo'
             },
             {
-                illustration: require('../Assets/city_img/paris.jpg'),
                 title: 'Paris'
             },
             {
-                illustration: require('../Assets/city_img/prague.jpg'),
                 title: 'Prague'
             },
             {
-                illustration: require('../Assets/city_img/rome.jpg'),
                 title: 'Rome'
             },
             {
-                illustration: require('../Assets/city_img/sofia.jpg'),
                 title: 'Sofia'
             },
             {
-                illustration: require('../Assets/city_img/stockholm.jpg'),
                 title: 'Stockholm'
             },
             {
-                illustration: require('../Assets/city_img/vienna.jpg'),
                 title: 'Vienna'
             },
             {
-                illustration: require('../Assets/city_img/warsaw.jpg'),
                 title: 'Warsaw'
             }
         ]}
 
     const carouselRef = useRef(null)
-
-    const data = Object.keys(myImages.cities);
-    let ciudades;
-       
-    if (data != undefined) {
-        ciudades = data;
-
-        for(let i = 0; ciudades.length > i; i++){
-            <Image source={myImages.cities[ciudades[i]]}></Image>
-        }
-        // ciudades = ciudades.map(item => (
-        //     console.log("carousel",item),
-        //     // <Image width={200} height={200} source={myImages.cities[item]}/>
-        //     <Text>{item}</Text>
-        // ));
-    } 
     
     _onPressCarousel = () => {
         props.navigation.navigate('Cities')
     }
     
     _renderItem = ({item, index}, parallaxProps) => {
-    
         return (
             <TouchableOpacity onPress={this._onPressCarousel}>
             <View style={styles.item}>
@@ -130,8 +92,7 @@ const CitiesCarousel = (props) => {
                 <View style={styles.citiesContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                 </View>
-                    <Image style={styles.carousel} source={item.illustration}/>
-                    {/* <Text>{ciudades}</Text> */}
+                    <Image style={styles.carousel} source={myImages.cities[item.title]}/>
             </View>
             </TouchableOpacity>
 
