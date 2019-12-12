@@ -3,19 +3,36 @@ import { useState} from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import TextInput from 'react-native-textinput-with-icons';
 import {TouchableOpacity} from 'react-native';
+import {getData} from '../../requests';
 
 export default function Login(props) {
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
 
   const handlePress = (user, pass) => {
-    let body = {
+    let bodyData = {
       username: user,
+      email: user,
       password: pass
     };
-    console.log(body);
-    return body;
+    console.log('Login Request');
+    getData(
+      "/api/users/login",
+      {
+        method: "POST",
+        body: JSON.stringify(bodyData),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      },
+      data => console.log(data)
+    );
+    return bodyData;
   };
+
+
+
+
   return (
     <View style={styles.logForm}>
         <View style={styles.register}>
