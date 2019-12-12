@@ -6,6 +6,7 @@ import Pic from '../Assets/city_img/amsterdam.jpg'
 import User from '../Assets/userb.png'
 // import Activity from './Activity'
 import {useState} from 'react'
+import Activity from './Actitivy';
 
 const Itinerary =()=>{
 
@@ -19,11 +20,20 @@ const Itinerary =()=>{
 
     return(
         <View>
-            {itineraries.map( it=>
+            <View style={styles.featCityContainer}>
+            <Image source={Pic} style={styles.featCityPic}/>
+            <Text style={styles.featCityArticle}>
+
+            </Text>
+            </View>
+        
+
+
+            {itineraries.map( it=><>
             <View >
                 <TouchableOpacity>
                 <View style={styles.itContainer}>
-                   {/*    <Image src={User}></Image>   */} 
+        
                         <View style={styles.itDescript}>
                             <Image style={styles.itUserPic}source={User}/>
                             <Text style={styles.itUser}>{it.user}</Text>
@@ -38,6 +48,8 @@ const Itinerary =()=>{
                     </View>
             </TouchableOpacity>
         </View>
+               <Activity {...itineraries}/></>
+ 
         )}
         </View>
 
@@ -45,6 +57,17 @@ const Itinerary =()=>{
 };
 
 const styles = StyleSheet.create({ 
+    featCityContainer:{
+        flexDirection:'row',
+    }
+    ,
+    featCityArticle:{
+        textAlign:'justify',
+    },
+    featCityPic:{
+        height:80,
+        width:80,
+    },
     itContainer:{
         backgroundColor:'red',
         margin:1,
