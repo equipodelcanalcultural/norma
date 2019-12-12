@@ -1,118 +1,125 @@
 import React, { useRef } from 'react'
 import {Text, StyleSheet, View, Image, Dimensions, Platform, TouchableOpacity, ImageBackground} from 'react-native'
 import Carousel,  { ParallaxImage }  from 'react-native-snap-carousel';
-import { getCurrentFrame } from 'expo/build/AR';
 import myImages from '../Assets/Resources/myImages'
 
 const { width: screenWidth } = Dimensions.get('window')
 
 const CitiesCarousel = (props) => {
-        // this.state = {
-        //     carouselItems: [
-        //     {
-        //         illustration: require('../Assets/city_img/amsterdam.jpg'),
-        //         title: 'Amsterdam'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/barcelona.jpg'),
-        //         title: 'Barcelona'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/belgrade.jpg'),
-        //         title: 'Belgrade'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/berlin.jpg'),
-        //         title: 'Berlin'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/copenhagen.jpg'),
-        //         title: 'Copenhagen'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/hamburg.jpg'),
-        //         title: 'Hamburg'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/helsinki.jpg'),
-        //         title: 'Helsinki'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/london.jpg'),
-        //         title: 'London'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/madrid.jpg'),
-        //         title: 'Madrid'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/milan.jpg'),
-        //         title: 'Milan'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/munich.jpg'),
-        //         title: 'Munich'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/napoli.jpg'),
-        //         title: 'Napoli'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/new_york.jpg'),
-        //         title: 'New York'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/oslo.jpg'),
-        //         title: 'Oslo'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/paris.jpg'),
-        //         title: 'Paris'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/prague.jpg'),
-        //         title: 'Prague'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/rome.jpg'),
-        //         title: 'Rome'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/sofia.jpg'),
-        //         title: 'Sofia'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/stockholm.jpg'),
-        //         title: 'Stockholm'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/vienna.jpg'),
-        //         title: 'Vienna'
-        //     },
-        //     {
-        //         illustration: require('../Assets/city_img/warsaw.jpg'),
-        //         title: 'Warsaw'
-        //     }
-        // ]}
+        this.state = {
+            carouselItems: [
+            {
+                illustration: require('../Assets/city_img/amsterdam.jpg'),
+                title: 'Amsterdam'
+            },
+            {
+                illustration: require('../Assets/city_img/barcelona.jpg'),
+                title: 'Barcelona'
+            },
+            {
+                illustration: require('../Assets/city_img/belgrade.jpg'),
+                title: 'Belgrade'
+            },
+            {
+                illustration: require('../Assets/city_img/berlin.jpg'),
+                title: 'Berlin'
+            },
+            {
+                illustration: require('../Assets/city_img/copenhagen.jpg'),
+                title: 'Copenhagen'
+            },
+            {
+                illustration: require('../Assets/city_img/hamburg.jpg'),
+                title: 'Hamburg'
+            },
+            {
+                illustration: require('../Assets/city_img/helsinki.jpg'),
+                title: 'Helsinki'
+            },
+            {
+                illustration: require('../Assets/city_img/london.jpg'),
+                title: 'London'
+            },
+            {
+                illustration: require('../Assets/city_img/madrid.jpg'),
+                title: 'Madrid'
+            },
+            {
+                illustration: require('../Assets/city_img/milan.jpg'),
+                title: 'Milan'
+            },
+            {
+                illustration: require('../Assets/city_img/munich.jpg'),
+                title: 'Munich'
+            },
+            {
+                illustration: require('../Assets/city_img/napoli.jpg'),
+                title: 'Napoli'
+            },
+            {
+                illustration: require('../Assets/city_img/new_york.jpg'),
+                title: 'New York'
+            },
+            {
+                illustration: require('../Assets/city_img/oslo.jpg'),
+                title: 'Oslo'
+            },
+            {
+                illustration: require('../Assets/city_img/paris.jpg'),
+                title: 'Paris'
+            },
+            {
+                illustration: require('../Assets/city_img/prague.jpg'),
+                title: 'Prague'
+            },
+            {
+                illustration: require('../Assets/city_img/rome.jpg'),
+                title: 'Rome'
+            },
+            {
+                illustration: require('../Assets/city_img/sofia.jpg'),
+                title: 'Sofia'
+            },
+            {
+                illustration: require('../Assets/city_img/stockholm.jpg'),
+                title: 'Stockholm'
+            },
+            {
+                illustration: require('../Assets/city_img/vienna.jpg'),
+                title: 'Vienna'
+            },
+            {
+                illustration: require('../Assets/city_img/warsaw.jpg'),
+                title: 'Warsaw'
+            }
+        ]}
 
     const carouselRef = useRef(null)
 
     const data = Object.keys(myImages.cities);
-    const goTo = (props) => props.navigation.navigate('Cities')
     let ciudades;
+       
     if (data != undefined) {
         ciudades = data;
-        ciudades = ciudades.map(item => (
-            console.log("carousel",item),
-            <Image width={200} height={200} ciudad={item} key={item.index}/>
-        ));
+
+        for(let i = 0; ciudades.length > i; i++){
+            <Image source={myImages.cities[ciudades[i]]}></Image>
+        }
+        // ciudades = ciudades.map(item => (
+        //     console.log("carousel",item),
+        //     // <Image width={200} height={200} source={myImages.cities[item]}/>
+        //     <Text>{item}</Text>
+        // ));
     } 
-
     
-
-    _renderItem = ({item, index}, parallaxProps) => {    
-        
+    _onPressCarousel = () => {
+        props.navigation.navigate('Cities')
+    }
+    
+    _renderItem = ({item, index}, parallaxProps) => {
+    
         return (
+            <TouchableOpacity onPress={this._onPressCarousel}>
             <View style={styles.item}>
                 <ParallaxImage
                     containerStyle={styles.imageContainer}
@@ -121,14 +128,13 @@ const CitiesCarousel = (props) => {
                     {...parallaxProps}
                 />
                 <View style={styles.citiesContainer}>
-                    <Text style={styles.title}>{item}</Text>
+                    <Text style={styles.title}>{item.title}</Text>
                 </View>
-            <View>
-                <TouchableOpacity onPress={goTo}>
-                    {ciudades}
-                </TouchableOpacity>
+                    <Image style={styles.carousel} source={item.illustration}/>
+                    {/* <Text>{ciudades}</Text> */}
             </View>
-            </View>
+            </TouchableOpacity>
+
         );
     }
 
@@ -139,7 +145,7 @@ const CitiesCarousel = (props) => {
                 sliderWidth={screenWidth}
                 sliderHeight={screenWidth}
                 itemWidth={screenWidth - 60}
-                data={data}
+                data={this.state.carouselItems}
                 renderItem={this._renderItem}
                 hasParallaxImages={true}
             />
@@ -157,8 +163,8 @@ const styles = StyleSheet.create({
     },
     carousel: {
         borderRadius: 10,
-        width: 100,
-        height: 100
+        width: '100%',
+        height: '95%',
     },
     item: {
       width: screenWidth - 60,
