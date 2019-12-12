@@ -22,9 +22,10 @@ const drawer = createDrawerNavigator({
 
 const navigator = createStackNavigator({
   Drawer: drawer,
+  Home: HomeScreen
 },
 {
-  initialRouteName: 'Drawer',
+  initialRouteName: 'Home',
   defaultNavigationOptions:{
     headerStyle:{
       backgroundColor:'#D82F00'
