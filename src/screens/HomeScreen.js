@@ -1,22 +1,24 @@
-import React, {Component} from 'react'
-import {Text, StyleSheet, View, Image} from 'react-native'
+import React, { Component } from 'react'
+import { Text, StyleSheet, View, Image, ImageBackground } from 'react-native'
 import CitiesCarousel from '../components/CitiesCarousel'
 import Browser from '../components/Browser'
 
 const HomeScreen = (props) => {
-    const {navigation} = props
+    const { navigation } = props
     return (
-        <View style={styles.home}>
-            <View style={styles.imageContainer}>
-                <Image style={styles.itineraryImage} source={require('../Assets/MYtineraryLogo.png')}></Image>
+        <ImageBackground source={require('../Assets/homeBackground.png')} style={styles.homeBackground}>
+            <View style={styles.home}>
+                <View style={styles.imageContainer}>
+                    <Image style={styles.itineraryImage} source={require('../Assets/MYtinerarylogoSSJ3.png')}></Image>
+                </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>Find your perfect trip!{"\n"}Designed by insiders who know and love their cities.</Text>
+                </View>
+                <CitiesCarousel navigation={navigation} />
+                <Browser navigation={navigation} />
             </View>
-            <View style={styles.textContainer}>
-                <Text style={styles.text}>Find your perfect trip, designed by insiders who know and love their cities</Text>
-            </View>
-            <Browser navigation={navigation}/>            
-            <CitiesCarousel navigation={navigation}/>
-        </View>
- )
+        </ImageBackground>
+    )
 };
 
 
@@ -24,29 +26,37 @@ const styles = StyleSheet.create({
     home: {
         flex: 1,
         alignItems: 'center',
-		justifyContent: 'space-between',
+        justifyContent: 'space-between',
         width: '100%'
     },
-    imageContainer:{
-        flex:1, 
+    imageContainer: {
+        flex: 1,
         maxHeight: '20%',
-        marginTop: 10, 
-        width: '100%', 
-        alignItems:'center', 
-        justifyContent: 'center',
-    },
-    itineraryImage:{
-        height: '100%',
+        marginTop: 20,
         width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    textContainer:{
+    itineraryImage: {
+        height: '100%',
+        width: '85%',
+        flex: 1,
+        resizeMode: 'contain'
+    },
+    textContainer: {
         height: '10%',
-        width: '95%',
+        width: '90%',
         justifyContent: 'center',
+        marginTop: 20,
         alignItems: 'center'
     },
-    text:{
+    text: {
         fontSize: 20,
+        textAlign: 'center'
+    },
+    homeBackground: {
+        flex: 1,
+        resizeMode: 'stretch',
     }
 })
 

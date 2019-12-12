@@ -1,10 +1,11 @@
 import React from 'react'
 import {Text, View} from 'react-native'
+import Cities from '../components/Cities/Cities'
 
-const Cities = () => {
+const CitiesScreen = () => {
     return(
-        <Text> Soy Cities </Text>
+        <Cities/>
     )
 };
 
-export default Cities;
+export default CitiesScreen;

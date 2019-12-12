@@ -7,19 +7,25 @@ import HomeScreen from './src/screens/HomeScreen'
 import Cities from './src/screens/Cities'
 import Login from './src/components/login'
 import Register from './src/components/Register'
+import Itinerary from './src/components/Itinerary';
 
 const drawer = createDrawerNavigator({
-  Home: {screen: HomeScreen},
+  Home: {
+    name: 'Home',
+    screen: HomeScreen
+  },
   Cities: {screen: Cities},
+  Itinerary:{screen:Itinerary},
   Register: {screen: Register},
   Login: {screen: Login},
 });
 
 const navigator = createStackNavigator({
   Drawer: drawer,
+  Home: HomeScreen
 },
 {
-  initialRouteName: 'Drawer',
+  initialRouteName: 'Home',
   defaultNavigationOptions:{
     headerStyle:{
       backgroundColor:'#D82F00'
@@ -27,13 +33,7 @@ const navigator = createStackNavigator({
       headerTintColor:'#fff',
       headerTitleStyle:{
         fontWeight:'bold'
-      },
-      headerLeft: null,
-      headerBackground: (
-        <View style={{flexDirection:'row', alignItems:'flex-end',flex:1}}>
-          <Image source={require('./src/Assets/userb.png')} style={{width: 50, height: 50, paddingBottom:10}}/>
-        </View>
-      ),
+      }, 
   }
 });
 
