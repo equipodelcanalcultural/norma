@@ -17,8 +17,14 @@ export default class CityInput extends Component {
     return <TextInput type={"text"} 
     placeholder={"Find your next city"} 
     autoFocus={true}
-    selectionColor={'blue'}
-    style={border=1}
+    selectionColor={'blue'} 
+    style={{ fontFamily: 'sans-serif', 
+    fontWeight: '300', 
+    fontSize: 20, 
+    borderWidth: 1,
+    borderRadius: 10, 
+    borderColor: '#719bac',
+    padding: 5 }}
     /* className={"col-md-3 ml-2 mr-2 mt-3 justify-content-center"} */
     onChangeText={e => this.handleChange(e)} />;
   }
