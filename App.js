@@ -10,6 +10,7 @@ import { createAppContainer } from 'react-navigation';
  import { DrawerNavigatorItems as DrawerItems } from 'react-navigation-drawer';
 import {StyleSheet, SafeAreaView,ScrollView,View, Image, Text, ImageBackground} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack'
+import Icon from 'react-native-vector-icons/Octicons';
 
 const MyDrawerNavigator ={ 
   Home: HomeScreen, 
