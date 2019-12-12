@@ -7,6 +7,7 @@ import HomeScreen from './src/screens/HomeScreen'
 import Cities from './src/screens/Cities'
 import Login from './src/components/login'
 import Register from './src/components/Register'
+import Itinerary from './src/components/Itinerary';
 
 const drawer = createDrawerNavigator({
   Home: {
@@ -14,15 +15,17 @@ const drawer = createDrawerNavigator({
     screen: HomeScreen
   },
   Cities: {screen: Cities},
+  Itinerary:{screen:Itinerary},
   Register: {screen: Register},
   Login: {screen: Login},
 });
 
 const navigator = createStackNavigator({
   Drawer: drawer,
+  Home: HomeScreen
 },
 {
-  initialRouteName: 'Drawer',
+  initialRouteName: 'Home',
   defaultNavigationOptions:{
     headerStyle:{
       backgroundColor:'#D82F00'

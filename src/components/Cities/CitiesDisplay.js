@@ -15,11 +15,11 @@ class CitiesDisplay extends Component {
   render() {
     const data = this.props.data;
     let ciudades;
-    console.log(data);
     if (data != undefined) {
       ciudades = data;
       ciudades = ciudades.map(item => (
-        <ImageButton width={200} height={200} ciudad={item} />
+        console.log("cities",item),
+        <ImageButton width={200} height={200} ciudad={item} key={item.index}/>
       ));
     } else {
       ciudades = "Loading...";

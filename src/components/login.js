@@ -26,6 +26,7 @@ export default function Login(props) {
     data => console.log("SUCCESS", data)
     )
   };
+  
   return (
     <ImageBackground source={require('../Assets/login.png')} style={styles.backgroundImage}>
     <View style={styles.logForm}>
