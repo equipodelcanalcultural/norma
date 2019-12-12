@@ -32,6 +32,7 @@ const Activity = ({itineraries})=>{
 
     
     return( 
+
         <View>
             {activities.map(
                 act=><View style={styles.actContainer}>                    
