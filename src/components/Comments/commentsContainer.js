@@ -82,7 +82,7 @@ const CommentsContainer = props => {
       () => getComments()
     );
   };
-  useEffect(getComments(), []);
+  useEffect(() => {getComments()}, []);
   /*Variables para render condicional*/
   /*Si posts es no-nulo, <CommentList> recibe los posts y los mapea*/
 

@@ -2,10 +2,6 @@ import React from "react";
 import { useState} from "react";
 import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
 import TextInput from 'react-native-textinput-with-icons';
-<<<<<<< HEAD
-import {TouchableOpacity} from 'react-native';
-=======
->>>>>>> 2e7e8d81e72f4599b373200a542bdb9dd652c477
 import {getData} from '../../requests';
 
 export default function Login(props) {
@@ -15,29 +11,6 @@ export default function Login(props) {
   const handlePress = (user, pass) => {
     let bodyData = {
       username: user,
-<<<<<<< HEAD
-      email: user,
-      password: pass
-    };
-    console.log('Login Request');
-    getData(
-      "/api/users/login",
-      {
-        method: "POST",
-        body: JSON.stringify(bodyData),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      },
-      data => console.log(data)
-    );
-    return bodyData;
-  };
-
-
-
-
-=======
       password: pass,
       email: user
     };
@@ -54,7 +27,6 @@ export default function Login(props) {
     )
   };
   
->>>>>>> 2e7e8d81e72f4599b373200a542bdb9dd652c477
   return (
     <ImageBackground source={require('../Assets/login.png')} style={styles.backgroundImage}>
     <View style={styles.logForm}>
