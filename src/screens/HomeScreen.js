@@ -6,7 +6,7 @@ import Browser from '../components/Browser'
 const HomeScreen = (props) => {
     const { navigation } = props
     return (
-        <ImageBackground source={require('../Assets/homeBackground.png')} style={styles.homeBackground}>
+        <ImageBackground source={require('../Assets/navidadhome.png')} style={styles.backgroundImage}>
             <View style={styles.home}>
                 <View style={styles.imageContainer}>
                     <Image style={styles.itineraryImage} source={require('../Assets/MYtinerarylogoSSJ3.png')}></Image>
@@ -17,7 +17,7 @@ const HomeScreen = (props) => {
                 <CitiesCarousel navigation={navigation} />
                 <Browser navigation={navigation} />
             </View>
-        </ImageBackground>
+            </ImageBackground>
     )
 };
 
@@ -47,17 +47,18 @@ const styles = StyleSheet.create({
         height: '10%',
         width: '90%',
         justifyContent: 'center',
-        marginTop: 20,
+      
         alignItems: 'center'
     },
     text: {
         fontSize: 20,
-        textAlign: 'center'
+        textAlign: 'center',
+        paddingTop:10
+        
     },
-    homeBackground: {
-        flex: 1,
-        resizeMode: 'stretch',
-    }
+    backgroundImage: {
+        flex: 1, 
+      }
 })
 
 export default HomeScreen;

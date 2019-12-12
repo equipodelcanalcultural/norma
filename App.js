@@ -25,7 +25,8 @@ const navigator = createStackNavigator({
   Home: HomeScreen
 },
 {
-  initialRouteName: 'Home',
+  initialRouteName: 'Drawer',
+  
   defaultNavigationOptions:{
     headerStyle:{
       backgroundColor:'#D82F00'
@@ -36,5 +37,16 @@ const navigator = createStackNavigator({
       }, 
   }
 });
+const styles = StyleSheet.create({
+  arrowContainer:{
+      flex: 1, 
+      maxHeight: '27%', 
+      width: '100%', 
+      paddingBottom:"7%",
+      alignItems:'center', 
+      justifyContent: 'center',
+  },
+ 
+})
 
 export default createAppContainer(navigator);
