@@ -3,6 +3,7 @@ import { Component } from "react";
 import CitiesDisplay from "./CitiesDisplay.js";
 import CityInput from "./CityInput";
 import { View, Text } from 'react-native';
+import myImages from '../../Assets/Resources/myImages'
 
 const filterCitiesByFirstLetter = (items, letter) => {
   let cities = items;
@@ -31,10 +32,9 @@ class Cities extends Component {
   }
 
   render() {
-    var listaDeCiudades = ['Madrid', 'Barcelona', 'Bucharest', 'Mordor', 'Paris', 'Lyon', 'New_York', 'Berlin'];
+    var listaDeCiudades = Object.keys(myImages.cities);
     var letra = this.state.input;
     var ciudades = '';
-    console.log(letra.length)
 
     if (listaDeCiudades != undefined) {
       ciudades = listaDeCiudades;
