@@ -6,6 +6,7 @@ import Pic from '../Assets/city_img/amsterdam.jpg'
 import User from '../Assets/userb.png'
 // import Activity from './Activity'
 import {useState} from 'react'
+import Activity from './Actitivy';
 
 const Itinerary =()=>{
 
@@ -19,7 +20,7 @@ const Itinerary =()=>{
 
     return(
         <View>
-            {itineraries.map( it=>
+            {itineraries.map( it=><>
             <View >
                 <TouchableOpacity>
                 <View style={styles.itContainer}>
@@ -38,6 +39,8 @@ const Itinerary =()=>{
                     </View>
             </TouchableOpacity>
         </View>
+               <Activity {...itineraries}/></>
+ 
         )}
         </View>
 
