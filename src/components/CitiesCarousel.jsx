@@ -124,7 +124,7 @@ const CitiesCarousel = (props) => {
                     <Text style={styles.title}>{item}</Text>
                 </View>
             <View>
-                <TouchableOpacity onPress={goTo}>
+                <TouchableOpacity onPress={() => props.navigation.navigate('Cities')}>
                     {ciudades}
                 </TouchableOpacity>
             </View>
