@@ -1,5 +1,6 @@
 import { getData } from "./reduxFetch";
-//const jwt = require('jsonwebtoken');
+import {AsyncStorage} from 'react-native';
+const jwtDecode = require('jwt-decode');
 
 export const userPostFetch = user => {
     return dispatch => {
@@ -22,7 +23,7 @@ export const userPostFetch = user => {
 
   export const userLoginFetch = user => {
     return dispatch => {
-      return getData("/api/users/login", {
+      return getData("https://mytinerary-marta-norma.herokuapp.com/api/users/login", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -32,11 +33,11 @@ export const userPostFetch = user => {
       },(data) => { 
              if(data.success===true) {
                console.log("data",data)
-               localStorage.setItem("token", data.token)
+               AsyncStorage.setItem("token", data.token)
                dispatch(loginUser(data))
             }else{
               console.log("data",data)
-              localStorage.removeItem("token")
+              AsyncStorage.removeItem("token")
               console.log(data.msg);
             }  
       })   
@@ -45,9 +46,9 @@ export const userPostFetch = user => {
 
   export const getUserFetch = () => {
     return dispatch => {
-      const token = localStorage.token;
+      const token = AsyncStorage.token;
       if (token) {
-        return getData("/api/users/login", {
+        return getData("https://mytinerary-marta-norma.herokuapp.com/api/users/login", {
           method: "GET",
           headers: {
             'Content-Type': 'application/json',
@@ -56,10 +57,10 @@ export const userPostFetch = user => {
           }
         },(data) => { 
              if(data.success===true) {
-               localStorage.setItem("token", data.token)
+               AsyncStorage.setItem("token", data.token)
                dispatch(loginUser(data))
             }else{
-              localStorage.removeItem("token")
+              AsyncStorage.removeItem("token")
               console.log(data.msg);
             }  
       })  
@@ -69,7 +70,7 @@ export const userPostFetch = user => {
   
   const loginUser = data => ({
       type: 'LOGIN_USER',
-      payload: jwt.decode(data.token),
+      payload: jwtDecode(data.token),
       logged: data.logged,
       created: data.created,
   })
