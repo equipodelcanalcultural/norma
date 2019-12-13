@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, StyleSheet, View, Image, ImageBackground } from 'react-native'
 import CitiesCarousel from '../components/CitiesCarousel'
 import Browser from '../components/Browser'
-
+import CommentContainer from '../components/Comments/commentsContainer'
 const HomeScreen = (props) => {
     const { navigation } = props
     return (
@@ -12,6 +12,7 @@ const HomeScreen = (props) => {
                     <Image style={styles.itineraryImage} source={require('../Assets/MYtinerarylogoSSJ3.png')}></Image>
                 </View>
                 <View style={styles.textContainer}>
+            <CommentContainer logged={true} user={'JoJo'} title={'Barcelonata'}></CommentContainer>
                     <Text style={styles.text}>Find your perfect trip!{"\n"}Designed by insiders who know and love their cities.</Text>
                 </View>
                 <CitiesCarousel navigation={navigation} />
