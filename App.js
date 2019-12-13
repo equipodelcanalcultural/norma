@@ -55,7 +55,7 @@ const AppContainer = createAppContainer(navigator);
 export default AppContainer;
 const styles = StyleSheet.create({
   rutas: {
-    paddingTop: '45%',
+    paddingTop: '15%',
     color: 'red'
   },
   imagen: {

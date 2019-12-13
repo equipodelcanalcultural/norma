@@ -23,11 +23,7 @@ class CitiesDisplay extends Component {
       ciudades = "Loading...";
     }
     return <View>
-<<<<<<< HEAD
-        <ScrollView style={{ display: 'flex', width: 300,/*  backgroundColor: '#719bac', */ borderRadius: 5, overflow: 'hidden', padding: 15, margin: 10 }}>{ciudades}</ScrollView>
-=======
         <ScrollView style={{ display: 'flex', width: 300,/*  backgroundColor: '#719BAC', */ borderRadius: 5, overflow: 'hidden', padding: 15, margin: 10 }}>{ciudades}</ScrollView>
->>>>>>> 44260a68bb557227c01aab9fa9a1e185ff441e08
       </View>;
   }
 }
