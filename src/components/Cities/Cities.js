@@ -3,17 +3,15 @@ import { Component } from "react";
 import CitiesDisplay from "./CitiesDisplay.js";
 import CityInput from "./CityInput";
 import { View, Text } from 'react-native';
-import myImages from '../../Assets/Resources/myImages'
+import myImages from "../../Assets/Resources/myImages";
 
 const filterCitiesByFirstLetter = (items, letter) => {
   let cities = items;
-  console.log(typeof letter)
   cities = cities.filter(
     city =>
       city.slice(0, letter.length).toUpperCase() ===
       letter.slice(0, letter.length).toUpperCase()
   );
-  console.log(cities);
   return cities;
 };
 
@@ -43,9 +41,10 @@ class Cities extends Component {
       }
     }
 
-    return <View style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-      <Text>Destination: </Text>
-      <CityInput callbackFromParent={this.callBack} />
+    return <View style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: 30 }}>
+      <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+        <CityInput callbackFromParent={this.callBack} />
+      </View>
       <CitiesDisplay data={ciudades} />
     </View>
   }

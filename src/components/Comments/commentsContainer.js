@@ -1,36 +1,36 @@
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
-import { connect } from "react-redux";
+//import { connect } from "react-redux";
 import { getData } from "../../../requests";
 import CommentList  from "./commentList";
 import CommentInput from "./commentInput";
 import serverurl from "../../../heroku";
 
-
+/*
 const mapStateToProps = state => {
     return {
       logged: state.user.logged,
       user: state.user.currentUser.username
     };
   };
-
-const CommentsContainer = props => {
-  const [posts, setPosts] = useState(); /*State Hooks*/
-  const {
+*/
+const CommentsContainer = ({ /*Props: título del itinerario, datos de usuario, estado del usuario*/
     title,
     logged,
     user
-  } = props; /*Props: título del itinerario, datos de usuario, estado del usuario*/
+  }) => {
+  const [posts, setPosts] = useState(); /*State Hooks*/
 
   /*Funciones de requests: las funciones de Create, Update y Delete llaman a la función de Read
     para actualizar el hook posts; el container las pasa a sus hijos como callbacks*/
 
   const getComments = () => {
     getData(
-      `${serverurl}/api/itineraries/byTitle/${title}/comments`,
+      `https://mytinerary-marta-norma.herokuapp.com/api/itineraries/byTitle/${title}/comments`,
       null,
       data => {
         setPosts(data.comments[0].comments);
+        console.log(data + ' hola')
       }
     );
   };
@@ -66,7 +66,7 @@ const CommentsContainer = props => {
           "Content-Type": "application/json"
         }
       },
-      () => getComments()
+      () => console.log('updatecomment')
     );
   };
   const deleteComment = id => {
@@ -79,7 +79,7 @@ const CommentsContainer = props => {
           "Content-Type": "application/json"
         }
       },
-      () => getComments()
+      () => console.log('deletecomment')
     );
   };
   useEffect(() => {getComments()}, []);
@@ -88,6 +88,7 @@ const CommentsContainer = props => {
 
   let commentList;
   if (posts != null) {
+    console.log('hay posts')
     commentList = (
       <CommentList
         posts={posts}
@@ -125,5 +126,7 @@ const CommentsContainer = props => {
   );
 };
 
-export default connect(mapStateToProps)(CommentsContainer);
+//export default connect(mapStateToProps)(CommentsContainer);
+
+export default CommentsContainer;
 

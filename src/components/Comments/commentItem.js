@@ -1,22 +1,33 @@
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
-import {View, Button, Text} from 'react-native';
+import { View, Button, Text } from 'react-native';
 import CommentInput from './commentInput';
 
 
-const CommentItem = props => {
+const CommentItem = ({ key,
+  title,
+  username,
+  text,
+  id,
+  updateComment,
+  deleteComment,
+  logged,
+  currentUser }) => {
+  const [textoParaMostrar, setTextoParaMostrar] = useState(text);
   const [element, setElement] = useState();
-  const {
-    key,
-    title,
-    username,
-    text,
-    id,
-    updateComment,
-    deleteComment,
-    logged,
-    currentUser
-  } = props;
+  const [showSomething, setShowSomething] = useState(true);
+  const [repeat, setRepeat] = useState(false);
+
+  const updateThisComment = (input, targetId) => {
+    setTextoParaMostrar(input);
+    setElement(commentElement);
+   // updateComment(input, targetId);
+  }
+
+  const deleteThisComment = () => {
+    setShowSomething(false);
+    deleteComment(id);
+  }
 
   const updateAndReset= (input,targetId) =>{
     updateComment(input,targetId);
@@ -31,8 +42,9 @@ const CommentItem = props => {
   if (logged && currentUser == username) {
     editButton = (
       <Button
-        onClick={() => {
-          setElement(editItem);
+        title={'Edit'}
+        onPress={() => {
+          setElement(textBoxElement);
           console.log(id);
         }}
       >
@@ -40,15 +52,15 @@ const CommentItem = props => {
       </Button>
     );
     deleteButton = (
-      <Button onClick={() => deleteComment(id)}> Delete </Button>
+      <Button title={'Delete'} onPress={() => deleteThisComment()}> Delete </Button>
     );
   }
 
   /*Elemento que muestra un comentario y, si corresponde, dos botones (Edit, Delete) */
 
-  const regularItem = (
+  const commentElement = (
     <View>
-      <Text>{text}</Text>
+      <Text>{textoParaMostrar}</Text>
       {editButton}
       {deleteButton}
     </View>
@@ -57,17 +69,17 @@ const CommentItem = props => {
   /*Textbox para editar comentarios que reemplaza al elemento anterior 
   cuando uno hace click en Edit*/
 
-  const editItem = (
+  const textBoxElement = (
     <View className="row justify-content-center">
       <CommentInput
         title={title}
         placeholder={text}
-        callback={updateAndReset}
+        callback={updateThisComment}
         id={id}
       ></CommentInput>
-      <Button
-        onClick={() => {
-          setElement(regularItem);
+      <Button title={'Back'}
+        onPress={() => {
+          setElement(commentElement);
         }}
       >
         Back
@@ -75,13 +87,26 @@ const CommentItem = props => {
     </View>
   );
 
-  /*En el primer render se pone regularItem como valor del hook element*/
-  useEffect(() => setElement(regularItem), []);
+  let algoParaMostrar;
 
-  return (
-    <Fragment>
+  if (showSomething) {
+    algoParaMostrar = (<View>
       <Text h6>{username}</Text>
       {element}
+    </View>)
+  }
+
+  /*En el primer render se pone regularItem como valor del hook element*/
+  useEffect(() => setElement(commentElement), []);
+
+  console.log(textoParaMostrar);
+  return (
+    <Fragment>
+      {algoParaMostrar}
+      <Button title="test" onPress={() => { setRepeat(!repeat) }}>cambiar texto</Button>
+  <Text>{repeat ? "hola" : "chau"}</Text>
     </Fragment>
   );
 };
+
+export default CommentItem;

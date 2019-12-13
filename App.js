@@ -1,28 +1,40 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import {createAppContainer} from 'react-navigation'
-import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
-import {createStackNavigator} from 'react-navigation-stack'
+import React from 'react'
+import {createDrawerNavigator} from 'react-navigation-drawer';
 import HomeScreen from './src/screens/HomeScreen'
 import Cities from './src/screens/Cities'
 import Login from './src/components/login'
 import Register from './src/components/Register'
 import Itinerary from './src/components/Itinerary';
+import { createAppContainer } from 'react-navigation';
+//  import { DrawerItems } from 'react-navigation-drawer';
+ import { DrawerNavigatorItems as DrawerItems } from 'react-navigation-drawer';
+import {StyleSheet, SafeAreaView,ScrollView,View, Image, Text, ImageBackground} from 'react-native';
+import {createStackNavigator} from 'react-navigation-stack'
 
-const drawer = createDrawerNavigator({
-  Home: {
-    name: 'Home',
-    screen: HomeScreen
-  },
-  Cities: {screen: Cities},
-  Itinerary:{screen:Itinerary},
-  Register: {screen: Register},
-  Login: {screen: Login},
+const MyDrawerNavigator ={ 
+  Home: HomeScreen, 
+  Cities: Cities,
+  Itinerary: Itinerary,
+  Login: Login,
+  Register: Register
+}
+
+const MainDrawer = createDrawerNavigator(MyDrawerNavigator, {
+  contentComponent: props => (
+    <ScrollView>
+      <View style={styles.rutas}>
+         <DrawerItems {...props} />
+         </View>
+      <View>
+      <Image style={styles.imagen} source={require('./src/Assets/side.png')} />
+      </View>
+    </ScrollView>
+  ),
+  unmountInactiveRoutes: true
 });
 
 const navigator = createStackNavigator({
-  Drawer: drawer,
-  Home: HomeScreen
+  Drawer: MainDrawer,
 },
 {
   initialRouteName: 'Drawer',
@@ -37,16 +49,16 @@ const navigator = createStackNavigator({
       }, 
   }
 });
-const styles = StyleSheet.create({
-  arrowContainer:{
-      flex: 1, 
-      maxHeight: '27%', 
-      width: '100%', 
-      paddingBottom:"7%",
-      alignItems:'center', 
-      justifyContent: 'center',
-  },
- 
-})
 
-export default createAppContainer(navigator);
+const AppContainer = createAppContainer(navigator);
+
+export default AppContainer;
+const styles = StyleSheet.create({
+  rutas: {
+    paddingTop: '45%',
+    color: 'red'
+  },
+  imagen: {
+    marginTop: '30%'
+  },
+})
