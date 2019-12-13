@@ -1,25 +1,45 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 // import Carousel from 'react-native-anchor-carousel'
-import { StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity, ScrollView} from 'react-native'
 import Pic from '../Assets/city_img/amsterdam.jpg'
 import User from '../Assets/userb.png'
-// import Activity from './Activity'
+ import Activity from './Activity'
 import {useState} from 'react'
-import Activity from './Actitivy';
+import {getData} from '../../requests';
+import {serverurl} from '../../heroku'; 
+
 
 const Itinerary =()=>{
 
+    const[show,setShow]=useState();
+
+    useEffect(
+        ()=>{
+            getData(`${serverurl}api/itineraries`,null, (data)=>{console.log(data)});
+        }, []
+    ); 
+
+    const showHandler = ()=>{
+        setShow(!show);
+    }
+
     const [itineraries=[
-        {name:'chori FF', city:'Buenos Aires',user:'17deOctubre24x7',likes:'13',rank:'11',comment:'8'},
-        {name:'prender fuego', city:'Buenos Aires',user:'Juan',likes:'23',rank:'4',comment:'1'},
-        {name:'chapoteando las patas', city:'Lujan',user:'el Lije',likes:'65',rank:'23',comment:'9'}]]=useState();
+        {id:'0',name:'chori FF', city:'Buenos Aires',user:'17deOctubre24x7',likes:'13',rank:'11',comment:'8'},
+        {id:'1',name:'prender fuego', city:'Buenos Aires',user:'Juan',likes:'23',rank:'4',comment:'1'},
+        {id:'2',name:'chapoteando las patas', city:'Lujan',user:'el Lije',likes:'65',rank:'23',comment:'9'},
+        {id:'3',name:'chapoteando las patas', city:'Lujan',user:'el Lije',likes:'65',rank:'23',comment:'9'}],
+        
+    
+    ]=useState();
 
-    const[featuredCity=[{name:'CityName',cityArticle:'lorem ipsum la re puta madre etc etc la historia de la city'}]]=useState();   
-
+    const[featuredCity=
+        {name:'CityName',cityArticle:'lorem ipsum la re puta madre etc etc la historia de la city'}]=useState();   
 
     return(
-        <View>
+
+        <ScrollView>
+        <View key={itineraries.id}>
             <View style={styles.featCityContainer}>
              <Text style={styles.featCityTitle} >{featuredCity.name}</Text>
             <Image source={Pic} style={styles.featCityPic}/>
@@ -28,11 +48,9 @@ const Itinerary =()=>{
             </Text>
             </View>
         
-
-
-            {itineraries.map( it=><>
-            <View >
-                <TouchableOpacity>
+            {itineraries.map( it=>
+            <View>
+                 <TouchableOpacity style={{flex:1}} onPress={()=>{showHandler()}}>
                 <View style={styles.itContainer}>
         
                         <View style={styles.itDescript}>
@@ -46,32 +64,33 @@ const Itinerary =()=>{
                             <Text>Rank {it.rank}</Text>
                             <Text>Comments {it.comment}</Text>
                          </View>      
-                    </View>
-            </TouchableOpacity>
-        </View>
-               <Activity {...itineraries}/></>
- 
+                    </View> 
+                    </TouchableOpacity>   
+                 {   show==true ?  <Activity {...itineraries}/> :<>{/* <Text style={styles.act}>Activities</Text> */}</>}
+              
+                </View>     
         )}
         </View>
-
+   </ScrollView>
     )    
 };
 
 const styles = StyleSheet.create({ 
     
     featCityTitle:{
-    textAlign:'center',
+    textAlign:'center'
     },
     featCityContainer:{
-        flexDirection:'row',
+        flexDirection:'row'
     }
     ,
     featCityArticle:{
-        textAlign:'justify',
+        textAlign:'justify'
     },
     featCityPic:{
-        height:80,
-        width:80,
+        height:90,
+        width:90,
+        padding:4
     },
     itContainer:{
         backgroundColor:'red',
@@ -100,7 +119,10 @@ const styles = StyleSheet.create({
     },
     itUserPic:{
         height:40,
-        width:40,
+        width:40
+    },
+    act:{
+        backgroundColor:'orange'
     }
 })
 export default Itinerary;

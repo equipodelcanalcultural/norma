@@ -25,7 +25,6 @@ class ImageButton extends Component {
     /* const { accion } = this.props; */
     let altura = this.props.height
     let ancho = this.props.width
-    console.log(this.props.ciudad)
     /* ${myImages.cities[this.props.ciudad]} */
     return (
       <View>

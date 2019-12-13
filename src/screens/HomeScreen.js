@@ -17,7 +17,7 @@ const HomeScreen = (props) => {
                 <CitiesCarousel navigation={navigation} />
                 <Browser navigation={navigation} />
             </View>
-            </ImageBackground>
+        </ImageBackground>
     )
 };
 

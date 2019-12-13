@@ -3,11 +3,9 @@ import { useState } from "react";
 import { StyleSheet, Text, View, Button, ImageBackground, Image } from "react-native";
 import TextInput from "react-native-textinput-with-icons";
 import { getData } from "../../requests";
-
 export default function Login(props) {
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
-
   const handlePress = (user, pass) => {
     let bodyData = {
       username: user,
@@ -27,19 +25,16 @@ export default function Login(props) {
       data => console.log("SUCCESS", data)
     );
   };
-
   return (
     <ImageBackground
       source={require("../Assets/login.png")}
       style={styles.backgroundImage}>
-
       <View style={styles.imageContainer}>
         <Image
           style={styles.logoImage}
           source={require("../Assets/MYtinerarylogoSSJ3.png")}
         ></Image>
       </View>
-
       <View style={styles.logForm}>
         <TextInput
           style={styles.inputBox}
@@ -49,7 +44,6 @@ export default function Login(props) {
           value={user}
           label={"Username"}
         />
-
         <TextInput
           style={styles.inputBox}
           leftIcon="key"
@@ -66,7 +60,6 @@ export default function Login(props) {
     </ImageBackground>
   );
 }
-
 const styles = StyleSheet.create({
   logForm: {
     alignItems: "center",

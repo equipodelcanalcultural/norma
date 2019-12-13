@@ -13,7 +13,6 @@ class CitiesDisplay extends Component {
   render() {
     const data = this.props.data;
     let ciudades;
-    console.log(data);
     if (data != undefined) {
       ciudades = data;
       ciudades = ciudades.map(item => (
