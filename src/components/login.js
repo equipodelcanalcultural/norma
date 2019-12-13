@@ -32,7 +32,7 @@ function Login(props) {
           console.log("Success", jwtDecode(data.token))
           AsyncStorage.setItem("token", data.token)
           //dispatch(loginUser(data))
-          console.log(props)
+          props.userLoginFetch(bodyData);
        }else{
          localStorage.removeItem("token")
          console.log(data.msg);
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-  userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
+  userLoginFetch: userInfo => dispatch(loginUser(userInfo))
 })
 
 const mapStateToProps = state => {
