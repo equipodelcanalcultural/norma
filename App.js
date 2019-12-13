@@ -12,8 +12,8 @@ import {StyleSheet, SafeAreaView,ScrollView,View, Image, Text, ImageBackground} 
 import {createStackNavigator} from 'react-navigation-stack'
 import Icon from 'react-native-vector-icons/Octicons';
 
-openDrawer = () => {
-  this.props.navigation.dispatch(DrawerActions.openDrawer());
+_openDrawer = (props) => {
+  props.navigation.openDrawer();
 }
 const MyDrawerNavigator ={ 
   Home: HomeScreen, 
@@ -44,7 +44,7 @@ const navigator = createStackNavigator({
   initialRouteName: 'Drawer',
   
   defaultNavigationOptions: (props) => ({
-    headerLeft: <Icon name='three-bars' style={styles.hamburgerMenu} onPress={() => props.navigation.openDrawer()}/>,
+    headerLeft: <Icon name='three-bars' style={styles.hamburgerMenu} onPress={() => _openDrawer(props)}/>,
     headerStyle:{
       backgroundColor:'#D82F00'
       },
