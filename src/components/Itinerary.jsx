@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react'
+import React,{ useEffect } from 'react'
 // import Carousel from 'react-native-anchor-carousel'
 import { StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity, ScrollView} from 'react-native'
 import Pic from '../Assets/city_img/amsterdam.jpg'
@@ -12,34 +12,26 @@ import {serverurl} from '../../heroku';
 
 const Itinerary =()=>{
 
-    const[show,setShow]=useState();
-
     useEffect(
         ()=>{
             getData(`${serverurl}api/itineraries`,null, (data)=>{console.log(data)});
         }, []
     ); 
 
-    const showHandler = ()=>{
-        setShow(!show);
-    }
 
     const [itineraries=[
         {id:'0',name:'chori FF', city:'Buenos Aires',user:'17deOctubre24x7',likes:'13',rank:'11',comment:'8'},
         {id:'1',name:'prender fuego', city:'Buenos Aires',user:'Juan',likes:'23',rank:'4',comment:'1'},
         {id:'2',name:'chapoteando las patas', city:'Lujan',user:'el Lije',likes:'65',rank:'23',comment:'9'},
-        {id:'3',name:'chapoteando las patas', city:'Lujan',user:'el Lije',likes:'65',rank:'23',comment:'9'}],
-        
-    
-    ]=useState();
+        {id:'3',name:'chapoteando las patas', city:'Lujan',user:'el Lije',likes:'65',rank:'23',comment:'9'}],]=useState();
 
     const[featuredCity=
         {name:'CityName',cityArticle:'lorem ipsum la re puta madre etc etc la historia de la city'}]=useState();   
-
+console.log(itineraries)
     return(
 
         <ScrollView>
-        <View key={itineraries.id}>
+        <View >
             <View style={styles.featCityContainer}>
              <Text style={styles.featCityTitle} >{featuredCity.name}</Text>
             <Image source={Pic} style={styles.featCityPic}/>
@@ -48,12 +40,39 @@ const Itinerary =()=>{
             </Text>
             </View>
         
-            {itineraries.map( it=>
-            <View>
-                 <TouchableOpacity style={{flex:1}} onPress={()=>{showHandler()}}>
-                <View style={styles.itContainer}>
+            {itineraries.map(it=> <SelfItinerary  it={it} />)
+
+        }
+        </View>
+   </ScrollView>
+    )    
+};
+
+
+ class SelfItinerary extends React.Component {
+    
+    state={
+        show:false
+    }
+
+    showHandler = ()=>{
+        this.setState({show:!this.state.show})
+    }
+
+    render() {
+    
         
-                        <View style={styles.itDescript}>
+        let it=this.props.it
+        console.log(it);
+        return (
+       
+                <View>
+                 <TouchableOpacity style={{flex:1}} onPress={()=>{this.showHandler()}}>
+                <View style={styles.itContainer}>
+
+        
+
+                     <View style={styles.itDescript}>
                             <Image style={styles.itUserPic}source={User}/>
                             <Text style={styles.itUser}>{it.user}</Text>
                             <Text style={{}}>{it.name}</Text>
@@ -63,18 +82,18 @@ const Itinerary =()=>{
                             <Text>Likes {it.likes}</Text>
                             <Text>Rank {it.rank}</Text>
                             <Text>Comments {it.comment}</Text>
-                         </View>      
+                         </View>       
                     </View> 
                     </TouchableOpacity>   
-                 {   show==true ?  <Activity {...itineraries}/> :<>{/* <Text style={styles.act}>Activities</Text> */}</>}
+                 {   
+                 this.state.show==true 
+                 ?<Activity/> :<>{/* <Text style={styles.act}>Activities</Text> */}</>}
               
-                </View>     
-        )}
-        </View>
-   </ScrollView>
-    )    
-};
-
+                </View> 
+          
+        );
+    }
+}
 const styles = StyleSheet.create({ 
     
     featCityTitle:{
