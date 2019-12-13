@@ -4,8 +4,7 @@ import { View, Button, Text } from 'react-native';
 import CommentInput from './commentInput';
 
 
-const CommentItem = ({ key,
-  title,
+const CommentItem = ({ title,
   username,
   text,
   id,
@@ -61,7 +60,7 @@ const CommentItem = ({ key,
   const commentElement = (
     <View>
       <Text>{textoParaMostrar}</Text>
-      {editButton}
+      {/* {editButton} */}
       {deleteButton}
     </View>
   );
@@ -103,8 +102,6 @@ const CommentItem = ({ key,
   return (
     <Fragment>
       {algoParaMostrar}
-      <Button title="test" onPress={() => { setRepeat(!repeat) }}>cambiar texto</Button>
-  <Text>{repeat ? "hola" : "chau"}</Text>
     </Fragment>
   );
 };

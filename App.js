@@ -1,5 +1,5 @@
 import React from 'react'
-import {createDrawerNavigator} from 'react-navigation-drawer';
+import {createDrawerNavigator, DrawerActions} from 'react-navigation-drawer';
 import HomeScreen from './src/screens/HomeScreen'
 import Cities from './src/screens/Cities'
 import Login from './src/components/login'
@@ -7,10 +7,26 @@ import Register from './src/components/Register'
 import Itinerary from './src/components/Itinerary';
 import { createAppContainer } from 'react-navigation';
 //  import { DrawerItems } from 'react-navigation-drawer';
- import { DrawerNavigatorItems as DrawerItems } from 'react-navigation-drawer';
+import { DrawerNavigatorItems as DrawerItems } from 'react-navigation-drawer';
 import {StyleSheet, SafeAreaView,ScrollView,View, Image, Text, ImageBackground} from 'react-native';
-import {createStackNavigator} from 'react-navigation-stack'
+import {createStackNavigator} from 'react-navigation-stack';
+import Icon from 'react-native-vector-icons/Octicons';
+import {Provider} from 'react-redux';
+import store from "./src/store/store";
 
+export default class App extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    );
+  }
+}
+
+_openDrawer = (props) => {
+  props.navigation.toggleDrawer();
+}
 const MyDrawerNavigator ={ 
   Home: HomeScreen, 
   Cities: Cities,
@@ -30,7 +46,7 @@ const MainDrawer = createDrawerNavigator(MyDrawerNavigator, {
       </View>
     </ScrollView>
   ),
-  unmountInactiveRoutes: true
+  unmountInactiveRoutes: true,
 });
 
 const navigator = createStackNavigator({
@@ -39,7 +55,8 @@ const navigator = createStackNavigator({
 {
   initialRouteName: 'Drawer',
   
-  defaultNavigationOptions:{
+  defaultNavigationOptions: (props) => ({
+    headerLeft: <Icon name='three-bars' style={styles.hamburgerMenu} onPress={() => _openDrawer(props)}/>,
     headerStyle:{
       backgroundColor:'#D82F00'
       },
@@ -47,18 +64,21 @@ const navigator = createStackNavigator({
       headerTitleStyle:{
         fontWeight:'bold'
       }, 
-  }
+  })
 });
 
-const AppContainer = createAppContainer(navigator);
+AppContainer = createAppContainer(navigator);
 
-export default AppContainer;
 const styles = StyleSheet.create({
   rutas: {
-    paddingTop: '45%',
     color: 'red'
   },
   imagen: {
-    marginTop: '30%'
+    marginTop: '90%'
   },
+  hamburgerMenu:{
+    fontSize: 35,
+    paddingLeft: 15,
+    color: 'white',
+  }
 })
