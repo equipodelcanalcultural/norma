@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {Animated, Text, StyleSheet, TouchableOpacity, Image, Style, View, ScrollView} from 'react-native';
 
-
 const Activity = ()=>{
   
     const[

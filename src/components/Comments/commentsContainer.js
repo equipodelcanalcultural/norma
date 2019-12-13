@@ -1,18 +1,18 @@
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
-import { connect } from "react-redux";
+//import { connect } from "react-redux";
 import { getData } from "../../../requests";
 import CommentList  from "./commentList";
 import CommentInput from "./commentInput";
 import serverurl from "../../../heroku";
 
 
-const mapStateToProps = state => {
+/*const mapStateToProps = state => {
     return {
       logged: state.user.logged,
       user: state.user.currentUser.username
     };
-  };
+  };*/
 
 const CommentsContainer = props => {
   const [posts, setPosts] = useState(); /*State Hooks*/
@@ -122,5 +122,6 @@ const CommentsContainer = props => {
   );
 };
 
-export default connect(mapStateToProps)(CommentsContainer);
+//export default connect(mapStateToProps)(CommentsContainer);
+export default CommentsContainer;
 

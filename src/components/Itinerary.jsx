@@ -1,24 +1,21 @@
 
 import React,{ useEffect } from 'react'
-// import Carousel from 'react-native-anchor-carousel'
-import { StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity, ScrollView} from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity, ScrollView,Button} from 'react-native'
 import Pic from '../Assets/city_img/amsterdam.jpg'
 import User from '../Assets/userb.png'
- import Activity from './Activity'
+import Activity from './Activity'
 import {useState} from 'react'
 import {getData} from '../../requests';
+import CommentsContainer from './Comments/commentsContainer';
 import {serverurl} from '../../heroku'; 
 
-
-const Itinerary =()=>{
+const Itinerary =(props)=>{
 
     useEffect(
         ()=>{
-            getData(`${serverurl}api/itineraries`,null, (data)=>{console.log(data)});
+            getData(`https://mytinerary-marta-norma.herokuapp.com/api/itineraries/${props.navigation.state.params.cityName}`,null, (data)=>{console.log(data)});
         }, []
     ); 
-
-
     const [itineraries=[
         {id:'0',name:'chori FF', city:'Buenos Aires',user:'17deOctubre24x7',likes:'13',rank:'11',comment:'8'},
         {id:'1',name:'prender fuego', city:'Buenos Aires',user:'Juan',likes:'23',rank:'4',comment:'1'},
@@ -27,8 +24,10 @@ const Itinerary =()=>{
 
     const[featuredCity=
         {name:'CityName',cityArticle:'lorem ipsum la re puta madre etc etc la historia de la city'}]=useState();   
-console.log(itineraries)
+        console.log(itineraries)
     return(
+
+        /* //////////// IT = ITINERARIES///////////////////7 */
 
         <ScrollView>
         <View >
@@ -39,29 +38,28 @@ console.log(itineraries)
             {featuredCity.cityArticle}
             </Text>
             </View>
-        
-            {itineraries.map(it=> <SelfItinerary  it={it} />)
-
-        }
+            {itineraries.map(it=> <SelfItinerary  it={it} />)}
         </View>
+       
    </ScrollView>
     )    
 };
 
 
- class SelfItinerary extends React.Component {
-    
-    state={
-        show:false
-    }
+/*//////////////////////////////////////// HIJO/////////////////////////////////////////// */
 
+ class SelfItinerary extends React.Component {   
+    state={
+        show:false,
+        showComments:false
+    }
     showHandler = ()=>{
         this.setState({show:!this.state.show})
     }
-
-    render() {
-    
-        
+    showCommentsHandler = ()=>{
+        this.setState({showComments:!this.state.showComments})
+    }
+    render() {         
         let it=this.props.it
         console.log(it);
         return (
@@ -69,9 +67,6 @@ console.log(itineraries)
                 <View>
                  <TouchableOpacity style={{flex:1}} onPress={()=>{this.showHandler()}}>
                 <View style={styles.itContainer}>
-
-        
-
                      <View style={styles.itDescript}>
                             <Image style={styles.itUserPic}source={User}/>
                             <Text style={styles.itUser}>{it.user}</Text>
@@ -82,15 +77,22 @@ console.log(itineraries)
                             <Text>Likes {it.likes}</Text>
                             <Text>Rank {it.rank}</Text>
                             <Text>Comments {it.comment}</Text>
-                         </View>       
+                         </View>  
+                         <Button title="comments"></Button>     
                     </View> 
+                   
                     </TouchableOpacity>   
-                 {   
-                 this.state.show==true 
-                 ?<Activity/> :<>{/* <Text style={styles.act}>Activities</Text> */}</>}
-              
-                </View> 
-          
+
+                    {/* CONDITIONED RENDERING OF ACTIVITIES AFTER TOUCHING ITINERARY */}
+                    {   
+                    this.state.show==true 
+                    ?<>
+                        <Activity/>
+                        <Button onPress={()=>this.showCommentsHandler()}title="COMMENTS"/>
+                         {this.state.showComments==true ? <CommentsContainer logged={true} user={'rodrigo'} title={'Barcelonata'} /> : <></>}
+                    </>:
+                    <></>}             
+                </View>          
         );
     }
 }
