@@ -3,9 +3,15 @@ import { useState } from "react";
 import { StyleSheet, Text, View, Button, ImageBackground, Image } from "react-native";
 import TextInput from "react-native-textinput-with-icons";
 import { getData } from "../../requests";
-export default function Login(props) {
+import {connect} from 'react-redux';
+import {userLoginFetch} from '../store/actions/userActions';
+import {AsyncStorage} from 'react-native';
+const jwtDecode = require('jwt-decode');
+
+function Login(props) {
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
+  
   const handlePress = (user, pass) => {
     let bodyData = {
       username: user,
@@ -21,8 +27,18 @@ export default function Login(props) {
         headers: {
           "Content-Type": "application/json"
         }
-      },
-      data => console.log("SUCCESS", data)
+      },(data) => { 
+        if(data.success===true) {
+          console.log("Success", jwtDecode(data.token))
+          AsyncStorage.setItem("token", data.token)
+          //dispatch(loginUser(data))
+          console.log(props)
+       }else{
+         localStorage.removeItem("token")
+         console.log(data.msg);
+       }  
+      }
+      // data => console.log("SUCCESS", data)
     );
   };
   return (
@@ -105,3 +121,23 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
 },
 });
+
+const mapDispatchToProps = dispatch => ({
+  userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
+})
+
+const mapStateToProps = state => {
+  return {
+    logged: state.user.logged
+  };
+};
+
+const loginUser = data => ({
+  type: 'LOGIN_USER',
+  payload: jwtDecode(data.token),
+  logged: data.logged,
+  created: data.created,
+})
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
