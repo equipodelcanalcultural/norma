@@ -35,9 +35,6 @@ const MainDrawer = createDrawerNavigator(MyDrawerNavigator, {
     </ScrollView>
   ),
   unmountInactiveRoutes: true,
-  navigationOptions:{
-    title: "Home"
-  }
 });
 
 const navigator = createStackNavigator({
@@ -66,11 +63,11 @@ const styles = StyleSheet.create({
     color: 'red'
   },
   imagen: {
-    marginTop: 'auto'
+    marginTop: '90%'
   },
   hamburgerMenu:{
-    fontSize: 30,
-    paddingLeft: 8,
+    fontSize: 35,
+    paddingLeft: 15,
     color: 'white',
   }
 })
