@@ -1,46 +1,44 @@
-import React from "react";
-import { useState } from "react";
+import React, { Fragment } from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button, ImageBackground, Image } from "react-native";
 import TextInput from "react-native-textinput-with-icons";
 import { getData } from "../../requests";
 import {connect} from 'react-redux';
 import {userLoginFetch} from '../store/actions/userActions';
-import {AsyncStorage} from 'react-native';
-const jwtDecode = require('jwt-decode');
+
+const mapDispatchToProps = dispatch => ({
+  userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
+})
+
+const mapStateToProps = state => {
+  return {
+    logged: state.user.logged,
+  };
+};
 
 function Login(props) {
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
+  const [isLogged, setLogged] = useState();
+  const [repeat, setRepeat] = useState(false);
   
-  const handlePress = (user, pass) => {
+  useEffect(() => {
     let bodyData = {
       username: user,
-      password: pass,
-      email: user
-    };
-    console.log("request login");
-    getData(
-      "https://mytinerary-marta-norma.herokuapp.com/api/users/login",
-      {
-        method: "POST",
-        body: JSON.stringify(bodyData),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      },(data) => { 
-        if(data.success===true) {
-          console.log("Success", jwtDecode(data.token))
-          AsyncStorage.setItem("token", data.token)
-          //dispatch(loginUser(data))
-          props.userLoginFetch(bodyData);
-       }else{
-         localStorage.removeItem("token")
-         console.log(data.msg);
-       }  
-      }
-      // data => console.log("SUCCESS", data)
-    );
-  };
+      password: password
+    }
+    
+    props.userLoginFetch(bodyData);
+    const {logged} = props;
+    setLogged(logged);
+
+  },
+  
+  [repeat == false]
+  )
+
+  console.log("prop", isLogged);
+
   return (
     <ImageBackground
       source={require("../Assets/login.png")}
@@ -70,8 +68,9 @@ function Login(props) {
           label={"Password"}
         />
         <View style={styles.button}>
-          <Button title="Login" onPress={() => handlePress(user, password)} />
+          <Button title="Login" onPress={() => setRepeat(!repeat)} />
         </View>
+        <Logged logged={props.logged}></Logged>
       </View>
     </ImageBackground>
   );
@@ -122,22 +121,14 @@ const styles = StyleSheet.create({
 },
 });
 
-const mapDispatchToProps = dispatch => ({
-  userLoginFetch: userInfo => dispatch(loginUser(userInfo))
-})
 
-const mapStateToProps = state => {
-  return {
-    logged: state.user.logged
-  };
-};
-
-const loginUser = data => ({
-  type: 'LOGIN_USER',
-  payload: jwtDecode(data.token),
-  logged: data.logged,
-  created: data.created,
-})
-
+function Logged (props) {
+  console.log("text logged", props.logged)
+  return (
+    <View>
+      {props.logged ? <LoginSuccess {...props}/> : <LoginError cleanForm={this.cleanForm }{...this.props}/>}
+    </View>
+  )
+}
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login);

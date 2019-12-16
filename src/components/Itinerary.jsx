@@ -9,10 +9,10 @@ import { getData } from '../../requests';
 import { serverurl } from '../../heroku';
 import { FontAwesome, Feather } from '@expo/vector-icons';
 
-const Itinerary = () => {
+const Itinerary = (props) => {
     useEffect(
         () => {
-            getData(`${serverurl}api/itineraries`, null, (data) => { console.log(data) });
+            getData(`https://mytinerary-marta-norma.herokuapp.com/api/itineraries/${props.navigation.getParam('cityName','default')}`,null, (data)=>{console.log("data", data)});
         }, []
     );
     const [itineraries = [
@@ -22,7 +22,6 @@ const Itinerary = () => {
         { id: '3', name: 'chori FF', city: 'Buenos Aires', user: '17deOctubre24x7', likes: '13', rank: '11', comment: '8' },],] = useState();
     const [featuredCity =
         { name: 'CityName', cityArticle: 'lorem ipsum la re puta madre etc etc la historia de la city' }] = useState();
-    console.log(itineraries)
     return (
         <ScrollView>
             <View >
@@ -44,7 +43,6 @@ class SelfItinerary extends React.Component {
     }
     render() {
         let it = this.props.it
-        console.log(it);
         return (
             <View style={styles.container}>
                 <TouchableOpacity style={{ flex: 1 }} onPress={() => { this.showHandler() }}>
