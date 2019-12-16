@@ -10,6 +10,7 @@ import { serverurl } from '../../heroku';
 import { FontAwesome, Feather } from '@expo/vector-icons';
 import CommentsContainer from './Comments/commentsContainer';
 import {connect} from 'react-redux';
+import myTexts from '../Assets/Resources/myTexts';
 
 const mapStateToProps = state => {
     return {
@@ -24,7 +25,7 @@ const Itinerary = (props) => {
     useEffect(
         () => {
             getData(`https://mytinerary-marta-norma.herokuapp.com/api/itineraries/${props.navigation.getParam('cityName','default')}`,null, 
-            (data)=>{setItinerary( data.map(it => <SelfItinerary it={it} logged={props.logged} user={props.user} />))});
+            (data)=>{setItinerary( data.map(it => <SelfItinerary it={it} logged={props.logged} navigation={props.navigation} user={props.user} />))});
         }, []
     );
 
@@ -33,13 +34,15 @@ const Itinerary = (props) => {
 
 
     return (
-        <ScrollView >
-   
+        <ScrollView>
+            <Text h1>{props.navigation.getParam('cityName','default')}
+            </Text>
             <View >
                 <View style={styles.featCityContainer}>
-
                     <Image source={Pic} style={styles.featCityPic} />
+                   
                 </View>
+                <Text >{myTexts.cities[props.navigation.getParam('cityName','default')]}</Text>
              { itineraries} 
             </View>
         </ScrollView>
@@ -47,10 +50,15 @@ const Itinerary = (props) => {
 };
 class SelfItinerary extends React.Component {
 
-    state = {
+    constructor(props){
+        super(props);
+        
+       this.state = {
         show: false,
         showComments:false
-    }
+    }   
+ }
+  
 
     showHandler = () => {
         this.setState({ show: !this.state.show })
@@ -63,6 +71,7 @@ class SelfItinerary extends React.Component {
 
         let it = this.props.it
         console.log(it,"adentro de selfitinerary");
+        console.log(this.props, 'estas son las props')
         return (
             <View style={styles.container}>
                 <TouchableOpacity style={{ flex: 1 }} onPress={() => { this.showHandler() }}>
@@ -100,7 +109,7 @@ class SelfItinerary extends React.Component {
                         <Activity  title={it.title} />
                         
                         <Button style={styles.commentBut} onPress={()=>this.showCommentsHandler()}title="COMMENTS"/>
-                         {this.state.showComments==true ? <CommentsContainer logged={this.props.logged} user={this.props.user} title={it.title} /> : <></>}
+                         {this.state.showComments==true ? <CommentsContainer navigation={this.props.navigation}  logged={this.props.logged} user={this.props.user} title={it.title} /> : <></>}
                     </>:
                     <></>}      
                     </View>
