@@ -1,149 +1,188 @@
-
-import React,{ useEffect } from 'react'
-import { StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity, ScrollView,Button} from 'react-native'
+import React, { useEffect } from 'react'
+// import Carousel from 'react-native-anchor-carousel'
+import { StyleSheet, Text, View, Button, ImageBackground, Image, TouchableOpacity, ScrollView } from 'react-native'
 import Pic from '../Assets/city_img/amsterdam.jpg'
-import User from '../Assets/userb.png'
+import User from '../Assets/Resources/MYtinUser10.png'
 import Activity from './Activity'
-import {useState} from 'react'
-import {getData} from '../../requests';
+import { useState } from 'react'
+import { getData } from '../../requests';
+import { serverurl } from '../../heroku';
+import { FontAwesome, Feather } from '@expo/vector-icons';
 import CommentsContainer from './Comments/commentsContainer';
-import {serverurl} from '../../heroku'; 
+import {connect} from 'react-redux';
 
-const Itinerary =(props)=>{
+const mapStateToProps = state => {
+    return {
+      logged: state.user.logged,
+      user: state.user.currentUser
+    };
+  };
 
+const Itinerary = (props) => {
+    
+    const [itineraries, setItinerary ] = useState();
     useEffect(
-        ()=>{
-            getData(`https://mytinerary-marta-norma.herokuapp.com/api/itineraries/${props.navigation.state.params.cityName}`,null, (data)=>{console.log(data)});
+        () => {
+            getData(`https://mytinerary-marta-norma.herokuapp.com/api/itineraries/${props.navigation.getParam('cityName','default')}`,null, 
+            (data)=>{setItinerary( data.map(it => <SelfItinerary it={it} logged={props.logged} user={props.user} />))});
         }, []
-    ); 
-    const [itineraries=[
-        {id:'0',name:'chori FF', city:'Buenos Aires',user:'17deOctubre24x7',likes:'13',rank:'11',comment:'8'},
-        {id:'1',name:'prender fuego', city:'Buenos Aires',user:'Juan',likes:'23',rank:'4',comment:'1'},
-        {id:'2',name:'chapoteando las patas', city:'Lujan',user:'el Lije',likes:'65',rank:'23',comment:'9'},
-        {id:'3',name:'chapoteando las patas', city:'Lujan',user:'el Lije',likes:'65',rank:'23',comment:'9'}],]=useState();
+    );
 
-    const[featuredCity=
-        {name:'CityName',cityArticle:'lorem ipsum la re puta madre etc etc la historia de la city'}]=useState();   
-        console.log(itineraries)
-    return(
+    const [featuredCity =
+        {name: 'cityName', cityArticle: 'lorem ipsum la re puta madre etc etc la historia de la city' }] = useState();
 
-        /* //////////// IT = ITINERARIES///////////////////7 */
 
-        <ScrollView>
-        <View >
-            <View style={styles.featCityContainer}>
-             <Text style={styles.featCityTitle} >{featuredCity.name}</Text>
-            <Image source={Pic} style={styles.featCityPic}/>
-            <Text style={styles.featCityArticle}>
-            {featuredCity.cityArticle}
-            </Text>
+    return (
+        <ScrollView >
+   
+            <View >
+                <View style={styles.featCityContainer}>
+
+                    <Image source={Pic} style={styles.featCityPic} />
+                </View>
+             { itineraries} 
             </View>
-            {itineraries.map(it=> <SelfItinerary  it={it} />)}
-        </View>
-       
-   </ScrollView>
-    )    
+        </ScrollView>
+    )
 };
+class SelfItinerary extends React.Component {
 
-
-/*//////////////////////////////////////// HIJO/////////////////////////////////////////// */
-
- class SelfItinerary extends React.Component {   
-    state={
-        show:false,
+    state = {
+        show: false,
         showComments:false
     }
-    showHandler = ()=>{
-        this.setState({show:!this.state.show})
+
+    showHandler = () => {
+        this.setState({ show: !this.state.show })
     }
+
     showCommentsHandler = ()=>{
         this.setState({showComments:!this.state.showComments})
     }
-    render() {         
-        let it=this.props.it
-        console.log(it);
-        return (
-       
-                <View>
-                 <TouchableOpacity style={{flex:1}} onPress={()=>{this.showHandler()}}>
-                <View style={styles.itContainer}>
-                     <View style={styles.itDescript}>
-                            <Image style={styles.itUserPic}source={User}/>
-                            <Text style={styles.itUser}>{it.user}</Text>
-                            <Text style={{}}>{it.name}</Text>
-                        </View>
-                              <Image source={Pic} style={styles.itPic}/>    
-                        <View style={styles.itAnalytics}>
-                            <Text>Likes {it.likes}</Text>
-                            <Text>Rank {it.rank}</Text>
-                            <Text>Comments {it.comment}</Text>
-                         </View>  
-                         <Button title="comments"></Button>     
-                    </View> 
-                   
-                    </TouchableOpacity>   
 
-                    {/* CONDITIONED RENDERING OF ACTIVITIES AFTER TOUCHING ITINERARY */}
-                    {   
+    render() {
+
+        let it = this.props.it
+        console.log(it,"adentro de selfitinerary");
+        return (
+            <View style={styles.container}>
+                <TouchableOpacity style={{ flex: 1 }} onPress={() => { this.showHandler() }}>
+                    <View style={styles.itContainer}>
+                        <View style={styles.itDescript}>
+                            <View style={styles.userImgContainer}>  
+                            <Text style={{}}> {it.title} </Text>
+                                {/* imagen del usuario */}
+                                <Image style={styles.itUserPic} source={User} />
+                            </View>
+                            {/* nombre del usuario */}
+                            <Text style={styles.itUser}>{it.user}</Text>
+                            {/* titulo del itinerario */}
+                          
+                        </View>
+                        {/* <Image source={Pic} style={styles.itPic}/>     */}
+                        <View style={styles.itAnalytics}>
+                            <Text style={styles.textAn}><Feather name='heart' style={styles.textAn} /> {it.rating}</Text>
+                            <Text style={styles.textAn}><FontAwesome style={styles.textAn} name='star-o' /> {it.price}</Text>
+                            <Text style={styles.textAn}><FontAwesome style={styles.textAn} name='comment-o' /> {it.comments}</Text>
+                        </View>
+                    </View>
+                    <View
+                        style={{
+                            borderBottomColor: 'black',
+                            borderBottomWidth: 1,
+                        }}
+                    />
+                </TouchableOpacity>
+              {/* CONDITIONED RENDERING OF ACTIVITIES AFTER TOUCHING ITINERARY */}
+              {   
                     this.state.show==true 
                     ?<>
-                        <Activity/>
-                        <Button onPress={()=>this.showCommentsHandler()}title="COMMENTS"/>
-                         {this.state.showComments==true ? <CommentsContainer logged={true} user={'rodrigo'} title={'Barcelonata'} /> : <></>}
+                    {/* llamado a Activity */}
+                        <Activity  title={it.title} />
+                        
+                        <Button style={styles.commentBut} onPress={()=>this.showCommentsHandler()}title="COMMENTS"/>
+                         {this.state.showComments==true ? <CommentsContainer logged={true} user={'JoJo'} title={it.title} /> : <></>}
                     </>:
-                    <></>}             
-                </View>          
+                    <></>}      
+                    </View>
         );
     }
 }
-const styles = StyleSheet.create({ 
-    
-    featCityTitle:{
-    textAlign:'center'
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center'
     },
-    featCityContainer:{
-        flexDirection:'row'
+    customStylesHere: {
+        fontWeight: "bold",
+        color: "orange"
+    },
+    textAn: {
+        fontSize: 17,
+        paddingRight: 4
+    },
+    featCityTitle: {
+        textAlign: 'center'
+    },
+    featCityContainer: {
+        alignItems: 'center',
+        height: 160,
+        flex: 1
     }
     ,
-    featCityArticle:{
-        textAlign:'justify'
+    featCityArticle: {
+        textAlign: 'justify'
     },
-    featCityPic:{
-        height:90,
-        width:90,
-        padding:4
+    userImgContainer: {
+        width: '100%',
+        height: '100%'
     },
-    itContainer:{
-        backgroundColor:'red',
-        margin:1,
-        paddingTop:1,
-        borderRadius: 10,
-        flexDirection:'row',
-        paddingLeft:4
+    featCityPic: {
+        height: '90%',
+        width: '90%',
+        marginBottom: 20,
+        marginTop: 10,
+        borderRadius: 8,
     },
-    itUser:{
-        color:'#fff',
-        margin:1,
-        paddingLeft:3
+    itContainer: {
+        backgroundColor: 'white',
+        margin: 1,
+        paddingTop: 1,
+        flexDirection: 'row',
+        paddingLeft: 4,
+        height: 110,
+        flex: 1
     },
-    itPic:{
-      height:80,
-      width:80,
-      borderRadius: 10,     
-      marginLeft:5
+    itUser: {
+        color: '#fff',
+        margin: 1,
+        paddingLeft: 3
     },
-    itAnalytics:{
-        paddingLeft:3
+    itPic: {
+        height: 80,
+        width: 80,
+        marginLeft: 5
     },
-    itDescript:{
-        flexDirection:'column'
+    itAnalytics: {
+        padding: 3,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingRight: 5
     },
-    itUserPic:{
-        height:40,
-        width:40
+    itDescript: {
+        flexDirection: 'column'
     },
-    act:{
-        backgroundColor:'orange'
+    itUserPic: {
+        height: 100,
+        width: 100,
+        borderRadius: 50
+    },
+    act: {
+        backgroundColor: 'orange'
+    },
+    commentBut:{
+        flex:1
     }
+
 })
-export default Itinerary;
+export default connect(mapStateToProps)(Itinerary);
+
