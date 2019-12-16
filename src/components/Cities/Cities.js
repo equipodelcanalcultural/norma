@@ -2,7 +2,7 @@ import React from "react";
 import { Component } from "react";
 import CitiesDisplay from "./CitiesDisplay.js";
 import CityInput from "./CityInput";
-import { View, Text } from 'react-native';
+import { View, Text } from "react-native";
 import myImages from "../../Assets/Resources/myImages";
 
 const filterCitiesByFirstLetter = (items, letter) => {
@@ -19,8 +19,8 @@ class Cities extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: '',
-      dataSource: ''
+      input: "",
+      dataSource: ""
     };
     this.callBack = this.callBack.bind(this);
   }
@@ -32,7 +32,7 @@ class Cities extends Component {
   render() {
     var listaDeCiudades = Object.keys(myImages.cities);
     var letra = this.state.input;
-    var ciudades = '';
+    var ciudades = "";
 
     if (listaDeCiudades != undefined) {
       ciudades = listaDeCiudades;
@@ -41,12 +41,28 @@ class Cities extends Component {
       }
     }
 
-    return <View style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: 30 }}>
-      <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-        <CityInput callbackFromParent={this.callBack} />
+    return (
+      <View
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: 30
+        }}
+      >
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <CityInput callbackFromParent={this.callBack} />
+        </View>
+        <CitiesDisplay data={ciudades} navigation={this.props.navigation} />
       </View>
-      <CitiesDisplay data={ciudades} />
-    </View>
+    );
   }
 }
 
