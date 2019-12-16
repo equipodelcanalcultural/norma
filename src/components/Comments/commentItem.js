@@ -23,9 +23,9 @@ const CommentItem = ({ title,
    // updateComment(input, targetId);
   }
 
-  const deleteThisComment = () => {
+  const deleteThisComment = (targetId) => {
     setShowSomething(false);
-    deleteComment(id);
+    deleteComment(targetId);
   }
 
   /*Variables para render condicional de botones Edit y Delete.
@@ -47,7 +47,7 @@ const CommentItem = ({ title,
       </Button>
     );
     deleteButton = (
-      <Button title={'Delete'} onPress={() => deleteThisComment()}> Delete </Button>
+      <Button title={'Delete'} onPress={() => deleteThisComment(id)}> Delete </Button>
     );
   }
 

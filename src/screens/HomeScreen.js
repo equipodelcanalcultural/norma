@@ -1,9 +1,12 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image, ImageBackground } from 'react-native'
+import React, { Component, useEffect, useState } from 'react'
+import { Text, StyleSheet, View, Image, Button, ImageBackground } from 'react-native'
 import CitiesCarousel from '../components/CitiesCarousel'
 import Browser from '../components/Browser'
 
 const HomeScreen = (props) => {
+
+   
+
     const { navigation } = props
     return (
         <ImageBackground source={require('../Assets/navidadhome.png')} style={styles.backgroundImage}>

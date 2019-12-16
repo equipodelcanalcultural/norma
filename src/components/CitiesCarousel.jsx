@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import {Text, StyleSheet, View, Image, Dimensions, Platform, TouchableOpacity, ImageBackground} from 'react-native'
+import {Text, StyleSheet, View, Image, Button, Dimensions, Platform, TouchableOpacity, ImageBackground} from 'react-native'
 import Carousel,  { ParallaxImage }  from 'react-native-snap-carousel';
 import myImages from '../Assets/Resources/myImages'
 
