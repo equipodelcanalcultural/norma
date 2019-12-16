@@ -13,18 +13,31 @@ class CitiesDisplay extends Component {
   render() {
     const data = this.props.data;
     let ciudades;
+
     if (data != undefined) {
       ciudades = data;
       ciudades = ciudades.map(item => (
-        <ImageButton style={{ width: '90%', margin: 10, padding: 10 }} key={item} width={200} height={200} ciudad={item} />
+        <ImageButton key={item} width={200} height={200} ciudad={item} navigation={this.props.navigation} />
       ));
     } else {
       ciudades = "Loading...";
     }
-    return <View>
-        <ScrollView style={{ display: 'flex', width: 300,/*  backgroundColor: '#719BAC', */ borderRadius: 5, overflow: 'hidden', padding: 15, margin: 10 }}>{ciudades}</ScrollView>
-      </View>;
+    return (
+      <View>
+        <ScrollView
+          style={{
+            display: "flex",
+            width: "100%",
+            borderRadius: 5,
+            overflow: "hidden",
+            padding: 15,
+            margin: 10
+          }}
+        >
+          {ciudades}
+        </ScrollView>
+      </View>
+    );
   }
 }
 export default CitiesDisplay;
-

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 // import Carousel from 'react-native-anchor-carousel'
 import { StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity, ScrollView } from 'react-native'
-import Pic from '../Assets/city_img/amsterdam.jpg'
+import Pic from '../Assets/city_img/amsterdam.jpg';
+import myImages from "../Assets/Resources/myImages";
 import User from '../Assets/Resources/MYtinUser10.png'
 import Activity from './Activity'
 import { useState } from 'react'
@@ -26,7 +27,7 @@ const Itinerary = (props) => {
         <ScrollView>
             <View >
                 <View style={styles.featCityContainer}>
-                    <Image source={Pic} style={styles.featCityPic} />
+                    <Image source={myImages.cities[props.navigation.getParam('cityName','default')]} style={styles.featCityPic} />
                 </View>
                 {itineraries.map(it => <SelfItinerary it={it} />)
                 }

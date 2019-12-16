@@ -52,9 +52,10 @@ const MainDrawer = createDrawerNavigator(MyDrawerNavigator, {
 
 const navigator = createStackNavigator({
   Drawer: MainDrawer,
+  Cities: Cities,
 },
 {
-  initialRouteName: 'Drawer',
+  initialRouteName: 'Cities',
   
   defaultNavigationOptions: (props) => ({
     headerLeft: <Icon name='three-bars' style={styles.hamburgerMenu} onPress={() => _openDrawer(props)}/>,
