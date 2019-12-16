@@ -1,65 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getData } from '../../requests';
 import {Animated, Text, StyleSheet, TouchableOpacity, Image, Style, View, ScrollView} from 'react-native';
 
 
-const Activity = ()=>{
+const Activity = (props)=>{
   
-    const[
-        activities=[
-            {   
-            id:'0',
-            name:'Fernet on the rocks',
-            city:'Cordoba DC',
-            likes:'1000',
-            rank:'10',
-            pic:'foto'
-            },
-            {   
-            id:'0',
-            name:'Diving with sharks',
-            city:'Java City',
-            likes:'50',
-            rank:'8',
-            pic:'foto'
-            },
-            {   
-            id:'0',
-            name:'Diving with sharks',
-            city:'Java City',
-            likes:'50',
-            rank:'8',
-            pic:'foto'
-            },
-            {   
-                id:'0',
-                name:'La cuarta activity',
-                city:'Java City',
-                likes:'50',
-                rank:'8',
-                pic:'foto'
-                }  
-        ]
+    const[activity, setActivity]=useState();
 
-    ]=useState();
+    useEffect(
+        () => {
+            getData(`https://mytinerary-marta-norma.herokuapp.com/api/itineraries/byTitle/${props.title}/activities`,null, 
+            (data)=>{setActivity(
+                <ScrollView  horizontal={true} pagingEnabled scrollEventThrottle={16}>
+                {data[0].activities.map((item, key)=> <View key={key} style={styles.actContainer}><Text>{item}</Text></View>)}
+                </ScrollView>
+                
+                )}
+                
+                /* setItinerary( data.map(it => <SelfItinerary it={it}/>)) */);
+        }, []
+    );
 
-   /*  _scrollX = new Animated.Value(0); */
     
     return( 
         <View style={{flex:1}}>
-        <ScrollView style={{width:'100%'}} horizontal={true}>
-            {activities.map(act=>
- 
-                <View key={activities.id} style={styles.actContainer}> 
-                                  
-                    <Text style={styles.actTitle}>{act.name}</Text>
-                    <Text>{act.city}</Text>
-                    <Text>{act.likes}</Text>
-                    <Text>{act.rank}</Text>
-                    <Text>{act.pic}</Text>
-                </View>
-
-                    )}
-            </ScrollView>
+        
+       {activity}
+            
         </View>
     )
 }

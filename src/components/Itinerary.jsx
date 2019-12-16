@@ -1,65 +1,88 @@
 import React, { useEffect } from 'react'
 // import Carousel from 'react-native-anchor-carousel'
-import { StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity, ScrollView } from 'react-native'
-import Pic from '../Assets/city_img/amsterdam.jpg';
-import myImages from "../Assets/Resources/myImages";
+import { StyleSheet, Text, View, Button, ImageBackground, Image, TouchableOpacity, ScrollView } from 'react-native'
+import Pic from '../Assets/city_img/amsterdam.jpg'
 import User from '../Assets/Resources/MYtinUser10.png'
 import Activity from './Activity'
 import { useState } from 'react'
 import { getData } from '../../requests';
 import { serverurl } from '../../heroku';
 import { FontAwesome, Feather } from '@expo/vector-icons';
+import CommentsContainer from './Comments/commentsContainer';
+import {connect} from 'react-redux';
+
+const mapStateToProps = state => {
+    return {
+      logged: state.user.logged,
+      user: state.user.currentUser
+    };
+  };
 
 const Itinerary = (props) => {
+    
+    const [itineraries, setItinerary ] = useState();
     useEffect(
         () => {
-            getData(`https://mytinerary-marta-norma.herokuapp.com/api/itineraries/${props.navigation.getParam('cityName','default')}`,null, (data)=>{console.log("data", data)});
+            getData(`https://mytinerary-marta-norma.herokuapp.com/api/itineraries/${props.navigation.getParam('cityName','default')}`,null, 
+            (data)=>{setItinerary( data.map(it => <SelfItinerary it={it} logged={props.logged} user={props.user} />))});
         }, []
     );
-    const [itineraries = [
-        { id: '0', name: 'chori FF', city: 'Buenos Aires', user: '17deOctubre24x7', likes: '13', rank: '11', comment: '8' },
-        { id: '1', name: 'chori FF', city: 'Buenos Aires', user: '17deOctubre24x7', likes: '13', rank: '11', comment: '8' },
-        { id: '2', name: 'chori FF', city: 'Buenos Aires', user: '17deOctubre24x7', likes: '13', rank: '11', comment: '8' },
-        { id: '3', name: 'chori FF', city: 'Buenos Aires', user: '17deOctubre24x7', likes: '13', rank: '11', comment: '8' },],] = useState();
+
     const [featuredCity =
-        { name: 'CityName', cityArticle: 'lorem ipsum la re puta madre etc etc la historia de la city' }] = useState();
+        {name: 'cityName', cityArticle: 'lorem ipsum la re puta madre etc etc la historia de la city' }] = useState();
+
+
     return (
-        <ScrollView>
+        <ScrollView >
+   
             <View >
                 <View style={styles.featCityContainer}>
-                    <Image source={myImages.cities[props.navigation.getParam('cityName','default')]} style={styles.featCityPic} />
+
+                    <Image source={Pic} style={styles.featCityPic} />
                 </View>
-                {itineraries.map(it => <SelfItinerary it={it} />)
-                }
+             { itineraries} 
             </View>
         </ScrollView>
     )
 };
 class SelfItinerary extends React.Component {
+
     state = {
-        show: false
+        show: false,
+        showComments:false
     }
+
     showHandler = () => {
         this.setState({ show: !this.state.show })
     }
+
+    showCommentsHandler = ()=>{
+        this.setState({showComments:!this.state.showComments})
+    }
     render() {
+
         let it = this.props.it
+        console.log(it,"adentro de selfitinerary");
         return (
             <View style={styles.container}>
                 <TouchableOpacity style={{ flex: 1 }} onPress={() => { this.showHandler() }}>
                     <View style={styles.itContainer}>
                         <View style={styles.itDescript}>
-                            <View style={styles.userImgContainer}>
+                            <View style={styles.userImgContainer}>  
+                            <Text style={{}}> {it.title} </Text>
+                                {/* imagen del usuario */}
                                 <Image style={styles.itUserPic} source={User} />
                             </View>
+                            {/* nombre del usuario */}
                             <Text style={styles.itUser}>{it.user}</Text>
-                            <Text style={{}}>{it.name}</Text>
+                            {/* titulo del itinerario */}
+                          
                         </View>
                         {/* <Image source={Pic} style={styles.itPic}/>     */}
                         <View style={styles.itAnalytics}>
-                            <Text style={styles.textAn}><Feather name='heart' style={styles.textAn} /> {it.likes}</Text>
-                            <Text style={styles.textAn}><FontAwesome style={styles.textAn} name='star-o' /> {it.rank}</Text>
-                            <Text style={styles.textAn}><FontAwesome style={styles.textAn} name='comment-o' /> {it.comment}</Text>
+                            <Text style={styles.textAn}><Feather name='heart' style={styles.textAn} /> {it.rating}</Text>
+                            <Text style={styles.textAn}><FontAwesome style={styles.textAn} name='star-o' /> {it.price}</Text>
+                            <Text style={styles.textAn}><FontAwesome style={styles.textAn} name='comment-o' /> {it.comments}</Text>
                         </View>
                     </View>
                     <View
@@ -69,10 +92,18 @@ class SelfItinerary extends React.Component {
                         }}
                     />
                 </TouchableOpacity>
-                {
-                    this.state.show == true
-                        ? <Activity /> : <>{/* <Text style={styles.act}>Activities</Text> */}</>}
-            </View>
+              {/* CONDITIONED RENDERING OF ACTIVITIES AFTER TOUCHING ITINERARY */}
+              {   
+                    this.state.show==true 
+                    ?<>
+                    {/* llamado a Activity */}
+                        <Activity  title={it.title} />
+                        
+                        <Button style={styles.commentBut} onPress={()=>this.showCommentsHandler()}title="COMMENTS"/>
+                         {this.state.showComments==true ? <CommentsContainer logged={this.props.logged} user={this.props.user} title={it.title} /> : <></>}
+                    </>:
+                    <></>}      
+                    </View>
         );
     }
 }
@@ -147,6 +178,10 @@ const styles = StyleSheet.create({
     act: {
         backgroundColor: 'orange'
     },
+    commentBut:{
+        flex:1
+    }
+
 })
-export default Itinerary;
+export default connect(mapStateToProps)(Itinerary);
 

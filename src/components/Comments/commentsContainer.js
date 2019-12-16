@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
 //import { connect } from "react-redux";
+import {View, Text} from 'react-native';
 import { getData } from "../../../requests";
 import CommentList  from "./commentList";
 import CommentInput from "./commentInput";
@@ -71,7 +72,7 @@ const CommentsContainer = ({ /*Props: título del itinerario, datos de usuario, 
   };
   const deleteComment = id => {
     getData(
-      `/api/itineraries/byTitle/${title}/comments/delete/${id}`,
+      `${serverurl}/api/itineraries/byTitle/${title}/comments/delete/${id}`,
       {
         method: "DELETE",
         body: JSON.stringify({}),
@@ -112,9 +113,9 @@ const CommentsContainer = ({ /*Props: título del itinerario, datos de usuario, 
     );
   } else {
     commentTextBox = (
-      <div>
-        <span>Log in to comment</span>
-      </div>
+      <View>
+        <Text>Log in to comment</Text>
+      </View>
     );
   }
 

@@ -37,8 +37,6 @@ function Login(props) {
   [repeat == false]
   )
 
-  console.log("prop", isLogged);
-
   return (
     <ImageBackground
       source={require("../Assets/login.png")}
@@ -123,10 +121,9 @@ const styles = StyleSheet.create({
 
 
 function Logged (props) {
-  console.log("text logged", props.logged)
   return (
     <View>
-      {props.logged ? <LoginSuccess {...props}/> : <LoginError cleanForm={this.cleanForm }{...this.props}/>}
+      {props.logged ? <Text>Login Ok</Text> : <Text>Login No</Text>}
     </View>
   )
 }
