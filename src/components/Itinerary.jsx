@@ -9,10 +9,11 @@ import { getData } from '../../requests';
 import { serverurl } from '../../heroku';
 import { FontAwesome, Feather } from '@expo/vector-icons';
 
-const Itinerary = () => {
+const Itinerary = (props) => {
+    console.log("Aca", props.navigation.state.params)
     useEffect(
         () => {
-            getData(`${serverurl}api/itineraries`, null, (data) => { console.log(data) });
+            getData(`https://mytinerary-marta-norma.herokuapp.com/api/itineraries/${props.navigation.state.params.cityName}`,null, (data)=>{console.log(data)});
         }, []
     );
     const [itineraries = [

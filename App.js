@@ -15,6 +15,7 @@ import {Provider} from 'react-redux';
 import store from "./src/store/store";
 
 export default class App extends React.Component {
+
   render() {
     return (
       <Provider store={store}>
@@ -51,10 +52,9 @@ const MainDrawer = createDrawerNavigator(MyDrawerNavigator, {
 
 const navigator = createStackNavigator({
   Drawer: MainDrawer,
-  Login: Login,
 },
 {
-  initialRouteName: 'Login',
+  initialRouteName: 'Drawer',
   
   defaultNavigationOptions: (props) => ({
     headerLeft: <Icon name='three-bars' style={styles.hamburgerMenu} onPress={() => _openDrawer(props)}/>,

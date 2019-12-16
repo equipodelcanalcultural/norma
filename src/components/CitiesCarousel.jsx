@@ -75,13 +75,13 @@ const CitiesCarousel = (props) => {
 
     const carouselRef = useRef(null)
     
-    _onPressCarousel = () => {
-        props.navigation.navigate('Cities')
+    _onPressCarousel = (cityName) => {
+        props.navigation.navigate('Itinerary', {cityName})
     }
     
     _renderItem = ({item, index}, parallaxProps) => {
         return (
-            <TouchableOpacity onPress={this._onPressCarousel}>
+            <TouchableOpacity onPress={() => this._onPressCarousel(item.title)}>
             <View style={styles.item}>
                 <ParallaxImage
                     containerStyle={styles.imageContainer}

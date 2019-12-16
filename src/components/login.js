@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button, ImageBackground, Image } from "react-native";
 import TextInput from "react-native-textinput-with-icons";
@@ -11,8 +11,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => {
-  console.log("state", state.user.logged);
-
   return {
     logged: state.user.logged,
   };
@@ -72,6 +70,7 @@ function Login(props) {
         <View style={styles.button}>
           <Button title="Login" onPress={() => setRepeat(!repeat)} />
         </View>
+        <Logged logged={props.logged}></Logged>
       </View>
     </ImageBackground>
   );
@@ -121,5 +120,15 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
 },
 });
+
+
+function Logged (props) {
+  console.log("text logged", props.logged)
+  return (
+    <View>
+      {props.logged ? <LoginSuccess {...props}/> : <LoginError cleanForm={this.cleanForm }{...this.props}/>}
+    </View>
+  )
+}
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login);
