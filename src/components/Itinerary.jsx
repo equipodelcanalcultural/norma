@@ -14,7 +14,7 @@ import {connect} from 'react-redux';
 const mapStateToProps = state => {
     return {
       logged: state.user.logged,
-      user: state.user.currentUser
+      user: state.user.currentUser.username
     };
   };
 
@@ -59,7 +59,6 @@ class SelfItinerary extends React.Component {
     showCommentsHandler = ()=>{
         this.setState({showComments:!this.state.showComments})
     }
-
     render() {
 
         let it = this.props.it

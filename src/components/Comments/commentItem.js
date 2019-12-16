@@ -52,7 +52,7 @@ const CommentItem = ({ title,
   }
 
   /*Elemento que muestra un comentario y, si corresponde, dos botones (Edit, Delete) */
-
+console.log('comment item', username)
   const commentElement = (
     <View>
       <Text>{textoParaMostrar}</Text>
@@ -86,7 +86,7 @@ const CommentItem = ({ title,
 
   if (showSomething) {
     algoParaMostrar = (<View>
-      <Text h6>{username}</Text>
+      <Text h6>anonymous</Text>
       {element}
     </View>)
   }

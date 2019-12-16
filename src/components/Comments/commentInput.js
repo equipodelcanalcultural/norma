@@ -5,25 +5,26 @@ import { Button, View, TextInput } from "react-native";
 export default function CommentInput(props) {
   const [textInput, setTextInput] = useState();
   const { callback, placeholder, id } = props;
+  console.log(textInput)
   return (
     <View>
       <TextInput
-        onChange={e => {
-          setTextInput(e.target.value);
+        onChangeText={e => {
+          setTextInput(e);
         }}
         id="comments"
         type="text"
         placeholder={placeholder}
         value={textInput}
-        width="10em"
       ></TextInput>
       <Button
         variant="primary"
         type="submit"
-        onClick={event => {
-          event.preventDefault();
-          event.stopPropagation();
-          callback(textInput, id);
+        title="submit"
+        onPress={() => {
+          if (textInput != null) {
+            callback(textInput, id);
+          }
         }}
       >
         Send

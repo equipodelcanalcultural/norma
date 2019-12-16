@@ -17,7 +17,7 @@ export default class CityInput extends Component {
         leftIconType="oct"
         onChangeText={text => setPassword(text)}
         label={"Find your next city"}
-        autoFocus={true}
+        autoFocus={false}
         style={{
           fontFamily: "sans-serif",
           fontWeight: "300",
@@ -25,10 +25,9 @@ export default class CityInput extends Component {
           backgroundColor: "white",
           borderColor: "gray",
           borderWidth: 1,
-        
+
           padding: 5
         }}
-        
         onChangeText={e => this.handleChange(e)}
       />
     );

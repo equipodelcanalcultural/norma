@@ -1,66 +1,50 @@
 import React from "react";
 import { Component } from "react";
-/* import { connect } from "react-redux"; */
 import myImages from "../../Assets/Resources/myImages";
 import { TouchableOpacity } from "react-native";
-import { View, Text, ImageBackground } from 'react-native';
-/* import { sendNavData } from "../../store/actions/navActions"; */
-/* import { Link } from "react-router-dom"; */
+import { View, Text, ImageBackground } from "react-native";
 
-/* const mapStateToProps = state => {
-  console.log(state.nav.navData);
-  return {
-    navData: state.nav.navData
-  };
-}; */
-
-/* const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    accion: () => dispatch(sendNavData(ownProps.ciudad))
-  };
-}; */
+_onPressCity = (props) => {
+  const cityName = props.ciudad;
+  props.navigation.navigate("Itinerary", { cityName });
+};
 
 class ImageButton extends Component {
   render() {
-    /* const { accion } = this.props; */
-    let altura = this.props.height
-    let ancho = this.props.width
-    /* ${myImages.cities[this.props.ciudad]} */
+    let altura = this.props.height;
+    let ancho = this.props.width;
     return (
       <View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => _onPressCity(this.props)}>
           <ImageBackground
             source={myImages.cities[this.props.ciudad]}
-            style={{ /* backgroundImage: `url(${myImages.cities[this.props.ciudad]})`, */
-              /*  backgroundSize: 'cover',
-                backgroundPosition: 'center', */
-              height: 250, width: 250,
-              borderRadius: 25, display: 'flex', alignItems: 'center',
-              margin: 10
+            style={{
+              height: 150,
+              width: 320,
+              borderRadius: 10,
+              display: "flex",
+              alignItems: "center",
+              margin: 5
             }}
-            imageStyle={{ borderRadius: 25 }}
-              /* onClick={() => accion()} */>
-            <Text style={{
-              fontWeight: 'bold',
-              fontSize: 30,
-              color: '#ffff',
-              /* text-shadow: '0 1px 0 rgb(75, 69, 69)', */
-              textShadowColor: 'rgba(75, 69, 69, 0.75)',
-              textShadowOffset: { width: 0, height: 1 },
-              textShadowRadius: 10
-            }}>{this.props.ciudad.replace(/[_]/, ' ')}</Text>
+            imageStyle={{ borderRadius: 8 }}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 30,
+                color: "#ffff",
+                textShadowColor: "rgba(75, 69, 69, 0.75)",
+                textShadowOffset: { width: 0, height: 1 },
+                textShadowRadius: 10
+              }}
+            >
+              {this.props.ciudad.replace(/[_]/, " ")}
+            </Text>
           </ImageBackground>
         </TouchableOpacity>
-      </View >
+      </View>
     );
   }
 }
-
-/* const ReduxImageButton = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ImageButton);
-
-export default ReduxImageButton; */
 
 export default ImageButton;

@@ -9,11 +9,24 @@ import { createAppContainer } from 'react-navigation';
 //  import { DrawerItems } from 'react-navigation-drawer';
 import { DrawerNavigatorItems as DrawerItems } from 'react-navigation-drawer';
 import {StyleSheet, SafeAreaView,ScrollView,View, Image, Text, ImageBackground} from 'react-native';
-import {createStackNavigator} from 'react-navigation-stack'
+import {createStackNavigator} from 'react-navigation-stack';
 import Icon from 'react-native-vector-icons/Octicons';
+import {Provider} from 'react-redux';
+import store from "./src/store/store";
 
-openDrawer = () => {
-  this.props.navigation.dispatch(DrawerActions.openDrawer());
+export default class App extends React.Component {
+
+  render() {
+    return (
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    );
+  }
+}
+
+_openDrawer = (props) => {
+  props.navigation.toggleDrawer();
 }
 const MyDrawerNavigator ={ 
   Home: HomeScreen, 
@@ -46,7 +59,7 @@ const navigator = createStackNavigator({
   initialRouteName: 'Drawer',
   
   defaultNavigationOptions: (props) => ({
-    headerLeft: <Icon name='three-bars' style={styles.hamburgerMenu} onPress={() => props.navigation.openDrawer()}/>,
+    headerLeft: <Icon name='three-bars' style={styles.hamburgerMenu} onPress={() => _openDrawer(props)}/>,
     headerStyle:{
       backgroundColor:'#D82F00'
       },
@@ -57,9 +70,8 @@ const navigator = createStackNavigator({
   })
 });
 
-const AppContainer = createAppContainer(navigator);
+AppContainer = createAppContainer(navigator);
 
-export default AppContainer;
 const styles = StyleSheet.create({
   rutas: {
     color: 'red'

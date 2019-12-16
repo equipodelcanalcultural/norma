@@ -1,30 +1,44 @@
-import React from "react";
-import { useState } from "react";
+import React, { Fragment } from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button, ImageBackground, Image } from "react-native";
 import TextInput from "react-native-textinput-with-icons";
 import { getData } from "../../requests";
-export default function Login(props) {
+import {connect} from 'react-redux';
+import {userLoginFetch} from '../store/actions/userActions';
+
+const mapDispatchToProps = dispatch => ({
+  userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
+})
+
+const mapStateToProps = state => {
+  return {
+    logged: state.user.logged,
+  };
+};
+
+function Login(props) {
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
-  const handlePress = (user, pass) => {
+  const [isLogged, setLogged] = useState();
+  const [repeat, setRepeat] = useState(false);
+  
+  useEffect(() => {
     let bodyData = {
       username: user,
-      password: pass,
-      email: user
-    };
-    console.log("request login");
-    getData(
-      "https://mytinerary-marta-norma.herokuapp.com/api/users/login",
-      {
-        method: "POST",
-        body: JSON.stringify(bodyData),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      },
-      data => console.log("SUCCESS", data)
-    );
-  };
+      password: password
+    }
+    
+    props.userLoginFetch(bodyData);
+    const {logged} = props;
+    setLogged(logged);
+
+  },
+  
+  [repeat == false]
+  )
+
+  console.log("prop", isLogged);
+
   return (
     <ImageBackground
       source={require("../Assets/login.png")}
@@ -54,8 +68,9 @@ export default function Login(props) {
           label={"Password"}
         />
         <View style={styles.button}>
-          <Button title="Login" onPress={() => handlePress(user, password)} />
+          <Button title="Login" onPress={() => setRepeat(!repeat)} />
         </View>
+        <Logged logged={props.logged}></Logged>
       </View>
     </ImageBackground>
   );
@@ -105,3 +120,15 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
 },
 });
+
+
+function Logged (props) {
+  console.log("text logged", props.logged)
+  return (
+    <View>
+      {props.logged ? <LoginSuccess {...props}/> : <LoginError cleanForm={this.cleanForm }{...this.props}/>}
+    </View>
+  )
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
