@@ -101,7 +101,7 @@ class SelfItinerary extends React.Component {
                         <Activity  title={it.title} />
                         
                         <Button style={styles.commentBut} onPress={()=>this.showCommentsHandler()}title="COMMENTS"/>
-                         {this.state.showComments==true ? <CommentsContainer logged={true} user={'JoJo'} title={it.title} /> : <></>}
+                         {this.state.showComments==true ? <CommentsContainer logged={this.props.logged} user={this.props.user} title={it.title} /> : <></>}
                     </>:
                     <></>}      
                     </View>
