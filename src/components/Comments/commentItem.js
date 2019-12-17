@@ -36,8 +36,8 @@ const CommentItem = ({ title,
   let deleteButton;
   if (logged && currentUser == username) {
     editButton = (
-      <Icon name="edit" style={{alignItems:'flex-end'}}
-        title={'Edit'}
+      <Icon name="edit" style={{alignItems:'flex-end', color:'grey'}}
+        title={'Edit'} size={10}
         onPress={() => {
           setElement(textBoxElement);
           console.log(id);
@@ -47,7 +47,7 @@ const CommentItem = ({ title,
       </Icon>
     );
     deleteButton = (
-      <Icon title={'Delete'} name="delete" onPress={() => deleteThisComment(id)}> Delete </Icon>
+      <Icon title={'Delete'} name="delete" size={15} onPress={() => deleteThisComment(id)}> Delete </Icon>
     );
   }
 

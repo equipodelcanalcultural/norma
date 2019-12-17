@@ -8,7 +8,7 @@ export default function CommentInput(props) {
   const { callback, placeholder, id } = props;
   console.log(textInput)
   return (
-    <View style={{flexDirection:'row',alignItems:'center',marginLeft:20}}>
+    <View style={{flexDirection:'row',alignItems:'center',marginLeft:30,marginBottom:5}}>
       <TextInput 
         onChangeText={e => {
           setTextInput(e);
@@ -18,7 +18,7 @@ export default function CommentInput(props) {
         placeholder={placeholder}
         value={textInput}
       ></TextInput>
-      <Icon
+      <Icon size={15} style={{color:'grey'}}
        name="edit"
         onPress={() => {
           if (textInput != null) {
