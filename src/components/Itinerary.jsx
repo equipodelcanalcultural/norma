@@ -7,10 +7,12 @@ import Activity from './Activity'
 import { useState } from 'react'
 import { getData } from '../../requests';
 import { serverurl } from '../../heroku';
-import { FontAwesome, Feather } from '@expo/vector-icons';
+import { FontAwesome, Feather } from '@expo/vector-icons'; 
+import Icon from 'react-native-vector-icons/Octicons';
 import CommentsContainer from './Comments/commentsContainer';
 import {connect} from 'react-redux';
 import myTexts from '../Assets/Resources/myTexts';
+
 
 const mapStateToProps = state => {
     return {
@@ -35,14 +37,13 @@ const Itinerary = (props) => {
 
     return (
         <ScrollView>
-            <Text h1>{props.navigation.getParam('cityName','default')}
+            <Text style={styles.featCityTitle}>{props.navigation.getParam('cityName','default')}
             </Text>
-            <View >
+            <View>
                 <View style={styles.featCityContainer}>
                     <Image source={Pic} style={styles.featCityPic} />
-                   
                 </View>
-                <Text >{myTexts.cities[props.navigation.getParam('cityName','default')]}</Text>
+                <Text style={styles.featCityArticle}>{myTexts.cities[props.navigation.getParam('cityName','default')]}</Text>
              { itineraries} 
             </View>
         </ScrollView>
@@ -52,7 +53,7 @@ class SelfItinerary extends React.Component {
 
     constructor(props){
         super(props);
-        
+
        this.state = {
         show: false,
         showComments:false
@@ -73,12 +74,15 @@ class SelfItinerary extends React.Component {
         console.log(it,"adentro de selfitinerary");
         console.log(this.props, 'estas son las props')
         return (
-            <View style={styles.container}>
-                <TouchableOpacity style={{ flex: 1 }} onPress={() => { this.showHandler() }}>
+            <View>
+
+
+                <TouchableOpacity onPress={() => { this.showHandler() }}>
                     <View style={styles.itContainer}>
-                        <View style={styles.itDescript}>
-                            <View style={styles.userImgContainer}>  
-                            <Text style={{}}> {it.title} </Text>
+                       <Text style={styles.itTitle}> {it.title} </Text>
+                        <View >
+                            <View style={styles.itDescript}>  
+                         
                                 {/* imagen del usuario */}
                                 <Image style={styles.itUserPic} source={User} />
                             </View>
@@ -86,20 +90,20 @@ class SelfItinerary extends React.Component {
                             <Text style={styles.itUser}>{it.user}</Text>
                             {/* titulo del itinerario */}
                           
-                        </View>
+                        </View >
                         {/* <Image source={Pic} style={styles.itPic}/>     */}
-                        <View style={styles.itAnalytics}>
-                            <Text style={styles.textAn}><Feather name='heart' style={styles.textAn} /> {it.rating}</Text>
+
+                        {/* Estadisticas de los itinerarios */}
+                        <View >
+                          <View style={styles.itAnalytics}>
+                  {/*           <LikesContainer title={it.title}></LikesContainer>  */}
                             <Text style={styles.textAn}><FontAwesome style={styles.textAn} name='star-o' /> {it.price}</Text>
                             <Text style={styles.textAn}><FontAwesome style={styles.textAn} name='comment-o' /> {it.comments}</Text>
+                            </View>
                         </View>
                     </View>
-                    <View
-                        style={{
-                            borderBottomColor: 'black',
-                            borderBottomWidth: 1,
-                        }}
-                    />
+                   
+                    <View/>
                 </TouchableOpacity>
               {/* CONDITIONED RENDERING OF ACTIVITIES AFTER TOUCHING ITINERARY */}
               {   
@@ -107,11 +111,16 @@ class SelfItinerary extends React.Component {
                     ?<>
                     {/* llamado a Activity */}
                         <Activity  title={it.title} />
-                        
-                        <Button style={styles.commentBut} onPress={()=>this.showCommentsHandler()}title="COMMENTS"/>
-                         {this.state.showComments==true ? <CommentsContainer navigation={this.props.navigation}  logged={this.props.logged} user={this.props.user} title={it.title} /> : <></>}
-                    </>:
-                    <></>}      
+                        <TouchableOpacity  onPress={()=>this.showCommentsHandler()} style={styles.commentBut}>
+                            <Text style={{backgroundColor:'#a7adba', textAlign:'center', color:'#ffff', marginRight:5}}>
+                                SEE THE COMMENTS <FontAwesome style={styles.textAn} name='comment-o' />
+                            </Text>
+                        </TouchableOpacity>
+                         {this.state.showComments==true ? 
+                         <CommentsContainer navigation={this.props.navigation}  logged={this.props.logged} user={this.props.user} title={it.title} /> 
+                         : <></>}
+                        </>:
+                        <></>}      
                     </View>
         );
     }
@@ -129,7 +138,16 @@ const styles = StyleSheet.create({
         paddingRight: 4
     },
     featCityTitle: {
-        textAlign: 'center'
+        textAlign: 'right',
+        fontWeight: "bold",
+        fontSize: 30,
+        color: "#ffff",
+        textShadowColor: "rgba(75, 69, 69, 1)",
+        textShadowOffset: { width: 2, height: 3 },
+        textShadowRadius: 10,
+        position:'absolute',
+        zIndex:200,
+        paddingLeft:20
     },
     featCityContainer: {
         alignItems: 'center',
@@ -138,43 +156,60 @@ const styles = StyleSheet.create({
     }
     ,
     featCityArticle: {
-        textAlign: 'justify'
+        textAlign: 'justify',
+        color:'#7e8696',
+        padding:10
     },
     userImgContainer: {
         width: '100%',
         height: '100%'
     },
     featCityPic: {
-        height: '90%',
-        width: '90%',
+        height: '100%',
+        width: '100%',
         marginBottom: 20,
-        marginTop: 10,
-        borderRadius: 8,
+/*         marginTop: 10, */
+        borderRadius: 6,
     },
     itContainer: {
-        backgroundColor: 'white',
+        backgroundColor: '#f0f0f0',
         margin: 1,
         paddingTop: 1,
         flexDirection: 'row',
-        paddingLeft: 4,
-        height: 110,
-        flex: 1
+        height: 120,
+        width:'100%',
+        borderRadius:4
     },
     itUser: {
         color: '#fff',
         margin: 1,
         paddingLeft: 3
     },
-    itPic: {
+    itUserPic: {
         height: 80,
         width: 80,
-        marginLeft: 5
+        marginLeft: 5,
+        paddingTop:10
     },
     itAnalytics: {
         padding: 3,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingRight: 5
+        paddingRight: 5,
+        marginTop:40,
+        marginLeft:25,
+        color:'#7e8696',
+      
+    },
+    itTitle:{
+        textAlign: 'right',
+        fontWeight: "bold",
+        fontSize: 18,
+        color:'#a70000',
+        textShadowRadius: 10,
+        position:'absolute',
+        zIndex:200,
+        marginLeft:15
     },
     itDescript: {
         flexDirection: 'column'

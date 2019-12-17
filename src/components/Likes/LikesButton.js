@@ -1,10 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import EmptyHeart from "react-icons/lib/fa/heart-o";
-import FullHeart from "react-icons/lib/fa/heart";
-import { callbackify } from "util";
 import { Button } from "react-native";
-import Octicon, { Thumbsup, Thumbsdown } from "@primer/octicons-react";
+ import Octicon, { Thumbsup, Thumbsdown } from "@primer/octicons-react"; 
 
 const LikesButton = ({ callback, positivo, negativo }) => {
   const [like, setLike] = useState(false);

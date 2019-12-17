@@ -11,8 +11,14 @@ const Activity = (props)=>{
         () => {
             getData(`https://mytinerary-marta-norma.herokuapp.com/api/itineraries/byTitle/${props.title}/activities`,null, 
             (data)=>{setActivity(
-                <ScrollView  horizontal={true} pagingEnabled scrollEventThrottle={16}>
-                {data[0].activities.map((item, key)=> <View key={key} style={styles.actContainer}><Text>{item}</Text></View>)}
+                <ScrollView  
+                horizontal={true} 
+                pagingEnabled 
+                scrollEventThrottle={16}>
+                    {data[0].activities.map((item, key)=> 
+                    <View key={key} style={styles.actContainer}>
+                    <Text sytle={styles.actTitle}>{item}</Text>
+                    </View>)}
                 </ScrollView>
                 
                 )}
@@ -33,9 +39,12 @@ const Activity = (props)=>{
 
 const styles = StyleSheet.create({
     actContainer:{
-    backgroundColor:'orange',
-     margin:3, padding:2,
-    borderRadius:10
+    backgroundColor:'#e5e6eb',
+     margin:1, 
+     padding:2,
+     height:80,
+     width:90,
+    borderRadius:3
     },
     actTitle:{
     color:'red'

@@ -60,7 +60,8 @@ const IconButton = ({ title, logged, user, itinLiked, itineraries }) => {
     if (logged) { 
       likeButton = ( <LikesButton callback={request} positivo={polaridades.positivo
       } negativo={polaridades.negativo} />)
-    } else {likeButton = <Text>Login to like</Text>}
+    } else {likeButton = <Text>Login to like</Text>
+  }
   
    
 
@@ -74,4 +75,4 @@ const IconButton = ({ title, logged, user, itinLiked, itineraries }) => {
   );
 };
 
-export default connect(mapStateToProps)(IconButton);
+export default connect(mapStateToProps)(LikesContainer);
