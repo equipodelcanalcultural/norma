@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
 import { View, Button, Text } from 'react-native';
 import CommentInput from './commentInput';
-
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const CommentItem = ({ title,
   username,
@@ -36,7 +36,7 @@ const CommentItem = ({ title,
   let deleteButton;
   if (logged && currentUser == username) {
     editButton = (
-      <Button
+      <Icon name="edit" style={{alignItems:'flex-end'}}
         title={'Edit'}
         onPress={() => {
           setElement(textBoxElement);
@@ -44,10 +44,10 @@ const CommentItem = ({ title,
         }}
       >
         Edit
-      </Button>
+      </Icon>
     );
     deleteButton = (
-      <Button title={'Delete'} onPress={() => deleteThisComment(id)}> Delete </Button>
+      <Icon title={'Delete'} name="delete" onPress={() => deleteThisComment(id)}> Delete </Icon>
     );
   }
 

@@ -14,25 +14,21 @@ const Activity = (props)=>{
                 <ScrollView  
                 horizontal={true} 
                 pagingEnabled 
-                scrollEventThrottle={16}>
+             /*    scrollEventThrottle={16} */>
                     {data[0].activities.map((item, key)=> 
                     <View key={key} style={styles.actContainer}>
                     <Text sytle={styles.actTitle}>{item}</Text>
                     </View>)}
-                </ScrollView>
-                
-                )}
-                
+                </ScrollView>         
+                )}  
                 /* setItinerary( data.map(it => <SelfItinerary it={it}/>)) */);
         }, []
     );
 
     
     return( 
-        <View style={{flex:1}}>
-        
-       {activity}
-            
+        <View style={{flex:1}}>       
+       {activity}        
         </View>
     )
 }

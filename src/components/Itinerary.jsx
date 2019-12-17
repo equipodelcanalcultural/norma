@@ -8,16 +8,17 @@ import { useState } from 'react'
 import { getData } from '../../requests';
 import { serverurl } from '../../heroku';
 import { FontAwesome, Feather } from '@expo/vector-icons'; 
-import Icon from 'react-native-vector-icons/Octicons';
 import CommentsContainer from './Comments/commentsContainer';
 import {connect} from 'react-redux';
 import myTexts from '../Assets/Resources/myTexts';
+import LikesContainer from './Likes/LikesContainer';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
 
 
 const mapStateToProps = state => {
     return {
       logged: state.user.logged,
-      user: state.user.currentUser.username
+      user: state.user.currentUser
     };
   };
 
@@ -45,7 +46,9 @@ const Itinerary = (props) => {
                 </View>
                 <Text style={styles.featCityArticle}>{myTexts.cities[props.navigation.getParam('cityName','default')]}</Text>
              { itineraries} 
+
             </View>
+       
         </ScrollView>
     )
 };
@@ -97,12 +100,15 @@ class SelfItinerary extends React.Component {
                         <View >
                           <View style={styles.itAnalytics}>
                   {/*           <LikesContainer title={it.title}></LikesContainer>  */}
-                            <Text style={styles.textAn}><FontAwesome style={styles.textAn} name='star-o' /> {it.price}</Text>
-                            <Text style={styles.textAn}><FontAwesome style={styles.textAn} name='comment-o' /> {it.comments}</Text>
+                            <Text style={styles.textAn}><FontAwesome style={styles.textAn} size={20} name='star-o' /> {it.price}</Text>
+                            {/*Container y Boton de likes*/}
+                            <LikesContainer title={it.title} itineraries={it.likes} user={this.props.user.email} logged={this.props.logged}></LikesContainer>
+                            </View>
+                            <View style={{alignItems:'center',marginTop:25, color:'#7e8696'}}>
+                            {this.state.show==false ? <Icon name="arrow-down"/> :<Icon name="arrow-up"/> }
                             </View>
                         </View>
-                    </View>
-                   
+                    </View>    
                     <View/>
                 </TouchableOpacity>
               {/* CONDITIONED RENDERING OF ACTIVITIES AFTER TOUCHING ITINERARY */}
@@ -113,11 +119,12 @@ class SelfItinerary extends React.Component {
                         <Activity  title={it.title} />
                         <TouchableOpacity  onPress={()=>this.showCommentsHandler()} style={styles.commentBut}>
                             <Text style={{backgroundColor:'#a7adba', textAlign:'center', color:'#ffff', marginRight:5}}>
-                                SEE THE COMMENTS <FontAwesome style={styles.textAn} name='comment-o' />
+                                COMMENTS... 
+                                <FontAwesome name='comment-o' />
                             </Text>
                         </TouchableOpacity>
                          {this.state.showComments==true ? 
-                         <CommentsContainer navigation={this.props.navigation}  logged={this.props.logged} user={this.props.user} title={it.title} /> 
+                         <CommentsContainer navigation={this.props.navigation}  logged={this.props.logged} user={this.props.user.username} title={it.title} /> 
                          : <></>}
                         </>:
                         <></>}      
@@ -125,6 +132,8 @@ class SelfItinerary extends React.Component {
         );
     }
 }
+
+
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center'
@@ -135,12 +144,13 @@ const styles = StyleSheet.create({
     },
     textAn: {
         fontSize: 17,
-        paddingRight: 4
+        paddingRight: 4,
+        marginLeft:3
     },
     featCityTitle: {
         textAlign: 'right',
         fontWeight: "bold",
-        fontSize: 30,
+        fontSize: 20,
         color: "#ffff",
         textShadowColor: "rgba(75, 69, 69, 1)",
         textShadowOffset: { width: 2, height: 3 },
