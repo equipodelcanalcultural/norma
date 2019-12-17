@@ -38,7 +38,6 @@ const MyDrawerNavigator ={
 
 
 
-
 const MainDrawer = createDrawerNavigator(MyDrawerNavigator, {
   contentComponent: props => (
     <ScrollView>

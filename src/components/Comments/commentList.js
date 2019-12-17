@@ -19,7 +19,7 @@ const CommentList = ({
 
     comments = (posts.map((comment, index) => (
 
-      <CommentItem
+      <CommentItem style={{marginLeft:8}}
         key={`key#${title}#${index}`}
         title={title}
         username={comment.username}
@@ -33,10 +33,7 @@ const CommentList = ({
 
     ))
     )
-
-
   }
-
 
   console.log('this is comment list')
   return (

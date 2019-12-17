@@ -120,7 +120,7 @@ console.log(props, "adentro de commentContainer")
       <View>
 
         <TouchableOpacity onPress={()=> navigation.navigate('Login')}>
-        <Text>Log in to comment</Text>
+        <Text style={{backgroundColor:'#009473', textAlign:'center', color:'#ffff', marginRight:5, marginBottom:3}}> LOG IN TO COMMENT</Text>
         </TouchableOpacity>
       </View>
     );
