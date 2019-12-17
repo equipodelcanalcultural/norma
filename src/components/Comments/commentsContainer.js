@@ -6,6 +6,8 @@ import { getData } from "../../../requests";
 import CommentList  from "./commentList";
 import CommentInput from "./commentInput";
 import serverurl from "../../../heroku";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import Login from '../login';
 
 /*
 const mapStateToProps = state => {
@@ -15,13 +17,15 @@ const mapStateToProps = state => {
     };
   };
 */
-const CommentsContainer = ({ /*Props: título del itinerario, datos de usuario, estado del usuario*/
-    title,
-    logged,
-    user
-  }) => {
+const CommentsContainer = (props) => {
   const [posts, setPosts] = useState(); /*State Hooks*/
-
+const { /*Props: título del itinerario, datos de usuario, estado del usuario*/
+  title,
+  logged,
+  user,
+  navigation
+} = props
+console.log(props, "adentro de commentContainer")
   /*Funciones de requests: las funciones de Create, Update y Delete llaman a la función de Read
     para actualizar el hook posts; el container las pasa a sus hijos como callbacks*/
 
@@ -114,7 +118,10 @@ const CommentsContainer = ({ /*Props: título del itinerario, datos de usuario, 
   } else {
     commentTextBox = (
       <View>
+
+        <TouchableOpacity onPress={()=> navigation.navigate('Login')}>
         <Text>Log in to comment</Text>
+        </TouchableOpacity>
       </View>
     );
   }
