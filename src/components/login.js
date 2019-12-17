@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Button, ImageBackground, Image } from "react-native";
+import { StyleSheet, Text, View, Button, ImageBackground, Image, Alert } from "react-native";
 import TextInput from "react-native-textinput-with-icons";
 import { getData } from "../../requests";
 import {connect} from 'react-redux';
@@ -37,6 +37,12 @@ function Login(props) {
   [repeat == false]
   )
 
+  const handlePress = async () => {
+    setRepeat(!repeat);
+
+    await props.logged ? props.navigation.navigate('Cities') : Alert.alert('Log in Error','',{text: 'OK', onPress: () => console.log('OK Pressed')},)
+  }
+
   return (
     <ImageBackground
       source={require("../Assets/login.png")}
@@ -66,9 +72,9 @@ function Login(props) {
           label={"Password"}
         />
         <View style={styles.button}>
-          <Button title="Login" onPress={() => setRepeat(!repeat)} />
+          <Button title="Login" onPress={() => handlePress()}/>
+            {/* <Logged logged={props.logged} navigation={props.navigation}></Logged> */}
         </View>
-        <Logged logged={props.logged}></Logged>
       </View>
     </ImageBackground>
   );
@@ -119,13 +125,14 @@ const styles = StyleSheet.create({
 },
 });
 
-
-function Logged (props) {
-  return (
+class Logged extends React.Component{
+  render(){
+    return (
     <View>
-      {props.logged ? <Text>Login Ok</Text> : <Text>Login No</Text>}
+      {this.props.logged ? <Button title ="Login" onPress={() => this.props.navigation.navigate('Cities')}/> : <Button title ="Login" onPress={() => ''}/>}
     </View>
-  )
+  );
+  }
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login);

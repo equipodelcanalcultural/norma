@@ -59,7 +59,10 @@ const navigator = createStackNavigator({
   initialRouteName: 'Drawer',
   
   defaultNavigationOptions: (props) => ({
-    headerLeft: <Icon name='three-bars' style={styles.hamburgerMenu} onPress={() => _openDrawer(props)}/>,
+    headerLeft: <View style={{flexDirection:'row'}}>
+    <Icon name='three-bars' style={styles.hamburgerMenu} onPress={() => _openDrawer(props)}/>
+    <Text style={styles.greeting}>Hi Pepe!</Text>
+    </View>,
     headerStyle:{
       backgroundColor:'#D82F00'
       },
@@ -83,5 +86,15 @@ const styles = StyleSheet.create({
     fontSize: 35,
     paddingLeft: 15,
     color: 'white',
+  },
+  greeting:{
+    marginLeft:20,
+    marginTop:5,
+    textShadowColor: "rgba(75, 69, 69, 0.6)",
+    textShadowOffset: { width: 1, height: 1},
+    textShadowRadius: 10,
+    color:'#fff',
+    fontSize:20
+  
   }
 })
