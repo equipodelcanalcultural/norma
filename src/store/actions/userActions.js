@@ -32,11 +32,9 @@ export const userPostFetch = user => {
         body: JSON.stringify(user)
       },(data) => { 
              if(data.success===true) {
-               console.log("data",data)
                AsyncStorage.setItem("token", data.token)
                dispatch(loginUser(data))
             }else{
-              console.log("data",data)
               AsyncStorage.removeItem("token")
               console.log(data.msg);
             }  

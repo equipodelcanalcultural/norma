@@ -1,18 +1,26 @@
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Button, ImageBackground, Image, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  ImageBackground,
+  Image,
+  Alert
+} from "react-native";
 import TextInput from "react-native-textinput-with-icons";
 import { getData } from "../../requests";
-import {connect} from 'react-redux';
-import {userLoginFetch} from '../store/actions/userActions';
+import { connect } from "react-redux";
+import { userLoginFetch } from "../store/actions/userActions";
 
 const mapDispatchToProps = dispatch => ({
   userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
-})
+});
 
 const mapStateToProps = state => {
   return {
-    logged: state.user.logged,
+    logged: state.user.logged
   };
 };
 
@@ -21,32 +29,33 @@ function Login(props) {
   const [password, setPassword] = useState();
   const [isLogged, setLogged] = useState();
   const [repeat, setRepeat] = useState(false);
-  
+
   useEffect(() => {
     let bodyData = {
       username: user,
       password: password
+    };
+
+    const fetch = async () =>{
+      await props.userLoginFetch(bodyData);
     }
-    
-    props.userLoginFetch(bodyData);
-    const {logged} = props;
+    fetch();
+  });
+
+  useEffect(()=>{
+    const { logged } = props;
     setLogged(logged);
-
-  },
-  
-  [repeat == false]
-  )
-
-  const handlePress = async () => {
-    setRepeat(!repeat);
-
-    await props.logged ? props.navigation.navigate('Cities') : Alert.alert('Log in Error','',{text: 'OK', onPress: () => console.log('OK Pressed')},)
-  }
+    
+    if (isLogged == false) {
+      setRepeat(false);
+    }
+  })
 
   return (
     <ImageBackground
       source={require("../Assets/login.png")}
-      style={styles.backgroundImage}>
+      style={styles.backgroundImage}
+    >
       <View style={styles.imageContainer}>
         <Image
           style={styles.logoImage}
@@ -72,8 +81,12 @@ function Login(props) {
           label={"Password"}
         />
         <View style={styles.button}>
-          <Button title="Login" onPress={() => handlePress()}/>
-            {/* <Logged logged={props.logged} navigation={props.navigation}></Logged> */}
+          <Button title="Login" onPress={() => setRepeat(!repeat)} />
+          <Logged
+            logged={isLogged}
+            navigation={props.navigation}
+            repeat={repeat}
+          ></Logged>
         </View>
       </View>
     </ImageBackground>
@@ -84,7 +97,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "80%",
-   maxHeight: '50%',
+    maxHeight: "50%",
     minWidth: 200,
     marginLeft: "auto",
     marginRight: "auto",
@@ -98,16 +111,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     alignItems: "center",
-    justifyContent: "center",
-    
+    justifyContent: "center"
   },
   button: {
     paddingTop: "10%",
     width: "40%"
   },
- 
+
   backgroundImage: {
-    flex: 1,
+    flex: 1
   },
   imageContainer: {
     flex: 1,
@@ -115,24 +127,31 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: "100%",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   logoImage: {
-  
-    width: '75%',
+    width: "75%",
     flex: 1,
-    resizeMode: 'contain'
-},
+    resizeMode: "contain"
+  }
 });
 
-class Logged extends React.Component{
-  render(){
+class Logged extends React.Component {
+  render() {
     return (
-    <View>
-      {this.props.logged ? <Button title ="Login" onPress={() => this.props.navigation.navigate('Cities')}/> : <Button title ="Login" onPress={() => ''}/>}
-    </View>
-  );
+      <Fragment>
+        {this.props.logged == true && this.props.repeat == true ? (
+          this.props.navigation.navigate("Cities")
+        ) : this.props.logged == false && this.props.repeat == true ? (
+          Alert.alert("Incorrect Username or Password", "", [
+            { text: "OK", onPress: () => console.log("OK Pressed") }
+          ])
+        ) : (
+          <Fragment />
+        )}
+      </Fragment>
+    );
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
