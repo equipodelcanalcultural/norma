@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 // import Carousel from 'react-native-anchor-carousel'
 import { StyleSheet, Text, View, Button, ImageBackground, Image, TouchableOpacity, ScrollView } from 'react-native'
-import Pic from '../Assets/city_img/amsterdam.jpg'
+import myImages from '../Assets/Resources/myImages'
 import User from '../Assets/Resources/MYtinUser10.png'
 import Activity from './Activity'
 import { useState } from 'react'
@@ -42,7 +42,7 @@ const Itinerary = (props) => {
             </Text>
             <View>
                 <View style={styles.featCityContainer}>
-                    <Image source={Pic} style={styles.featCityPic} />
+                    <Image source={myImages.cities[props.navigation.getParam('cityName')]} style={styles.featCityPic} />
                 </View>
                 <Text style={styles.featCityArticle}>{myTexts.cities[props.navigation.getParam('cityName','default')]}</Text>
              { itineraries} 
