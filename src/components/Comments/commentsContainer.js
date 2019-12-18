@@ -7,6 +7,7 @@ import CommentList  from "./commentList";
 import CommentInput from "./commentInput";
 import serverurl from "../../../heroku";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Icon from 'react-native-vector-icons/AntDesign';
 import Login from '../login';
 
 /*
@@ -119,8 +120,23 @@ console.log(props, "adentro de commentContainer")
     commentTextBox = (
       <View>
 
-        <TouchableOpacity onPress={()=> navigation.navigate('Login')}>
-        <Text style={{backgroundColor:'#009473', textAlign:'center', color:'#ffff', marginRight:5, marginBottom:3}}> LOG IN TO COMMENT</Text>
+        <TouchableOpacity style={{}}onPress={()=> navigation.navigate('Login')}>
+        <Text style={{
+          backgroundColor:'#00d150',
+          bordeRadius:10,
+          height:40, 
+          textAlign:'center', 
+          color:'#ffff', 
+          paddingTop:4, 
+          marginBottom:3,
+          textShadowColor: "rgba(75, 69, 69, 0.2)",
+          textShadowOffset: { width: 0, height: 1 },
+          textShadowRadius: 10
+          }}> LOG IN TO COMMENT 
+            <Icon name="right" style={{marginLeft:15,color:'#ffff'}}/>
+            <Icon name="right" style={{color:'#ffff'}}/>
+        </Text>
+        
         </TouchableOpacity>
       </View>
     );

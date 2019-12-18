@@ -118,7 +118,13 @@ class SelfItinerary extends React.Component {
                     {/* llamado a Activity */}
                         <Activity  title={it.title} />
                         <TouchableOpacity  onPress={()=>this.showCommentsHandler()} style={styles.commentBut}>
-                            <Text style={{backgroundColor:'#a7adba', textAlign:'center', color:'#ffff', marginRight:5}}>
+                            <Text style={{backgroundColor:'#a7adba',
+                             textAlign:'center', 
+                             color:'#ffff', 
+                             marginRight:5,
+                             textShadowColor: "rgba(75, 69, 69, 0.3)",
+                             textShadowOffset: { width: 0, height: 1 },
+                             textShadowRadius: 10}}>
                                 COMMENTS... 
                                 <FontAwesome name='comment-o' />
                             </Text>
@@ -199,7 +205,7 @@ const styles = StyleSheet.create({
         height: 80,
         width: 80,
         marginLeft: 5,
-        paddingTop:10
+        marginTop:10
     },
     itAnalytics: {
         padding: 3,
@@ -227,7 +233,8 @@ const styles = StyleSheet.create({
     itUserPic: {
         height: 100,
         width: 100,
-        borderRadius: 50
+        borderRadius: 50,
+        paddingTop:5
     },
     act: {
         backgroundColor: 'orange'

@@ -35,7 +35,7 @@ const CommentList = ({
 
   console.log('this is comment list')
   return (
-    <ScrollView style={{margin:3, backgroundColor:'#f0f8ff',borderRadius:15}}>
+    <ScrollView style={{margin:1}}>
       {comments}
     </ScrollView>
   )

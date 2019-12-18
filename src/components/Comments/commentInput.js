@@ -18,7 +18,12 @@ export default function CommentInput(props) {
         placeholder={placeholder}
         value={textInput}
       ></TextInput>
-      <Icon size={15} style={{color:'#6897bb'}}
+      <Icon size={15} style={{
+      color:'#6897bb',
+      marginBottom:3,
+      textShadowColor: "rgba(75, 69, 69, 0.2)",
+      textShadowOffset: { width: 0, height: 1 },
+      textShadowRadius: 10}}
        name="edit"
         onPress={() => {
           if (textInput != null) {
