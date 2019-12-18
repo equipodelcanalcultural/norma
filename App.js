@@ -5,8 +5,7 @@ import Cities from './src/screens/Cities'
 import Login from './src/components/login'
 import Register from './src/components/Register'
 import Itinerary from './src/components/Itinerary';
-import { createAppContainer } from 'react-navigation';
-//  import { DrawerItems } from 'react-navigation-drawer';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { DrawerNavigatorItems as DrawerItems } from 'react-navigation-drawer';
 import {StyleSheet, SafeAreaView,ScrollView,View, Image, Text, ImageBackground} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -63,9 +62,10 @@ const MainDrawer = createDrawerNavigator(MyDrawerNavigator, {
 
 const navigator = createStackNavigator({
   Drawer: MainDrawer,
+  Register: Register
 },
 {
-  initialRouteName: 'Drawer',
+  initialRouteName: 'Register',
   
   defaultNavigationOptions: (props) => ({
     headerLeft: <View style={{flexDirection:'row'}}>

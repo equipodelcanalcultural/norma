@@ -24,7 +24,7 @@ class CityInput extends Component {
         leftIcon="location"
         leftIconType="oct"
         onChangeText={text => setPassword(text)}
-        label= {this.props.user ? this.props.user + " find your next city" : "Find your next city"}
+        label= {this.props.user ? "Find your next city, " + this.props.user : "Find your next city"}
         autoFocus={false}
         style={{
           fontFamily: "sans-serif",
@@ -33,7 +33,6 @@ class CityInput extends Component {
           backgroundColor: "white",
           borderColor: "gray",
           borderWidth: 1,
-
           padding: 5
         }}
         onChangeText={e => this.handleChange(e)}

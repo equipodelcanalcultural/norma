@@ -1,6 +1,6 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
-import { View, Button, StyleSheet, ImageBackground } from "react-native";
+import { View, Button, StyleSheet, ImageBackground, Alert } from "react-native";
 import TextInput from "react-native-textinput-with-icons";
 import { CheckBox } from "react-native-elements";
 import { getData } from "../../requests";
@@ -26,7 +26,7 @@ function Register(props) {
   const [repeat, setRepeat] = useState(false);
 
   useEffect(() => {
-    let bodyData = {
+    const bodyData = {
       username: username,
       password: password,
       email: email,
@@ -35,16 +35,17 @@ function Register(props) {
       await props.userPostFetch(bodyData);
     };
     fetch();
-  });
+  },[repeat]);
 
   useEffect(() => {
     const { created } = props;
     setCreated(created);
 
+    console.log("isCreated", isCreated);
     if (isCreated == false) {
       setRepeat(false);
     }
-  });
+  },[repeat]);
 
   return (
     <ImageBackground
@@ -91,10 +92,12 @@ function Register(props) {
         <View style={styles.button}>
           <Button
             title="Sign Up"
-            onPress={() => setRepeat(!repeat)}
+            onPress={() => {
+              setRepeat(!repeat);
+            }}
           />
           <SignUp
-            created={isCreated}
+            created={props.created}
             navigation={props.navigation}
             repeat={repeat}
           ></SignUp>
@@ -136,12 +139,15 @@ const styles = StyleSheet.create({
 
 class SignUp extends React.Component {
   render() {
+    console.log("prop created", this.props.created)
     return (
       <Fragment>
-        {this.props.created == true && this.props.repeat == true ? (
-          this.props.navigation.navigate("Login")
+        {this.props.created == true ? (
+          Alert.alert("User Created", "Please Login", [
+            { text: "OK", onPress: () => this.props.navigation.navigate("Login") }
+          ])
         ) : this.props.created == false && this.props.repeat == true ? (
-          Alert.alert("Incorrect Username or Password", "", [
+          Alert.alert("Register Error", "User may already exist", [
             { text: "OK", onPress: () => console.log("OK Pressed") }
           ])
         ) : (
