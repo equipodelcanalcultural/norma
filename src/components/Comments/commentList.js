@@ -29,17 +29,15 @@ const CommentList = ({
         deleteComment={deleteComment}
         logged={logged}
         currentUser={user}
-      />
-
-    ))
+      />))
     )
   }
 
   console.log('this is comment list')
   return (
-    <Fragment>
+    <ScrollView style={{margin:3, backgroundColor:'#f0f8ff',borderRadius:15}}>
       {comments}
-    </Fragment>
+    </ScrollView>
   )
 }
 

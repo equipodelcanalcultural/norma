@@ -1,8 +1,9 @@
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
-import { View, Button, Text } from 'react-native';
+import { View, Button, Text,ScrollView, Image } from 'react-native';
 import CommentInput from './commentInput';
 import Icon from 'react-native-vector-icons/AntDesign';
+import User from '../../Assets/user.png'
 
 const CommentItem = ({ title,
   username,
@@ -47,18 +48,18 @@ const CommentItem = ({ title,
       </Icon>
     );
     deleteButton = (
-      <Icon title={'Delete'} name="delete" size={15} onPress={() => deleteThisComment(id)}> Delete </Icon>
+      <Icon title={'Delete'} name="delete" size={15} style={{color:'#6897bb',marginLeft:30}}onPress={() => deleteThisComment(id)}> Delete </Icon>
     );
   }
 
   /*Elemento que muestra un comentario y, si corresponde, dos botones (Edit, Delete) */
 console.log('comment item', username)
   const commentElement = (
-    <View>
-      <Text>{textoParaMostrar}</Text>
+    <ScrollView style={{marginLeft:30}}>
+      <Text style={{fontSize:17, marginLeft:10}}>{textoParaMostrar}</Text>
       {/* {editButton} */}
       {deleteButton}
-    </View>
+    </ScrollView>
   );
 
   /*Textbox para editar comentarios que reemplaza al elemento anterior 
@@ -85,10 +86,10 @@ console.log('comment item', username)
   let algoParaMostrar;
 
   if (showSomething) {
-    algoParaMostrar = (<View>
-      <Text h6>anonymous</Text>
+    algoParaMostrar = (<ScrollView style={{margin:3}}>
+      <Text h6 style={{color:'#6897bb', fontWeight:'300%'}}>anonymous</Text>
       {element}
-    </View>)
+    </ScrollView>)
   }
 
   /*En el primer render se pone regularItem como valor del hook element*/
