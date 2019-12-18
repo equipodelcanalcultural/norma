@@ -18,14 +18,13 @@ export default function CommentInput(props) {
         placeholder={placeholder}
         value={textInput}
       ></TextInput>
-      <Icon size={15} style={{color:'grey'}}
+      <Icon size={15} style={{color:'#6897bb'}}
        name="edit"
         onPress={() => {
           if (textInput != null) {
             callback(textInput, id);
           }
-        }}
-      >
+        }}>
         Send
       </Icon>
     </View>
