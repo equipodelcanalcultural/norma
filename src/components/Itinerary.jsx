@@ -80,14 +80,14 @@ class SelfItinerary extends React.Component {
             <View>
 
 
-                <TouchableOpacity onPress={() => { this.showHandler() }}>
+                <TouchableOpacity onPress={() => { this.showHandler()}}>
                     <View style={styles.itContainer}>
                        <Text style={styles.itTitle}> {it.title} </Text>
                         <View >
                             <View style={styles.itDescript}>  
                          
                                 {/* imagen del usuario */}
-                                <Image style={styles.itUserPic} source={User} />
+                            <Image style={styles.itUserPic} source={User} />
                             </View>
                             {/* nombre del usuario */}
                             <Text style={styles.itUser}>{it.user}</Text>
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     itUserPic: {
         height: 80,
         width: 80,
-        marginLeft: 5,
+        paddingLeft:15,
         marginTop:10
     },
     itAnalytics: {
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingRight: 5,
         marginTop:40,
-        marginLeft:25,
+        marginLeft:45,
         color:'#7e8696',
       
     },
@@ -240,7 +240,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'orange'
     },
     commentBut:{
-        flex:1
+        flex:1,
+        paddingLeft:4,
+        borderRadius:30
     }
 
 })
