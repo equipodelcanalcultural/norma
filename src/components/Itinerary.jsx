@@ -80,14 +80,14 @@ class SelfItinerary extends React.Component {
             <View>
 
 
-                <TouchableOpacity onPress={() => { this.showHandler() }}>
+                <TouchableOpacity onPress={() => { this.showHandler()}}>
                     <View style={styles.itContainer}>
                        <Text style={styles.itTitle}> {it.title} </Text>
                         <View >
                             <View style={styles.itDescript}>  
                          
                                 {/* imagen del usuario */}
-                                <Image style={styles.itUserPic} source={User} />
+                            <Image style={styles.itUserPic} source={User} />
                             </View>
                             {/* nombre del usuario */}
                             <Text style={styles.itUser}>{it.user}</Text>
@@ -118,7 +118,13 @@ class SelfItinerary extends React.Component {
                     {/* llamado a Activity */}
                         <Activity  title={it.title} />
                         <TouchableOpacity  onPress={()=>this.showCommentsHandler()} style={styles.commentBut}>
-                            <Text style={{backgroundColor:'#a7adba', textAlign:'center', color:'#ffff', marginRight:5}}>
+                            <Text style={{backgroundColor:'#a7adba',
+                             textAlign:'center', 
+                             color:'#ffff', 
+                             marginRight:5,
+                             textShadowColor: "rgba(75, 69, 69, 0.3)",
+                             textShadowOffset: { width: 0, height: 1 },
+                             textShadowRadius: 10}}>
                                 COMMENTS... 
                                 <FontAwesome name='comment-o' />
                             </Text>
@@ -198,8 +204,8 @@ const styles = StyleSheet.create({
     itUserPic: {
         height: 80,
         width: 80,
-        marginLeft: 5,
-        paddingTop:10
+        paddingLeft:15,
+        marginTop:10
     },
     itAnalytics: {
         padding: 3,
@@ -207,7 +213,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingRight: 5,
         marginTop:40,
-        marginLeft:25,
+        marginLeft:45,
         color:'#7e8696',
       
     },
@@ -227,13 +233,16 @@ const styles = StyleSheet.create({
     itUserPic: {
         height: 100,
         width: 100,
-        borderRadius: 50
+        borderRadius: 50,
+        paddingTop:5
     },
     act: {
         backgroundColor: 'orange'
     },
     commentBut:{
-        flex:1
+        flex:1,
+        paddingLeft:4,
+        borderRadius:30
     }
 
 })
