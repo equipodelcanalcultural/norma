@@ -33,8 +33,8 @@ const HomeScreen = props => {
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.text}>
-            {props.user && "Hello " + props.user + "!" } Find your perfect trip!{"\n"}Designed by insiders who know and love
-            their cities.
+            {props.user && <Text>Hello <Text style={styles.redText}>{props.user}!</Text> {"\n"}</Text>} Find your <Text style={styles.redText}>perfect trip!</Text>
+            {"\n"}Designed by insiders who know and <Text style={styles.redText}>love</Text> their <Text style={styles.redText}>cities</Text>.
           </Text>
         </View>
         <CitiesCarousel navigation={navigation} />
@@ -66,22 +66,25 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   },
   textContainer: {
-    height: "10%",
+    height: "20%",
     width: "90%",
     justifyContent: "center",
-
     alignItems: "center"
   },
   text: {
-    fontSize: 20,
+    fontSize: 22,
     textAlign: "center",
-    paddingTop: 10
+    paddingTop: 10,
   },
   backgroundImage: {
     flex: 1
+  },
+  redText:{
+    color: "red",
+    textShadowColor: "black",
+    textShadowRadius: 1.5,
+    textShadowOffset: {width: 0.5, height: 0.5}
   }
 });
 
 export default connect(mapStateToProps, null)(HomeScreen);
-
-
