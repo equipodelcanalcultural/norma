@@ -12,6 +12,7 @@ import {StyleSheet, SafeAreaView,ScrollView,View, Image, Text, ImageBackground} 
 import {createStackNavigator} from 'react-navigation-stack';
 import Icon from 'react-native-vector-icons/Octicons';
 import {Provider} from 'react-redux';
+import {connect} from 'react-redux';
 import store from "./src/store/store";
 
 export default class App extends React.Component {
@@ -61,7 +62,7 @@ const navigator = createStackNavigator({
   defaultNavigationOptions: (props) => ({
     headerLeft: <View style={{flexDirection:'row'}}>
     <Icon name='three-bars' style={styles.hamburgerMenu} onPress={() => _openDrawer(props)}/>
-    <Text style={styles.greeting}>Hi Pepe!</Text>
+  
     </View>,
     headerStyle:{
       backgroundColor:'#D82F00'
@@ -72,6 +73,8 @@ const navigator = createStackNavigator({
       }, 
   })
 });
+
+
 
 AppContainer = createAppContainer(navigator);
 
