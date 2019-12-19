@@ -1,3 +1,7 @@
+//Rodri no pude hacerlo funcionar, lo mejor que pude llegar a hacer es que salgan los dos carteles como terminamos viendo ayer.
+//Intenté retrasar el setteo del created con una condición que se llama [loaded] que se settea al hacer press en Sign Up,
+//puede que por ahí haya una idea de algo pero no lo pude hacer funcionar.
+
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
 import { View, Button, StyleSheet, ImageBackground, Alert } from "react-native";
@@ -24,6 +28,7 @@ function Register(props) {
   const [check, setCheck] = useState(false);
   const [isCreated, setCreated] = useState();
   const [repeat, setRepeat] = useState(false);
+  const [loaded, setLoaded] = useState();
 
   useEffect(() => {
     const bodyData = {
@@ -33,6 +38,7 @@ function Register(props) {
     };
     const fetch = async () => {
       await props.userPostFetch(bodyData);
+      await setLoaded(true);
     };
     fetch();
   },[repeat]);
@@ -41,11 +47,10 @@ function Register(props) {
     const { created } = props;
     setCreated(created);
 
-    console.log("isCreated", isCreated);
     if (isCreated == false) {
       setRepeat(false);
     }
-  },[repeat]);
+  },[loaded]);
 
   return (
     <ImageBackground
@@ -100,6 +105,7 @@ function Register(props) {
             created={props.created}
             navigation={props.navigation}
             repeat={repeat}
+            loaded={loaded}
           ></SignUp>
         </View>
       </View>
@@ -139,14 +145,14 @@ const styles = StyleSheet.create({
 
 class SignUp extends React.Component {
   render() {
-    console.log("prop created", this.props.created)
+    console.log("loaded", this.props.loaded)
     return (
       <Fragment>
-        {this.props.created == true ? (
+        {this.props.created == true && this.props.loaded == true ? (
           Alert.alert("User Created", "Please Login", [
             { text: "OK", onPress: () => this.props.navigation.navigate("Login") }
           ])
-        ) : this.props.created == false && this.props.repeat == true ? (
+        ) : this.props.created == false && this.props.repeat == true && this.props.loaded == true ? (
           Alert.alert("Register Error", "User may already exist", [
             { text: "OK", onPress: () => console.log("OK Pressed") }
           ])

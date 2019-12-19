@@ -70,7 +70,6 @@ const navigator = createStackNavigator({
   defaultNavigationOptions: (props) => ({
     headerLeft: <View style={{flexDirection:'row'}}>
     <Icon name='three-bars' style={styles.hamburgerMenu} onPress={() => _openDrawer(props)}/>
-    <Text style={styles.greeting}>{console.log(props)}</Text>
     </View>,
     headerStyle:{
       backgroundColor:'#D82F00'
