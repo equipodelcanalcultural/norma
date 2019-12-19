@@ -4,7 +4,7 @@ const jwtDecode = require('jwt-decode');
 
 export const userPostFetch = user => {
     return dispatch => {
-      return getData("/api/users/register", {
+      return getData("https://mytinerary-marta-norma.herokuapp.com/api/users/register", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -13,8 +13,10 @@ export const userPostFetch = user => {
         body: JSON.stringify(user)
       },(data) => { 
              if(data.success) {
-               dispatch(createUser(data))
+              AsyncStorage.setItem("token", data.token)
+              dispatch(createUser(data))
             }else{
+              AsyncStorage.removeItem("token")
               console.log(data.msg)
             }  
       }) 
@@ -32,11 +34,9 @@ export const userPostFetch = user => {
         body: JSON.stringify(user)
       },(data) => { 
              if(data.success===true) {
-               console.log("data",data)
                AsyncStorage.setItem("token", data.token)
                dispatch(loginUser(data))
             }else{
-              console.log("data",data)
               AsyncStorage.removeItem("token")
               console.log(data.msg);
             }  

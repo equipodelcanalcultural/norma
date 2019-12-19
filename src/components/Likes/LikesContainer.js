@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import {connect} from 'react-redux';
 import {View, Text} from 'react-native';
 import LikesButton from './LikesButton'
 import { getData } from "../../store/actions/reduxFetch";
 import serverurl from '../../../heroku';
+import EmptyIcon from 'react-native-vector-icons/SimpleLineIcons';
 
 
-const mapStateToProps = state => {
+/* const mapStateToProps = state => {
   return {
     logged: state.user.logged,
     user: state.user.currentUser.email,
     itinLiked: state.user.currentUser.itinerariesLiked,
     itineraries: state.itineraries.itineraries[0].likes
   };
-};
+}; */
 
-const IconButton = ({ title, logged, user, itinLiked, itineraries }) => {
+const LikesContainer = ({ title, logged, user, itineraries } ) => {
   const [likes, setLikes] = useState();
   const [refresh, setRefresh] = useState(false);
 
-  console.log(user);
-  console.log(itinLiked);
-  console.log(itineraries);
-  console.log(itineraries.includes(user));
+  console.log("herede en LikesContainer estas props:")
+  console.log(user, 'currentuser');
+  console.log(itineraries, 'likelist');
+  console.log(logged, 'logged?')
+/*   console.log(itineraries.includes(user)); */
 
   useEffect(() => {
     getData(`${serverurl}/api/itineraries/byTitle/${title}`, null, data => {
@@ -45,7 +47,7 @@ const IconButton = ({ title, logged, user, itinLiked, itineraries }) => {
         }
       },
       data => {
-        console.log(data);
+        console.log('likes request', data);
         setRefresh(!refresh);
       }
     );
@@ -54,25 +56,25 @@ const IconButton = ({ title, logged, user, itinLiked, itineraries }) => {
     if (! itineraries.includes(user)) {
       polaridades = { positivo: "likes", negativo: "dislikes" };
     } else polaridades = { positivo: "dislikes", negativo: "likes" };
-    console.log(polaridades);
+    console.log(polaridades.positivo, "polaridades");
     
     let likeButton;
     if (logged) { 
       likeButton = ( <LikesButton callback={request} positivo={polaridades.positivo
       } negativo={polaridades.negativo} />)
-    } else {likeButton = <Text>Login to like</Text>
+    } else {likeButton = <EmptyIcon name="heart" size={22} color='grey'/>
   }
-  
-   
 
   return (
     <>
-      <div className="col-4 p-0 m-0">
+      <View style={{flexDirection:'row', marginTop:2}}>
         {likeButton}
-        <h3>{likes}</h3>
-      </div>
+        < Text style={{marginLeft:5}} h3>{likes}</Text>
+      </View>
     </>
   );
 };
 
-export default connect(mapStateToProps)(LikesContainer);
+export default LikesContainer;
+
+/* export default connect(mapStateToProps)(LikesContainer); */

@@ -2,7 +2,15 @@ import React from "react";
 import { Component } from "react";
 /* import Form from'react-bootstrap/Form'; */
 import TextInput from "react-native-textinput-with-icons";
-export default class CityInput extends Component {
+import { connect } from "react-redux";
+
+const mapStateToProps = state => {
+  return {
+    user: state.user.currentUser.username
+  };
+};
+
+class CityInput extends Component {
   sendToParent = object => {
     this.props.callbackFromParent(object);
   };
@@ -16,7 +24,7 @@ export default class CityInput extends Component {
         leftIcon="location"
         leftIconType="oct"
         onChangeText={text => setPassword(text)}
-        label={"Find your next city"}
+        label= {this.props.user ? "Find your next city, " + this.props.user : "Find your next city"}
         autoFocus={false}
         style={{
           fontFamily: "sans-serif",
@@ -25,7 +33,6 @@ export default class CityInput extends Component {
           backgroundColor: "white",
           borderColor: "gray",
           borderWidth: 1,
-
           padding: 5
         }}
         onChangeText={e => this.handleChange(e)}
@@ -33,3 +40,5 @@ export default class CityInput extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps, null)(CityInput);

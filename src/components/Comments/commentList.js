@@ -19,7 +19,7 @@ const CommentList = ({
 
     comments = (posts.map((comment, index) => (
 
-      <CommentItem
+      <CommentItem style={{marginLeft:8}}
         key={`key#${title}#${index}`}
         title={title}
         username={comment.username}
@@ -29,20 +29,15 @@ const CommentList = ({
         deleteComment={deleteComment}
         logged={logged}
         currentUser={user}
-      />
-
-    ))
+      />))
     )
-
-
   }
-
 
   console.log('this is comment list')
   return (
-    <Fragment>
+    <ScrollView style={{margin:1}}>
       {comments}
-    </Fragment>
+    </ScrollView>
   )
 }
 

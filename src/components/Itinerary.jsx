@@ -1,23 +1,24 @@
 import React, { useEffect } from 'react'
 // import Carousel from 'react-native-anchor-carousel'
 import { StyleSheet, Text, View, Button, ImageBackground, Image, TouchableOpacity, ScrollView } from 'react-native'
-import Pic from '../Assets/city_img/amsterdam.jpg'
+import myImages from '../Assets/Resources/myImages'
 import User from '../Assets/Resources/MYtinUser10.png'
 import Activity from './Activity'
 import { useState } from 'react'
 import { getData } from '../../requests';
 import { serverurl } from '../../heroku';
 import { FontAwesome, Feather } from '@expo/vector-icons'; 
-import Icon from 'react-native-vector-icons/Octicons';
 import CommentsContainer from './Comments/commentsContainer';
 import {connect} from 'react-redux';
 import myTexts from '../Assets/Resources/myTexts';
+import LikesContainer from './Likes/LikesContainer';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
 
 
 const mapStateToProps = state => {
     return {
       logged: state.user.logged,
-      user: state.user.currentUser.username
+      user: state.user.currentUser
     };
   };
 
@@ -41,11 +42,13 @@ const Itinerary = (props) => {
             </Text>
             <View>
                 <View style={styles.featCityContainer}>
-                    <Image source={Pic} style={styles.featCityPic} />
+                    <Image source={myImages.cities[props.navigation.getParam('cityName')]} style={styles.featCityPic} />
                 </View>
                 <Text style={styles.featCityArticle}>{myTexts.cities[props.navigation.getParam('cityName','default')]}</Text>
              { itineraries} 
+
             </View>
+       
         </ScrollView>
     )
 };
@@ -77,14 +80,14 @@ class SelfItinerary extends React.Component {
             <View>
 
 
-                <TouchableOpacity onPress={() => { this.showHandler() }}>
+                <TouchableOpacity onPress={() => { this.showHandler()}}>
                     <View style={styles.itContainer}>
                        <Text style={styles.itTitle}> {it.title} </Text>
                         <View >
                             <View style={styles.itDescript}>  
                          
                                 {/* imagen del usuario */}
-                                <Image style={styles.itUserPic} source={User} />
+                            <Image style={styles.itUserPic} source={User} />
                             </View>
                             {/* nombre del usuario */}
                             <Text style={styles.itUser}>{it.user}</Text>
@@ -97,12 +100,15 @@ class SelfItinerary extends React.Component {
                         <View >
                           <View style={styles.itAnalytics}>
                   {/*           <LikesContainer title={it.title}></LikesContainer>  */}
-                            <Text style={styles.textAn}><FontAwesome style={styles.textAn} name='star-o' /> {it.price}</Text>
-                            <Text style={styles.textAn}><FontAwesome style={styles.textAn} name='comment-o' /> {it.comments}</Text>
+                            <Text style={styles.textAn}><FontAwesome style={styles.textAn} size={20} name='star-o' /> {it.price}</Text>
+                            {/*Container y Boton de likes*/}
+                            <LikesContainer title={it.title} itineraries={it.likes} user={this.props.user.email} logged={this.props.logged}></LikesContainer>
+                            </View>
+                            <View style={{alignItems:'center',marginTop:25, color:'#7e8696'}}>
+                            {this.state.show==false ? <Icon name="arrow-down"/> :<Icon name="arrow-up"/> }
                             </View>
                         </View>
-                    </View>
-                   
+                    </View>    
                     <View/>
                 </TouchableOpacity>
               {/* CONDITIONED RENDERING OF ACTIVITIES AFTER TOUCHING ITINERARY */}
@@ -112,12 +118,19 @@ class SelfItinerary extends React.Component {
                     {/* llamado a Activity */}
                         <Activity  title={it.title} />
                         <TouchableOpacity  onPress={()=>this.showCommentsHandler()} style={styles.commentBut}>
-                            <Text style={{backgroundColor:'#a7adba', textAlign:'center', color:'#ffff', marginRight:5}}>
-                                SEE THE COMMENTS <FontAwesome style={styles.textAn} name='comment-o' />
+                            <Text style={{backgroundColor:'#a7adba',
+                             textAlign:'center', 
+                             color:'#ffff', 
+                             marginRight:5,
+                             textShadowColor: "rgba(75, 69, 69, 0.3)",
+                             textShadowOffset: { width: 0, height: 1 },
+                             textShadowRadius: 10}}>
+                                COMMENTS... 
+                                <FontAwesome name='comment-o' />
                             </Text>
                         </TouchableOpacity>
                          {this.state.showComments==true ? 
-                         <CommentsContainer navigation={this.props.navigation}  logged={this.props.logged} user={this.props.user} title={it.title} /> 
+                         <CommentsContainer navigation={this.props.navigation}  logged={this.props.logged} user={this.props.user.username} title={it.title} /> 
                          : <></>}
                         </>:
                         <></>}      
@@ -125,6 +138,8 @@ class SelfItinerary extends React.Component {
         );
     }
 }
+
+
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center'
@@ -135,12 +150,13 @@ const styles = StyleSheet.create({
     },
     textAn: {
         fontSize: 17,
-        paddingRight: 4
+        paddingRight: 4,
+        marginLeft:3
     },
     featCityTitle: {
         textAlign: 'right',
         fontWeight: "bold",
-        fontSize: 30,
+        fontSize: 20,
         color: "#ffff",
         textShadowColor: "rgba(75, 69, 69, 1)",
         textShadowOffset: { width: 2, height: 3 },
@@ -188,8 +204,8 @@ const styles = StyleSheet.create({
     itUserPic: {
         height: 80,
         width: 80,
-        marginLeft: 5,
-        paddingTop:10
+        paddingLeft:15,
+        marginTop:10
     },
     itAnalytics: {
         padding: 3,
@@ -197,7 +213,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingRight: 5,
         marginTop:40,
-        marginLeft:25,
+        marginLeft:45,
         color:'#7e8696',
       
     },
@@ -217,13 +233,16 @@ const styles = StyleSheet.create({
     itUserPic: {
         height: 100,
         width: 100,
-        borderRadius: 50
+        borderRadius: 50,
+        paddingTop:5
     },
     act: {
         backgroundColor: 'orange'
     },
     commentBut:{
-        flex:1
+        flex:1,
+        paddingLeft:4,
+        borderRadius:30
     }
 
 })
