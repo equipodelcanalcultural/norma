@@ -28,7 +28,7 @@ const Itinerary = (props) => {
     useEffect(
         () => {
             getData(`https://mytinerary-marta-norma.herokuapp.com/api/itineraries/${props.navigation.getParam('cityName','default')}`,null, 
-            (data)=>{setItinerary( data.map(it => <SelfItinerary it={it} logged={props.logged} navigation={props.navigation} user={props.user} />))});
+            (data)=>{setItinerary( data.map((it, index) => <SelfItinerary key={`${props.navigation.getParam('cityName','default')}_${index}`} it={it} logged={props.logged} navigation={props.navigation} user={props.user} />))});
         }, []
     );
 
