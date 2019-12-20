@@ -102,7 +102,7 @@ console.log('comment item', username)
       textShadowColor: "rgba(75, 69, 69, 0.4)",
       textShadowOffset: { width: 0, height: 1 },
       textShadowRadius: 10
-      }}>anonymous</Text>
+    }}>{username}</Text>
       {element}
     </ScrollView>)
   }
