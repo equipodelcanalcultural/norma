@@ -1,17 +1,6 @@
-//Rodri no pude hacerlo funcionar, lo mejor que pude llegar a hacer es que salgan los dos carteles como terminamos viendo ayer.
-//Intenté retrasar el setteo del created con una condición que se llama [loaded] que se settea al hacer press en Sign Up,
-//puede que por ahí haya una idea de algo pero no lo pude hacer funcionar.
-
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
-import {
-  View,
-  Button,
-  StyleSheet,
-  ImageBackground,
-  Alert,
-  Text
-} from "react-native";
+import { View, Button, StyleSheet, ImageBackground, Alert, Text } from "react-native";
 import TextInput from "react-native-textinput-with-icons";
 import { CheckBox } from "react-native-elements";
 import { getData } from "../../requests";
@@ -28,47 +17,15 @@ const mapStateToProps = state => {
   };
 };
 
-function usePayload(body, request) {
-  const [myPayload, setMyPayload] = useState();
-  const sendPayload = data => {
-    request(data);
-  };
-  useEffect(() => setMyPayload(body));
-  useEffect(() => sendPayload(myPayload));
-}
-
-function RegisterContainer(props) {
-  const [payload, setPayload] = useState();
-  const { userPostFetch } = props;
-  const {created} = props;
-
-  const sendPayload = data => {
-    userPostFetch(data);
-  };
-
-  /*usePayload(payload, userPostFetch)*/
-
-  useEffect(() => sendPayload(payload), [payload]);
-console.log(props)
-  return (
-    <Fragment>
-
-       <Register setPayload={setPayload}   navigation={props.navigation} created={created} /> 
-     
-    </Fragment>
-  );
-}
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterContainer);
-
-function Register({ setPayload, created }) {
+function Register(props) {
   const [username, setUser] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
-<<<<<<< HEAD
   const [check, setCheck] = useState(false);
   const [isCreated, setCreated] = useState();
   const [repeat, setRepeat] = useState(false);
-  const [loaded, setLoaded] = useState();
+  const [alert, setAlert] = useState(false)
+
 
   useEffect(() => {
     const bodyData = {
@@ -78,7 +35,6 @@ function Register({ setPayload, created }) {
     };
     const fetch = async () => {
       await props.userPostFetch(bodyData);
-      await setLoaded(true);
     };
     fetch();
   },[repeat]);
@@ -87,27 +43,22 @@ function Register({ setPayload, created }) {
     const { created } = props;
     setCreated(created);
 
+    console.log("isCreated", isCreated);
     if (isCreated == false) {
       setRepeat(false);
     }
-  },[loaded]);
-=======
+  },[repeat]);
 
-  /*const [check, setCheck] = useState(false);*/
-
-  const bodyData = {
-    username: username,
-    password: password,
-    email: email
-  };
->>>>>>> 6bda20746fca3f0e27dd4d8ea5faafe77bd5e346
-
+let cartelAlert; 
+alert ? cartelAlert =  <MyAlerts value={props.created} navigation={props.navigation} repeat={alert}/> : 
+cartelAlert = <></>
   return (
     <ImageBackground
       source={require("../Assets/navidad1.png")}
       style={styles.backgroundImage}
     >
       <View style={styles.container}>
+  <Text>{isCreated ? "created is true" : "created is false"}</Text>
         <TextInput
           label="Name"
           leftIcon="person"
@@ -137,27 +88,29 @@ function Register({ setPayload, created }) {
           placeholderTextColor="white"
           onChangeText={password => setPassword(password)}
         />
-        {/*  <CheckBox
+        <CheckBox
           title="Accept terms and conditions"
           checkedIcon="check-square-o"
           uncheckedIcon="square-o"
           checked={check}
           onPress={() => setCheck(!check)}
-      />*/}
+        />
         <View style={styles.button}>
-          <Button title="Sign Up" onPress={() => setPayload(bodyData)} />
-          <MyAlerts   navigation={props.navigation} value={created}></MyAlerts>
-
-          {/*<SignUp
-            created={created}
+          <Button
+            title="Sign Up"
+            onPress={() => {
+              setRepeat(!repeat)
+              
+            }}
+          />
+         {/* <SignUp
+            created={props.created}
             navigation={props.navigation}
             repeat={repeat}
-<<<<<<< HEAD
-            loaded={loaded}
-          ></SignUp>
-=======
-          ></SignUp>*/}
->>>>>>> 6bda20746fca3f0e27dd4d8ea5faafe77bd5e346
+         ></SignUp> */}
+         {/* <MyAlerts value={props.created} navigation={props.navigation} repeat={repeat}/>*/}
+        
+
         </View>
       </View>
     </ImageBackground>
@@ -195,28 +148,19 @@ const styles = StyleSheet.create({
 });
 
 class SignUp extends React.Component {
-
-
   render() {
-<<<<<<< HEAD
-    console.log("loaded", this.props.loaded)
+    const {created} = this.props
+    console.log("prop created", this.props.created)
+    console.log('created in store', created)
+    
+ 
     return (
       <Fragment>
-        {this.props.created == true && this.props.loaded == true ? (
-=======
-    console.log("prop created", this.props.created);
-
-    return (
-      <Fragment>
-        {this.props.created && this.props.repeat == true ? (
->>>>>>> 6bda20746fca3f0e27dd4d8ea5faafe77bd5e346
+        {created && this.props.repeat == true ? (
           Alert.alert("User Created", "Please Login", [
-            {
-              text: "OK",
-              onPress: () => this.props.navigation.navigate("Login")
-            }
+            { text: "OK", onPress: () => this.props.navigation.navigate("Login") }
           ])
-        ) : this.props.created == false && this.props.repeat == true && this.props.loaded == true ? (
+        ) : created == false && this.props.repeat == true ? (
           Alert.alert("Register Error", "User may already exist", [
             { text: "OK", onPress: () => console.log("OK Pressed") }
           ])
@@ -228,10 +172,6 @@ class SignUp extends React.Component {
   }
 }
 
-const Cartel = ({ value }) => {
-  
-  return <Text>{value ? "created is true" : "created is false"}</Text>;
-};
 class MyAlerts extends React.Component  {
   state = {
     show: true
@@ -263,8 +203,11 @@ let showing;
 this.state.show ? showing = <MiCartel/> : <></>
   return (
     <Fragment>
-     {showing}
+      {this.props.repeat ? showing : <></>}
     </Fragment>
   );
 }
 };
+
+connect(mapStateToProps)(SignUp)
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
 
 class Logged extends React.Component {
   render() {
+    console.log(this.props)
     return (
       <Fragment>
         {this.props.logged == true && this.props.repeat == true ? (

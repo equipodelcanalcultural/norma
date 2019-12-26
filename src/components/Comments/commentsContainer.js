@@ -123,7 +123,6 @@ console.log(props, "adentro de commentContainer")
         <TouchableOpacity style={{}}onPress={()=> navigation.navigate('Login')}>
         <Text style={{
           backgroundColor:'#00d150',
-          bordeRadius:10,
           height:40, 
           textAlign:'center', 
           color:'#ffff', 

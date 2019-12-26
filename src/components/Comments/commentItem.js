@@ -29,6 +29,10 @@ const CommentItem = ({ title,
     deleteComment(targetId);
   }
 
+  const updateAndReset= (input,targetId) =>{
+    updateComment(input,targetId);
+    setElement(regularItem)
+  }
   /*Variables para render condicional de botones Edit y Delete.
     Si el usuario está loggeado y el comment pertenece a currentUser,
     aparecen los dos botones*/
@@ -60,7 +64,9 @@ const CommentItem = ({ title,
 console.log('comment item', username)
   const commentElement = (
     <ScrollView style={{ margin:3, padding:1, backgroundColor:'#e8e8e8', flex:1, borderRadius:5}}>
+      
       <Text style={{fontSize:15, marginLeft:10, color:'#616161'}}>{textoParaMostrar}</Text>
+      
       {/* {editButton} */}
       {deleteButton}
     </ScrollView>
@@ -92,11 +98,11 @@ console.log('comment item', username)
   if (showSomething) {
     algoParaMostrar = (<ScrollView style={{marginLeft:2}}>
       <Text h6 style={{color:'#6897bb', 
-      fontWeight:'300%',
+      fontWeight:'bold',
       textShadowColor: "rgba(75, 69, 69, 0.4)",
       textShadowOffset: { width: 0, height: 1 },
       textShadowRadius: 10
-      }}>anonymous</Text>
+    }}>{username}</Text>
       {element}
     </ScrollView>)
   }
