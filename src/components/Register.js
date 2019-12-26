@@ -1,7 +1,3 @@
-//Rodri no pude hacerlo funcionar, lo mejor que pude llegar a hacer es que salgan los dos carteles como terminamos viendo ayer.
-//Intenté retrasar el setteo del created con una condición que se llama [loaded] que se settea al hacer press en Sign Up,
-//puede que por ahí haya una idea de algo pero no lo pude hacer funcionar.
-
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
 import {
@@ -64,34 +60,6 @@ function Register({ setPayload, created }) {
   const [username, setUser] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
-<<<<<<< HEAD
-  const [check, setCheck] = useState(false);
-  const [isCreated, setCreated] = useState();
-  const [repeat, setRepeat] = useState(false);
-  const [loaded, setLoaded] = useState();
-
-  useEffect(() => {
-    const bodyData = {
-      username: username,
-      password: password,
-      email: email,
-    };
-    const fetch = async () => {
-      await props.userPostFetch(bodyData);
-      await setLoaded(true);
-    };
-    fetch();
-  },[repeat]);
-
-  useEffect(() => {
-    const { created } = props;
-    setCreated(created);
-
-    if (isCreated == false) {
-      setRepeat(false);
-    }
-  },[loaded]);
-=======
 
   /*const [check, setCheck] = useState(false);*/
 
@@ -100,7 +68,6 @@ function Register({ setPayload, created }) {
     password: password,
     email: email
   };
->>>>>>> 6bda20746fca3f0e27dd4d8ea5faafe77bd5e346
 
   return (
     <ImageBackground
@@ -152,12 +119,7 @@ function Register({ setPayload, created }) {
             created={created}
             navigation={props.navigation}
             repeat={repeat}
-<<<<<<< HEAD
-            loaded={loaded}
-          ></SignUp>
-=======
           ></SignUp>*/}
->>>>>>> 6bda20746fca3f0e27dd4d8ea5faafe77bd5e346
         </View>
       </View>
     </ImageBackground>
@@ -198,18 +160,11 @@ class SignUp extends React.Component {
 
 
   render() {
-<<<<<<< HEAD
-    console.log("loaded", this.props.loaded)
-    return (
-      <Fragment>
-        {this.props.created == true && this.props.loaded == true ? (
-=======
     console.log("prop created", this.props.created);
 
     return (
       <Fragment>
         {this.props.created && this.props.repeat == true ? (
->>>>>>> 6bda20746fca3f0e27dd4d8ea5faafe77bd5e346
           Alert.alert("User Created", "Please Login", [
             {
               text: "OK",
