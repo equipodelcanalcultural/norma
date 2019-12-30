@@ -43,7 +43,34 @@ export const userPostFetch = user => {
       })   
     }
   }
-
+  export const gmailLoginFetch = userData => {
+    return dispatch => {
+      getData(
+        "https://mytinerary-marta-norma.herokuapp.com/logged",
+        {
+          method: "POST",
+          body: JSON.stringify(userData),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        },
+        (data) => { 
+          if(data.success===true) {
+            const storeData = {logged: true, created: true, ...data}
+            console.log("google login success!",storeData)
+            AsyncStorage.setItem("token", data.token)
+            dispatch(loginUser(storeData))
+         }else{
+           console.log("google login failed!",data)
+           AsyncStorage.removeItem("token")
+           console.log(data.msg);
+         }  
+    }
+      );
+    
+    }
+   
+  }
   export const getUserFetch = () => {
     return dispatch => {
       const token = AsyncStorage.token;

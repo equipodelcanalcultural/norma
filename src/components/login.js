@@ -1,5 +1,6 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useCallback } from "react";
 import { useState, useEffect } from "react";
+import { useGoogleLogin } from "./useGoogleLogin";
 import {
   StyleSheet,
   Text,
@@ -12,10 +13,11 @@ import {
 import TextInput from "react-native-textinput-with-icons";
 import { getData } from "../../requests";
 import { connect } from "react-redux";
-import { userLoginFetch } from "../store/actions/userActions";
+import { userLoginFetch, gmailLoginFetch } from "../store/actions/userActions";
 
 const mapDispatchToProps = dispatch => ({
-  userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
+  userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo)),
+  gmailLoginFetch: userInfo => dispatch(gmailLoginFetch(userInfo))
 });
 
 const mapStateToProps = state => {
@@ -29,6 +31,7 @@ function Login(props) {
   const [password, setPassword] = useState();
   const [isLogged, setLogged] = useState();
   const [repeat, setRepeat] = useState(false);
+  const [signedIn, signIn] = useGoogleLogin();
 
   useEffect(() => {
     let bodyData = {
@@ -36,20 +39,24 @@ function Login(props) {
       password: password
     };
 
-    const fetch = async () =>{
+    const fetch = async () => {
       await props.userLoginFetch(bodyData);
-    }
+    };
     fetch();
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     const { logged } = props;
     setLogged(logged);
-    
     if (isLogged == false) {
       setRepeat(false);
-    }
-  })
+    } else if (isLogged == true) {setRepeat(true)}
+  });
+  useEffect(() => {
+    signedIn.logged
+      ? props.gmailLoginFetch(signedIn)
+      : console.log("please sign in");
+  }, [signedIn]);
 
   return (
     <ImageBackground
@@ -82,9 +89,10 @@ function Login(props) {
         />
         <View style={styles.button}>
           <Button title="Login" onPress={() => setRepeat(!repeat)} />
+          <Button title="Login with Google" onPress={() =>  signIn()}></Button>
           <Logged
-            logged={isLogged}
             navigation={props.navigation}
+            logged={isLogged}
             repeat={repeat}
           ></Logged>
         </View>
@@ -138,7 +146,7 @@ const styles = StyleSheet.create({
 
 class Logged extends React.Component {
   render() {
-    console.log(this.props)
+   
     return (
       <Fragment>
         {this.props.logged == true && this.props.repeat == true ? (
